@@ -8,8 +8,8 @@ Nguồn nội dung: `[2023]Writing6.0_Session02.pptx` (66 slide). Đã dùng ch�
 | Chặng | Trạng thái |
 |---|---|
 | 1 · Revision | xong |
-| 2 · Improve a sentence | đang làm |
-| 3 · Linking words | chưa |
+| 2 · Improve a sentence | xong |
+| 3 · Linking words | đang làm |
 | 4 · Without linking words | chưa |
 | 5 · Conclusion | chưa |
 
@@ -39,7 +39,7 @@ src/lessons/lesson-02-improve-connect/
   rubrics.ts     4 rubric AI chấm (server): improve-specific · this-verb · structures · paragraph
   runtime.tsx    Frame, Parts, SubmitBar, Slot (chạm → chọn chip), useAiSet + FbRows (3 tiêu chí), CritTree (cây 4 tiêu chí)
   slides.tsx     step key → màn
-  screens/       SCover + S1Revision · …
+  screens/       SCover + S1Revision · S2Improve · …
   w6.css         style, scope dưới .w6, class tiền tố w6-. Cỡ chữ: --w6-t 26px, --w6-s 19px, --w6-ui 15px
   w6.phone.css   bố cục điện thoại (≤ 760px, một cột)
 ```
@@ -66,5 +66,9 @@ pnpm check:lesson && pnpm lint && pnpm test && pnpm build
 - **Gộp slide nhân bản thành 1 màn nhiều build**; bỏ 5 slide chia chặng (3, 10, 34, 42, 62), slide agenda (2) gộp vào bìa.
 - **Revision (4, 5) gộp thành 1 trang 2 phần; slide 9 (TR, CC) thành build cuối của 1.2** để cây 4 tiêu chí giữ nguyên hình dạng giữa các trang.
 - **1.2: HS không gõ câu**, GV hỏi miệng (đã chốt).
+- **Chặng 2 đổi thứ tự:** bản gốc demo convincing và specific liền nhau (13–15) rồi mới luyện; app: 2.2 convincing → 2.2a Practice 1 → 2.3 specific → 2.3a Practice 2.
+- **2.2a chọn chip** (có chip nhiễu All, will, always, definitely); chấm xong mỗi thẻ hiện tên công cụ (quantifier, modal verb, adverb of frequency, language of probability). Chỗ trống adverb nhận cả usually và often (notes slide 18).
+- **2.3a:** nhãn kỹ thuật (add examples…) chỉ hiện sau khi chấm hoặc khi GV mở đáp án, để HS tự nhận ra. Chấm xong, 4 câu thành danh sách: câu nào chưa đạt mở nhận xét trước.
+- **2.4 chấm tự động từng câu (đã chốt):** mỗi chỗ cần improve là 1 thẻ chọn (cách hay hơn / giữ nguyên / cách chung chung). Build 1–5 GV dẫn từng câu, build 6 hiện cả đoạn đã improve.
 - Notes slide bìa của bản gốc là bản chép từ Lesson 1, không dùng.
 - Sửa lỗi bản gốc: “cycling infrastructure have led” → has led; “students spent time” → spend; đoạn mẫu notes 61 “thereby discouraging engage in” → “thereby discouraging them from engaging in”.

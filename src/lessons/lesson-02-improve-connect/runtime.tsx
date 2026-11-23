@@ -198,6 +198,34 @@ export const FbRows: React.FC<{ c?: GradeCriteria; ok?: boolean; suggestion?: st
     {!ok && suggestion && <div className="w6-sugg"><b>Câu gợi ý:</b> {suggestion}</div>}
   </div>
 );
+/** Graded AI set as an accordion: one row per item (answer + Đạt / Chưa đạt), the open row shows its 3 criteria.
+    The first item that failed opens first; with "Mở đáp án" every row shows its model. */
+export interface GradedRow { id: string; n: number; head?: React.ReactNode; answer: string; tool?: string; models: string[] }
+export const GradedList: React.FC<{ s: ReturnType<typeof useAiSet>; rows: GradedRow[]; modelLabel?: string }> = ({ s, rows, modelLabel = 'Câu mẫu' }) => {
+  const firstBad = rows.find((r) => !s.byLine.get(r.id)?.correct)?.id || rows[0]?.id;
+  const [sel, setSel] = useState<string | null>(null);
+  const cur = sel && rows.some((r) => r.id === sel) ? sel : firstBad;
+  return (
+    <div className="w6gl">
+      {rows.map((r) => {
+        const l = s.byLine.get(r.id);
+        const on = r.id === cur;
+        return (
+          <div key={r.id} className={`card w6gl-row${on ? ' on' : ''}${l ? (l.correct ? ' ok' : ' try') : ''}`}>
+            <button className="w6gl-h" onClick={() => setSel(r.id)} aria-expanded={on}>
+              <span className="w6-n">{r.n}</span>
+              <span className="w6gl-a">{r.head && <span className="w6gl-head">{r.head}</span>}{r.answer || '—'}</span>
+              {r.tool && <span className="w6fr-tool">{r.tool}</span>}
+              {l && <Verdict ok={l.correct} />}
+            </button>
+            {on && l && <div className="w6gl-b"><div className="w6-lab">Nhận xét</div><FbRows c={s.crit[r.id]} ok={l.correct} suggestion={l.suggestion} feedback={l.feedback} /></div>}
+            {s.showModels && <div className="w6-model">✓ {modelLabel}: {r.models.join(' / ')}</div>}
+          </div>
+        );
+      })}
+    </div>
+  );
+};
 export const Verdict: React.FC<{ ok?: boolean }> = ({ ok }) => <span className={`w6-vd ${ok ? 'ok' : 'try'}`}>{ok ? '✓ Đạt' : '! Chưa đạt'}</span>;
 
 /* ---- the 4 criteria tree (same shape on every page: 1.1, 1.2, 3.1, 5.1) ---------------------- */
