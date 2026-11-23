@@ -774,3 +774,14 @@
 .w6 .w6ty-s{font-size:var(--w6-s);line-height:1.7}
 .w6 .w6ty-given{font-size:var(--w6-s)}
 .w6 .w6ty-row{padding:8px 14px}
+
+/* ---- 5.2 summary mind maps -------------------------------------------------------------------- */
+.w6 .w6mm{display:grid;grid-template-columns:260px 100px 1fr;align-items:center;width:1100px;max-width:100%;align-self:center;height:300px;margin:auto 0}
+.w6 .w6mm-root{justify-self:stretch;text-align:center;padding:18px 20px;border-radius:20px;background:var(--red);color:#fff;font-weight:800;box-shadow:0 10px 26px rgba(214,58,67,.25);animation:pop .5s both}
+.w6 .w6mm-br{width:100px;height:300px}
+.w6 .w6mm-br path{fill:none;stroke:var(--red);stroke-width:3;vector-effect:non-scaling-stroke;stroke-dasharray:200;stroke-dashoffset:200;animation:w6s4Draw .6s forwards}
+.w6 .w6mm-rows{display:grid;grid-auto-rows:1fr;height:300px;align-items:center}
+.w6 .w6mm-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;animation:rise .45s both}
+.w6 .w6mm-name{padding:10px 18px;border-radius:14px;background:#fff;border:2px solid var(--ink);font-weight:800;color:var(--ink);font-size:var(--w6-s);white-space:nowrap}
+.w6 .w6mm-tools{display:flex;flex-wrap:wrap;gap:8px}
+.w6 .w6mm-tools i{font-style:normal;font-size:var(--w6-s);font-weight:700;color:var(--redd);background:var(--redl);border-radius:999px;padding:4px 14px}

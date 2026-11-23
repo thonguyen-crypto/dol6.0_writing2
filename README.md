@@ -11,9 +11,9 @@ Nguồn nội dung: `[2023]Writing6.0_Session02.pptx` (66 slide). Đã dùng ch�
 | 2 · Improve a sentence | xong |
 | 3 · Linking words | xong |
 | 4 · Without linking words | xong |
-| 5 · Conclusion | đang làm |
+| 5 · Conclusion | xong |
 
-App chỉ hiện các chặng đã xong (`BUILT_TO` trong `meta.ts`); test dùng cả bài (`fullLesson`).
+Có 27 bước: 1 bìa và 26 trang. `BUILT_TO` trong `meta.ts` (hiện = 5, cả bài) dùng lúc dựng từng chặng; test dùng cả bài (`fullLesson`).
 
 ## Các bước theo chặng
 
@@ -24,7 +24,7 @@ App chỉ hiện các chặng đã xong (`BUILT_TO` trong `meta.ts`); test dùng
 | 2 · Improve a sentence | 2.1 Improve by meaning · 2.2 Make it more convincing · 2.2a Practice 1 (chip, chấm tự động) · 2.3 Make it more specific · 2.3a Practice 2 (AI, 4 câu một màn) · 2.4 Extra practice: improve a paragraph (chấm tự động từng câu, build cuối hiện cả đoạn) |
 | 3 · Linking words | 3.1 Coherence & Cohesion · 3.2 Find the linking words (chạm, chấm tự động) · 3.3 3 chức năng · 3.3a Small practice (chip) |
 | 4 · Without linking words | 4.1 Mindset A → B, B → C · 4.2 This + verb pattern · 4.3 Effects (6 nhóm +/−) · 4.3a/b gõ pattern (chấm tự động) · 4.3c viết This + V (AI) · 4.4 Structures · 4.4a Common mistake: thereby V-ing · 4.4b viết theo cấu trúc (AI) · 4.5, 4.6 viết đoạn từ outline (AI, 1 ô cả đoạn) |
-| 5 · Conclusion | 5.1 4 tiêu chí (đủ cả 4) · 5.2 Summary · 5.3 Homework |
+| 5 · Conclusion | 5.1 4 tiêu chí (LR, GRA ✓ buổi trước; TR, CC hôm nay) · 5.2 Summary (Parts: improve a sentence · connect sentences) · 5.3 Homework (LMS: Build a sentence + Connect sentences, checklist 3 bước) |
 
 Notes cho GV (phím N) được viết lại từ speaker notes của bản gốc.
 
@@ -39,7 +39,7 @@ src/lessons/lesson-02-improve-connect/
   rubrics.ts     4 rubric AI chấm (server): improve-specific · this-verb · structures · paragraph
   runtime.tsx    Frame, Parts, SubmitBar, Slot (chạm → chọn chip), useAiSet + FbRows (3 tiêu chí), CritTree (cây 4 tiêu chí)
   slides.tsx     step key → màn
-  screens/       SCover + S1Revision · S2Improve · S3Linking · S4Without · …
+  screens/       SCover + S1Revision · S2Improve · S3Linking · S4Without · S5Conclusion
   w6.css         style, scope dưới .w6, class tiền tố w6-. Cỡ chữ: --w6-t 26px, --w6-s 19px, --w6-ui 15px
   w6.phone.css   bố cục điện thoại (≤ 760px, một cột)
 ```

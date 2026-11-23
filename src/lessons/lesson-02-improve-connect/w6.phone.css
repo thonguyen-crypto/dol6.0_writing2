@@ -109,3 +109,7 @@
 .phone .w6 .w6tb-arc{display:none}
 .phone .w6 .w6tb-who{position:static;transform:none;flex-basis:100%;padding:0}
 .phone .w6 .w6pw{grid-template-columns:1fr}
+.phone .w6 .w6mm{grid-template-columns:1fr;height:auto;gap:12px;width:auto}
+.phone .w6 .w6mm-br{display:none}
+.phone .w6 .w6mm-rows{height:auto;gap:12px}
+.phone .w6 .w6mm-name{white-space:normal}
