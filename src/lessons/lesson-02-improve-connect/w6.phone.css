@@ -1,0 +1,54 @@
+/* Writing 6.0 · Lesson 2 · phone (students, ≤ 760px): one scrolling column, text ≥ 15px,
+   side-by-side panels stack. The phone shell draws its own nav, so the slide footer keeps only the submit bar. */
+.phone .w6{--w6-t:calc(17px * var(--fs, 1));--w6-s:calc(15px * var(--fs, 1));--w6-ui:14px}
+.phone .w6 .w6-main{padding:10px 14px 8px;justify-content:flex-start;gap:12px}
+.phone .w6 .w6-foot{min-height:0;padding:0 14px 12px;border-top:0}
+.phone .w6 .w6-code,.phone .w6 .w6-dots,.phone .w6 .w6-hint,.phone .w6 .w6-nav{display:none}
+.phone .w6 .w6-sbar .btn{flex:1;min-width:0}
+/* cover and demo rail on the phone */
+.phone .w6.w6-coverw{position:static}
+.phone .w6 .w6c{position:static;flex-direction:column;align-items:stretch;gap:12px;padding:18px 16px}
+.phone .w6 .w6c-h{font-size:calc(36px * var(--fs, 1))}
+.phone .w6 .w6c-out{font-size:calc(15px * var(--fs, 1));align-items:flex-start}
+.phone .w6 .w6c-go .btn{width:100%}
+.phone .w6 .w6c-r{width:auto;margin:0;height:240px}
+.phone .w6 .w6c-art svg{width:100%;height:100%}
+.phone .w6h{padding:14px 14px 4px}
+.phone .w6h-row{gap:6px}
+.phone .w6h-vi{font-size:calc(14px * var(--fs, 1));width:100%}
+.phone .w6h-h1{margin-top:6px;font-size:calc(25px * var(--fs, 1));line-height:1.22}
+.phone .w6 .w6p{grid-template-columns:1fr}
+.phone .w6 .w6p-pic svg{max-height:150px}
+.phone .w6 .w6p.graded .w6p-in{min-height:64px}
+.phone .w6 .w6s4{grid-template-columns:1fr;padding-top:0;gap:12px}
+.phone .w6 .w6s4-track,.phone .w6 .w6s4-card::before{display:none}
+.phone .w6 .w6s4-card.cur{transform:none}
+.phone .w6 .w6s4-art{height:120px}
+.phone .w6 .w6z-two,.phone .w6 .w6z-crit,.phone .w6 .w6z-hw{grid-template-columns:1fr;max-height:none}
+.phone .w6 .w6z-branch{display:none}
+.phone .w6 .w6z-row{flex-direction:column;align-items:flex-start}
+.phone .w6 .w6z-tools{justify-content:flex-start}
+.phone .w6 .w6-hide{display:none}
+.phone .w6 .w6-ai,.phone .w6 .w6p{grid-template-columns:1fr}
+
+/* Lesson 2 */
+.phone .w6 .w6ct{width:auto;height:auto;display:flex;flex-direction:column;align-items:stretch;gap:10px}
+.phone .w6 .w6ct-root{flex-direction:row;justify-content:center}
+.phone .w6 .w6ct-root svg{width:48px;height:48px}
+.phone .w6 .w6ct-br{display:none}
+.phone .w6 .w6ct-rows{grid-template-rows:none;gap:10px}
+.phone .w6 .w6ct-row{grid-template-columns:1fr;gap:4px}
+.phone .w6 .w6ct-name{height:48px}
+.phone .w6 .w6ct-skill{min-height:0;padding:4px 12px}
+.phone .w6 .w6ct-skill:empty{display:none}
+.phone .w6 .w6w,.phone .w6 .w6w.w6w-crit{flex-direction:column;align-items:stretch;gap:14px}
+.phone .w6 .w6w-pic,.phone .w6 .w6w-pic.small,.phone .w6 .w6w.w6w-crit .w6w-pic{width:100%;max-width:330px;align-self:center}
+.phone .w6 .w6w.w6w-crit .w6w-l{width:auto}
+.phone .w6 .w6w.w6w-crit .w6w-pic{display:none}
+.phone .w6 .w6w-sent{font-size:20px;padding:18px 18px 34px}
+.phone .w6 .w6w-stamp{right:-4px;top:-22px}
+.phone .w6 .w6w-r .w6ct{height:auto}
+.phone .w6 .w6sl-menu{left:0;transform:none}
+.phone .w6 .w6w-stamp{position:static;display:inline-block;align-self:flex-start;margin-top:10px;transform:rotate(-2deg);animation:none}
+.phone .w6 .w6w-sent{display:flex;flex-direction:column}
+.phone .w6 .w6w-by{position:static;align-self:flex-end;margin-top:6px}

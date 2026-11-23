@@ -1,0 +1,89 @@
+/* =========================================================================
+   DOL App Kit · Design tokens (v1.1 · "Calm Pro")
+   Single source of truth for colour, type, radius, shadow, spacing, motion.
+   Never hard-code a hex value in an app: use these variables.
+   ========================================================================= */
+:root{
+  /* ---- Brand ---------------------------------------------------------- */
+  --dol-red:#d63a43;          /* primary accent: CTA, active step, highlight text */
+  --dol-red-dark:#b0262e;     /* 3D shadow under red buttons, pressed */
+  --dol-red-soft:#fdf1f1;     /* S-chunk background, soft red surfaces */
+  --dol-red-softer:#fdf6f6;   /* selected card background */
+  --dol-red-line:#f3c9cb;     /* red-tinted borders / shadows */
+
+  /* ---- Feedback & learning semantics --------------------------------- */
+  --dol-green:#2e9e46;        /* correct, done, "go next" */
+  --dol-green-dark:#1f7a35;
+  --dol-green-strong:#228239;  /* green BUTTON background (white text ≥ 4.5:1) */
+  --dol-green-strong-dark:#17602a;
+  --dol-green-ink:#23703a;    /* text on green-soft */
+  --dol-green-soft:#e8f4ea;
+  --dol-blue:#3c62b8;         /* V (verb/predicate), info, secondary topic chip */
+  --dol-blue-soft:#eef2fb;
+  --dol-amber:#946207;        /* (text, ≥4.5:1 on amber-soft) linkers/connectors, "needs review", selected-not-checked */
+  --dol-amber-line:#e4a23a;
+  --dol-amber-soft:#fdf5e4;
+  --dol-amber-shadow:#f1d9a8;
+  --dol-purple:#6a3fd6;       /* structure frames (S₁ V₁, so S₂ V₂), noun phrase, tags */
+  --dol-purple-soft:#f1ecfd;
+  --dol-star:#f5b83d;         /* rewards, stickers */
+  --dol-highlight:#fde7a9;    /* marker-pen underline behind title keywords */
+
+  /* Grammar roles (always use these for S / V / N / linker colour-coding) */
+  --dol-role-s:var(--dol-red);    --dol-role-s-bg:var(--dol-red-soft);
+  --dol-role-v:var(--dol-blue);   --dol-role-v-bg:var(--dol-blue-soft);
+  --dol-role-n:var(--dol-purple); --dol-role-n-bg:var(--dol-purple-soft);
+  --dol-role-link:var(--dol-amber); --dol-role-link-bg:var(--dol-amber-soft);
+
+  /* ---- Neutrals -------------------------------------------------------- */
+  --dol-title:#3b3d54;        /* headings */
+  --dol-ink:#4b4d63;          /* body text (never pure black) */
+  --dol-muted:#6b6d82;        /* secondary text, captions (min 13px, ≥4.5:1 on white & soft) */
+  --dol-faint:#8b8da1;        /* decorative / non-essential only (placeholder, key numbers); not for meaning */
+  --dol-line:#ebeae6;         /* card borders */
+  --dol-line-soft:#efeeea;    /* dividers */
+  --dol-line-btn:#e6e5e1;     /* secondary button border */
+  --dol-surface:#ffffff;      /* cards, app shell */
+  --dol-soft:#f7f7f5;         /* prompt boxes, inset areas */
+  --dol-subtle:#fbfbfa;       /* stepper strip */
+  --dol-page:#f4f4f2;         /* page background (with dot grid) */
+  --dol-track:#f1f0ec;        /* empty progress, inactive dots */
+
+  /* ---- Typography ------------------------------------------------------ */
+  --dol-font:'Plus Jakarta Sans','Segoe UI',system-ui,-apple-system,Arial,sans-serif;
+  --dol-fs-display:34px;  --dol-fs-h1:28px;  --dol-fs-h2:22px;  --dol-fs-h3:16px;
+  --dol-fs-lead:19px;     /* prompt / sentence being studied */
+  --dol-fs-body:16px;     --dol-fs-small:14px;  --dol-fs-caption:13px;  --dol-fs-eyebrow:12px;
+  --dol-fs-study:21px;    /* English sample sentence / chunks */
+  --dol-fw-regular:400; --dol-fw-medium:500; --dol-fw-semibold:600; --dol-fw-bold:700;
+  --dol-lh-tight:1.2; --dol-lh-body:1.6;
+
+  /* ---- Shape ----------------------------------------------------------- */
+  --dol-r-xs:7px;   /* role badge */
+  --dol-r-sm:10px;  /* logo, chunks, tiles */
+  --dol-r-md:12px;  /* buttons, inputs */
+  --dol-r-lg:14px;  /* choice buttons, feedback, prompt */
+  --dol-r-xl:18px;  /* cards */
+  --dol-r-2xl:24px; /* app shell */
+  --dol-r-pill:999px;
+
+  /* ---- Elevation (flat + "3D lip") ------------------------------------ */
+  --dol-shadow-shell:0 4px 0 #ecebe7,0 24px 48px -28px rgba(40,42,60,.25);
+  --dol-shadow-card:0 2px 0 #f0efeb;
+  --dol-shadow-primary:0 3px 0 var(--dol-red-dark);
+  --dol-shadow-success:0 3px 0 var(--dol-green-strong-dark);
+  --dol-shadow-float:0 -8px 20px -14px rgba(40,42,60,.25);
+
+  /* ---- Spacing (4-pt scale) ------------------------------------------- */
+  --dol-s-1:4px; --dol-s-2:8px; --dol-s-3:12px; --dol-s-4:16px; --dol-s-5:20px;
+  --dol-s-6:24px; --dol-s-7:32px; --dol-s-8:40px; --dol-s-9:56px;
+
+  /* ---- Layout ---------------------------------------------------------- */
+  --dol-shell-max:1180px;   /* app card width */
+  --dol-content-max:800px;  /* reading column inside the shell */
+  --dol-wide-max:1020px;    /* catalog / grid pages */
+
+  /* ---- Motion ---------------------------------------------------------- */
+  --dol-ease:cubic-bezier(.2,.8,.2,1);
+  --dol-t-fast:.15s; --dol-t:.25s;
+}

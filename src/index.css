@@ -1,0 +1,18 @@
+@import "tailwindcss";
+@import "./kit/styles/slide-ui.css";
+@import "./kit/styles/phone.css";
+/* DOL App Kit v1.1 ("Calm Pro") from main: tokens + dol-* components, used by the login screen. */
+@import "./kit/styles/dol-app-kit/dol-tokens.css";
+@import "./kit/styles/dol-app-kit/dol-components.css" layer(components);
+@import "./kit/styles/class-progress.css";
+/* Styles of the active lesson (frameworks, infographics). */
+@import "./lessons/lesson-02-improve-connect/w6.css";
+@import "./lessons/lesson-02-improve-connect/w6.phone.css";
+
+html, body, #root { margin: 0; height: 100%; }
+body { background: #f4f4f2; }
+/* Reduce motion: setting in ⚙ or the OS preference */
+.rm *, .rm *::before, .rm *::after { animation-duration: .001s !important; animation-iteration-count: 1 !important; transition: none !important; }
+@media (prefers-reduced-motion: reduce) { .app *, .app *::before, .app *::after { animation-duration: .001s !important; animation-iteration-count: 1 !important; transition: none !important; } }
+/* Bigger text setting: lesson text marked .tx grows */
+.big .tx { font-size: 1.12em; }

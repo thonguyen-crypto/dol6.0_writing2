@@ -1,0 +1,60 @@
+/* Tiến độ lớp (full screen, scrollable) — layout of the teacher dashboard on main. */
+.cp{position:absolute;left:0;right:0;top:64px;bottom:0;z-index:35;overflow-y:auto;background:#f5f4f1;color:#3b3d54;animation:popIn .2s cubic-bezier(.2,.8,.2,1) both}
+.cp *{box-sizing:border-box}
+.cp-app{max-width:1392px;margin:18px auto 40px;background:#fff;border-radius:26px;border:1px solid #efeeea;box-shadow:0 30px 60px -40px rgba(40,42,60,.35)}
+.cp-head{display:flex;align-items:center;gap:14px;padding:16px 28px;border-bottom:1px solid #efeeea;position:sticky;top:0;background:rgba(255,255,255,.96);z-index:3;border-radius:26px 26px 0 0}
+.cp-tag{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 11px;font-size:12.5px;font-weight:700}
+.cp-main{display:grid;grid-template-columns:316px minmax(0,1fr);gap:24px;padding:26px 30px 34px}
+.cp-card{background:#fff;border:1px solid #ebeae6;border-radius:20px;box-shadow:0 3px 0 #f1f0ec}
+.cp-cap{font-size:11.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#8b8da1}
+.cp-lop{font-size:11px;font-weight:800;color:#6d3fd9;background:#f3effd;border-radius:10px;padding:6px 8px;line-height:1.35}
+.cp-overview{display:flex;align-items:center;gap:8px;width:100%;margin-top:14px;height:40px;padding:0 12px;border-radius:12px;border:1px solid #e6e5e1;background:#fff;font:inherit;font-size:14px;font-weight:600;color:#3b3d54;cursor:pointer}
+.cp-overview.on{background:#6d3fd9;border-color:#6d3fd9;color:#fff;font-weight:700}
+.cp-pill{font-size:9.5px;font-weight:800;letter-spacing:.06em;border-radius:6px;padding:2px 6px;background:#6d3fd9;color:#fff}
+.cp-pill.light{background:rgba(255,255,255,.22)}
+.cp-stage{border:1px solid #ebeae6;border-radius:12px;background:#fbfbfa;overflow:hidden}
+.cp-stage.on{border-color:#c9b8f4;box-shadow:0 0 0 2px #ede6fd;padding-bottom:4px}
+.cp-srow{display:flex;align-items:center;gap:8px;width:100%;border:0;background:transparent;padding:10px 12px;font:inherit;font-size:13px;font-weight:700;color:#3b3d54;text-align:left;cursor:pointer}
+.cp-act{display:flex;align-items:center;gap:8px;padding:8px 10px;margin:0 8px 6px;border-radius:10px;font-size:13px;cursor:pointer;border:1px solid transparent}
+.cp-act:hover{background:#f6f3fe}
+.cp-act.on{background:#efe9fd;border-color:#c9b8f4}
+.cp-moi{display:inline-flex;align-items:center;gap:5px;height:28px;padding:0 10px;border-radius:8px;border:0;background:#6d3fd9;color:#fff;font:inherit;font-size:12px;font-weight:700;cursor:pointer;flex:none}
+.cp-msg{margin-top:10px;font-size:12.5px;font-weight:700;color:#23703a;background:#e8f4ea;border-radius:10px;padding:8px 10px}
+.cp-input{flex:1;min-width:0;height:42px;border-radius:12px;border:1px solid #e6e5e1;background:#f8f8f6;padding:0 14px;font:inherit;font-size:14px;font-weight:600;color:#3b3d54;text-transform:uppercase;outline:none}
+.cp-input:focus{background:#fff;border-color:#c9b8f4;box-shadow:0 0 0 3px #ede6fd}
+.cp-class{display:flex;align-items:center;gap:10px;padding:13px 14px;border-radius:12px;border:1px solid #f0efeb;background:#fff;font-size:14px;font-weight:600;cursor:pointer}
+.cp-class.on{background:#fdf5f5;border-color:#f3c9cb;color:#8a1d24;font-weight:800}
+.cp-class .cp-del{opacity:0;border:0;background:transparent;color:#8b8da1;cursor:pointer;padding:2px;display:inline-flex}
+.cp-class:hover .cp-del{opacity:1}
+.cp-class .cp-del:hover{color:#d63a43}
+.cp-dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex:none}
+.cp-mode{display:inline-flex;align-items:center;border-radius:8px;padding:5px 10px;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#f3f2ef;color:#6b6d82}
+.cp-mode.stage{background:#f1ecfd;color:#5631b8}
+.cp-mode.act{background:#fdecec;color:#b0262e}
+.cp-back{height:28px;padding:0 10px;border-radius:8px;border:1px solid #e6e5e1;background:#fff;font:inherit;font-size:11.5px;font-weight:700;color:#4b4d63;cursor:pointer}
+.cp-back:hover{border-color:#c9b8f4;color:#5631b8}
+.cp-stat{padding:18px 20px}
+.cp-stat b{display:block;font-size:30px;font-weight:800;line-height:1.1}
+.cp-stat span{font-size:14.5px;color:#4b4d63}
+.cp-row{display:grid;align-items:center;border-top:1px solid #f0efeb;min-height:40px}
+.cp-code{min-width:36px;height:28px;padding:0 6px;border-radius:8px;border:1px solid #e6e5e1;background:#fff;font:inherit;font-size:12px;font-weight:800;color:#3b3d54;cursor:pointer}
+.cp-code:hover:not(:disabled){border-color:#d63a43;color:#d63a43}
+.cp-code.th{border-style:dashed;color:#8b8da1;cursor:default}
+.cp-name{border:0;background:transparent;padding:0;text-align:left;font:inherit;font-size:14px;font-weight:600;color:#3b3d54;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cp-name:hover{color:#d63a43}
+.cp-cell{width:26px;height:26px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font:inherit;font-size:12px;font-weight:800;border:0;padding:0;cursor:pointer;background:#ebeae6;color:#8b8da1}
+.cp-cell.na{background:transparent;color:#b4b5c3;cursor:default;font-size:16px}
+.cp-cell.c-done{background:#2e9e46;color:#fff}.cp-cell.c-weak{background:#d63a43;color:#fff}.cp-cell.c-review{background:#e0a020;color:#fff}.cp-cell.c-partial{background:#3c62b8;color:#fff}
+.cp-tracker{border-radius:20px;border:1px solid #ebeae6;background:#fff;box-shadow:0 3px 0 #f1f0ec}
+.cp-shead{display:flex;align-items:center;gap:14px;padding:16px 20px;cursor:pointer}
+.cp-shead:hover{background:#fcfcfb}
+.cp-av{width:44px;height:44px;border-radius:14px;background:#fdf3f3;border:1px solid #f6dede;color:#b0262e;display:inline-flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex:none}
+.cp-badge{display:inline-flex;align-items:center;border-radius:999px;padding:5px 12px;font-size:12.5px;font-weight:700;background:#f3f2ef;border:1px solid #e6e5e1;white-space:nowrap}
+.cp-caret{width:32px;height:32px;border-radius:10px;background:#f3f2ef;display:inline-flex;align-items:center;justify-content:center;color:#6b6d82;flex:none}
+.cp-sections{display:grid;gap:14px;padding:18px 20px;border-top:1px solid #f0efeb;background:#fafaf8}
+.cp-sec{background:#fff;border:1px solid #ebeae6;border-radius:14px;padding:14px;min-width:0}
+.cp-sectitle{font-size:12px;font-weight:800;letter-spacing:.06em;color:#8a1d24;padding-bottom:8px;border-bottom:1px solid #f0efeb;margin-bottom:10px}
+.cp-mod{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;text-align:left;padding:8px 10px;border-radius:10px;border:1px solid #f0efeb;background:#f8f8f6;font:inherit;font-size:12.5px;font-weight:500;color:#3b3d54;cursor:pointer}
+.cp-mod:hover{border-color:#a9a2f0;background:#f4f2fd}
+.cp-st{font-size:10.5px;font-weight:800;border-radius:6px;padding:2px 7px;flex:none;background:#ebeae6;color:#6b6d82}
+.cp-st.c-done{background:#d7eedd;color:#23703a}.cp-st.c-weak{background:#fbdcdc;color:#a92f36}.cp-st.c-review{background:#fbecc8;color:#8a5a00}.cp-st.c-partial{background:#e1e8f8;color:#3c62b8}.cp-st.na{background:#f3f2ef;color:#8b8da1}

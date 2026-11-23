@@ -1,0 +1,10 @@
+{
+  "quiz": [
+    { "id": "q1", "label": "Câu 1", "text": "Which sentence keeps the original meaning?", "options": ["Option A", "Option B", "Option C"], "answer": "Option A", "explain": "Giải thích ngắn vì sao A đúng." },
+    { "id": "q2", "label": "Câu 2", "text": "Choose the natural collocation.", "options": ["make an effort", "do an effort", "take an effort"], "answer": "make an effort", "explain": "make an effort là collocation tự nhiên." }
+  ],
+  "writing": [
+    { "id": "w1", "prompt": "Improve road safety", "models": ["bring improvements to road safety"] },
+    { "id": "w2", "prompt": "Inform consumers", "models": ["provide consumers with information"] }
+  ]
+}
