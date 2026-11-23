@@ -200,7 +200,7 @@ const steps: StepMeta[] = [
 ];
 
 /** Stages that are built and published so far (the rest of the steps are added stage by stage). */
-export const BUILT_TO = 3;
+export const BUILT_TO = 4;
 
 const all: LessonMeta = {
   id: 'w60-lesson-02-improve-connect',

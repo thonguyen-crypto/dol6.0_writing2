@@ -88,3 +88,24 @@
 .phone .w6 .w6lf-card.w6-hide{display:none}
 .phone .w6 .w6lf-r{order:-1}
 .phone .w6 .w6lf-card.past{display:none}
+.phone .w6 .w6ch-row{flex-wrap:wrap;justify-content:center;padding:16px 10px;gap:8px}
+.phone .w6 .w6ch-dot{width:48px;height:48px;font-size:20px}
+.phone .w6 .w6ch-link{display:none}
+.phone .w6 .w6ch-note{position:static;flex-basis:100%;text-align:center}
+.phone .w6 .w6tv-b{flex-direction:column;align-items:stretch}
+.phone .w6 .w6tv-hook,.phone .w6 .w6tv-lw.out{display:none}
+.phone .w6 .w6tv-formula{flex-wrap:wrap;justify-content:center}
+.phone .w6 .w6ef-cols{grid-template-columns:1fr}
+.phone .w6 .w6ef-col.w6-hide{display:none}
+.phone .w6 .w6ef-top{flex-wrap:wrap}
+.phone .w6 .w6ef-br{display:none}
+.phone .w6 .w6ty{grid-template-columns:1fr}
+.phone .w6 .w6ty-model{padding-left:0}
+.phone .w6 .w6fw,.phone .w6 .w6fw.three{grid-template-columns:1fr}
+.phone .w6 .w6st-row{grid-template-columns:1fr;gap:4px}
+.phone .w6 .w6st-g.w6-hide{display:none}
+.phone .w6 .w6tb-row{flex-wrap:wrap;padding-bottom:16px}
+.phone .w6 .w6tb-b{white-space:normal}
+.phone .w6 .w6tb-arc{display:none}
+.phone .w6 .w6tb-who{position:static;transform:none;flex-basis:100%;padding:0}
+.phone .w6 .w6pw{grid-template-columns:1fr}
