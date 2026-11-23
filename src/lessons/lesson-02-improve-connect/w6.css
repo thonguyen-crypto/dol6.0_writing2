@@ -570,3 +570,57 @@
 .w6 .w6hg-orig{gap:4px}
 .w6 .w6hg-ot{flex:1;min-width:0}
 .w6 .w6hg-types{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+
+/* ---- 3.x outline ----------------------------------------------------------------------------- */
+.w6 .w6ol{position:relative;display:flex;flex-direction:column;gap:10px;padding:18px 22px 18px 58px;font-size:var(--w6-s);color:var(--ink);line-height:1.5}
+.w6 .w6ol-tag{position:absolute;left:12px;top:14px;bottom:14px;width:30px;border-radius:10px;background:var(--red);color:#fff;font-size:var(--w6-ui);font-weight:800;writing-mode:vertical-rl;transform:rotate(180deg);display:flex;align-items:center;justify-content:center;letter-spacing:.08em}
+.w6 .w6ol-row{padding:4px 10px;border-radius:12px;border:1.5px solid transparent;transition:all .35s}
+.w6 .w6ol-row b{margin-right:8px}
+.w6 .w6ol-row.lit{border-color:var(--red);background:#fdf6f6;box-shadow:0 0 0 3px var(--redl)}
+.w6 .w6ol-arr{font-style:normal;font-weight:800;color:var(--sub)}
+.w6 .w6ol-row.arrows{border-color:var(--red);background:#fdf6f6}
+.w6 .w6ol-row.arrows .w6ol-arr{color:#fff;background:var(--red);border-radius:6px;padding:0 4px;animation:w6pulse 1.4s ease-in-out infinite;display:inline-block}
+.w6 .w6ol.compact{padding:12px 18px 12px 54px;gap:4px}
+
+/* ---- 3.2 find the linking words ------------------------------------------------------------- */
+.w6 .w6fl{display:grid;grid-template-columns:1fr 1.25fr;gap:22px;align-items:stretch}
+.w6 .w6fl-para{position:relative;padding:18px 22px}
+.w6 .w6fl-tag{font-size:var(--w6-ui);font-weight:800;color:var(--redd);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.w6 .w6fl-text{margin:0;line-height:1.9;color:var(--ink)}
+.w6 .w6fl-w{font:inherit;font-size:var(--w6-s);color:var(--ink);background:none;border:0;border-radius:8px;padding:1px 3px;cursor:pointer;transition:background .15s}
+.w6 .w6fl-w:hover:not(:disabled){background:#f4f4f2}
+.w6 .w6fl-w.sel{background:var(--redl);color:var(--redd);font-weight:800;box-shadow:inset 0 -2px 0 var(--red)}
+.w6 .w6fl-w.ok{background:var(--okl);color:var(--okd);font-weight:800}
+.w6 .w6fl-w.bad{background:var(--redl);color:var(--redd);text-decoration:line-through}
+.w6 .w6fl-w:disabled{cursor:default}
+.w6 .w6fl-fn{display:inline-block;font-size:var(--w6-ui);font-weight:800;color:#fff;background:var(--ok);border-radius:999px;padding:0 8px;margin-left:4px;vertical-align:middle;line-height:1.6;animation:pop .4s both}
+
+/* ---- 3.3 three functions ---------------------------------------------------------------------- */
+.w6 .w6lf{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center}
+.w6 .w6lf-r{display:flex;flex-direction:column;gap:12px}
+.w6 .w6lf-card{display:flex;flex-direction:column;gap:10px;padding:14px 20px;transition:all .35s}
+.w6 .w6lf-card.cur{border-color:var(--red);box-shadow:0 0 0 3px var(--redl),0 3px 0 #efeeea;animation:rise .45s both}
+.w6 .w6lf-card.past{opacity:.6;padding:8px 18px;gap:4px}
+.w6 .w6lf-card.past .w6lf-words{flex-direction:row;flex-wrap:wrap;gap:4px 14px}
+.w6 .w6lf-card.past .w6lf-w{font-size:var(--w6-ui);animation:none}
+.w6 .w6lf-h{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.w6 .w6lf-name{font-weight:800;color:var(--redd)}
+.w6 .w6lf-vi{font-size:var(--w6-s);color:var(--sub)}
+.w6 .w6lf-words{display:flex;flex-direction:column;gap:6px}
+.w6 .w6lf-w{color:var(--sub);animation:w6fly .45s both}
+.w6 .w6lf-w b{color:var(--ink)}
+
+/* ---- 3.3a small practice ---------------------------------------------------------------------- */
+.w6 .w6lp{display:flex;flex-direction:column;gap:12px}
+.w6 .w6lp-first{font-weight:700;color:var(--ink);padding:0 6px;transition:opacity .35s}
+.w6 .w6lp-row{display:flex;align-items:center;gap:16px;padding:12px 18px;position:relative;transition:opacity .35s}
+.w6 .w6lp-row.menu{z-index:6;opacity:1!important}
+.w6 .w6lp-row .w6sl-btn{min-width:300px;font-size:var(--w6-s)}
+.w6 .w6lp-s{flex:1;font-size:var(--w6-s);color:var(--ink);line-height:1.45}
+.w6 .w6lp .w6sl-menu{display:grid;grid-template-columns:1fr 1fr;left:0;transform:none;min-width:520px}
+.w6 .w6lp-formula{align-self:center;display:flex;align-items:center;gap:14px;margin-top:6px}
+.w6 .w6lp-lw{padding:12px 26px;border-radius:16px;background:var(--red);color:#fff;font-weight:800;box-shadow:0 0 0 4px var(--redl)}
+.w6 .w6lp-plus{font-weight:800;color:var(--sub)}
+.w6 .w6lp-sv{padding:12px 26px;border-radius:16px;background:#fff;border:2px solid var(--ink);color:var(--ink);font-weight:800}
+.w6 .w6fl-text{text-align:left;word-spacing:normal}
+.w6 .w6fl-fn.need{background:#f4f4f2;color:var(--sub)}
