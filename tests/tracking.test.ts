@@ -50,11 +50,12 @@ test('page codes follow stage order and skip covers/dividers', () => {
   assert.equal(codes.revision, '1.1');
   assert.equal(codes.warmup, '1.2');
   assert.equal(codes.meaning, '2.1');
-  assert.equal(codes.convincing, '2.2');
-  assert.equal(codes.hedge, '2.2a'); // each practice hangs off the theory page before it
-  assert.equal(codes.specificdemo, '2.3');
-  assert.equal(codes.specific, '2.3a');
-  assert.equal(codes.paraimprove, '2.4');
+  assert.equal(codes.twoways, '2.2');
+  assert.equal(codes.convincing, '2.3');
+  assert.equal(codes.hedge, '2.3a'); // each practice hangs off the theory page before it
+  assert.equal(codes.specificdemo, '2.4');
+  assert.equal(codes.specific, '2.4a');
+  assert.equal(codes.paraimprove, '2.5');
   assert.equal(codes.lwpractice, '3.3a');
   assert.equal(codes.effects, '4.3');
   assert.equal(codes.thiswrite, '4.3c');

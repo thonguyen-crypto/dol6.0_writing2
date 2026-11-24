@@ -283,3 +283,21 @@ export function frameCheck(it: FrameItem, v: Record<string, string>): string {
 export const hedgeOk = (b: ChipBlank, v?: string) => !!v && b.ok.includes(v);
 export const lwOk = (fn: LinkFn, v?: string) => !!v && LW_OF[fn].includes(v);
 export const slotOk = (s: ParaSlot, v?: string) => v === s.ok;
+
+/* ---- 2.3 Make it more convincing: the 4 hedging tools, each with its own example (topic: smartphones) ---- */
+export interface HedgeTool { id: string; tool: string; use: string; before: Seg[]; after: Seg[] }
+export const HEDGE_TOOLS: HedgeTool[] = [
+  { id: 'q', tool: 'quantifier', use: 'many · some · most',
+    before: [['All', 'bad'], [' teenagers are addicted to smartphones.']], after: [['Many', 'fix'], [' teenagers are addicted to smartphones.']] },
+  { id: 'm', tool: 'modal verb', use: 'can · may · might',
+    before: [['Smartphones '], ['damage', 'bad'], [" children's eyesight."]], after: [['Smartphones '], ['can', 'fix'], [" damage children's eyesight."]] },
+  { id: 'f', tool: 'adverb of frequency', use: 'usually · often · sometimes',
+    before: [['Students '], ['always', 'bad'], [' use their phones in class.']], after: [['Students '], ['often', 'fix'], [' use their phones in class.']] },
+  { id: 'p', tool: 'language of probability', use: 'tend to · be likely to · run the risk of',
+    before: [['Heavy users '], ['will definitely', 'bad'], [' suffer from sleep problems.']], after: [['Heavy users '], ['are likely to', 'fix'], [' suffer from sleep problems.']] },
+];
+
+/* ---- 2.4 Make it more specific: one running sentence, one technique per build (topic: fast food) ---- */
+export const SPEC_BASE = 'Fast food can cause health problems in people.';
+export const SPEC_TOOLS = ['use specific nouns', 'add adj (for noun) + adv (for verb)', 'add relative clauses', 'add examples'];
+export const SPEC_MODEL = 'Processed fast food can easily cause health problems, such as obesity and diabetes, in children who eat it every day.';

@@ -5,9 +5,9 @@ import React from 'react';
 import type { SlideProps } from '../../../kit/slides';
 import { useActivity, useDraft } from '../../../kit/activities/useActivity';
 import {
-  HEDGE, PARA, PARA_TOPIC, SPECIFIC, frameAnswer, frameCheck, hedgeOk, paraModel, paraSentence, paraSlots, slotOk, slotText, type ParaSlot,
+  HEDGE, HEDGE_TOOLS, PARA, PARA_TOPIC, SPEC_BASE, SPEC_TOOLS, SPECIFIC, frameAnswer, frameCheck, hedgeOk, paraModel, paraSentence, paraSlots, slotOk, slotText, type ParaSlot,
 } from '../logic';
-import { Frame, GradedList, Slot, SubmitBar, useAiSet, useBurst, useOpenSlot } from '../runtime';
+import { Frame, GradedList, Segs, Slot, SubmitBar, rv, useAiSet, useBurst, useOpenSlot } from '../runtime';
 
 /* ---- 2.1 drawings ------------------------------------------------------------------------ */
 /* "quơ đũa cả nắm": one sweep ticks every person the same way */
@@ -95,18 +95,52 @@ const Meter: React.FC<{ pct: number }> = ({ pct }) => {
     </svg>
   );
 };
-/* 2.2 — Build 1: the absolute sentence (meter at 100%) · Build 2: can / may / might slide in, allows → allow, meter drops */
+/* 2.2 — the whole picture on the warm-up sentence: first make it more convincing, then more specific.
+   Build 1: the sentence (meter at 100%) · Build 2: can (hedging), meter drops · Build 3–5: university students · valuable · such as … */
+const LANES = [['convincing', 'make it more convincing'], ['specific', 'make it more specific']] as const;
+const OV_SPEC = ['use specific noun', 'add adj', 'add examples'];
+export const SOverview: React.FC<SlideProps> = (props) => {
+  const b = props.build;
+  const lane = (k: string) => (k === 'convincing' ? (b === 1 ? 'cur' : b > 1 ? 'done' : '') : b >= 2 && b < 4 ? 'cur' : b >= 4 ? 'cur done' : '');
+  const tag = (i: number, text: string) => <span key={'t' + i} className={`w6sp-tag ${b === i ? 'cur' : 'gone'}`}>{text}</span>;
+  return (
+    <Frame props={props}>
+      <div className="w6ov">
+        <div className="w6ov-lanes">
+          {LANES.map(([k, t]) => <span key={k} className={`w6ov-lane ${lane(k)}`}>{(k === 'convincing' ? b > 1 : b >= 4) && <span className="w6ov-ok">✓</span>}{t}</span>)}
+        </div>
+        <div className="w6ov-art">
+          {b <= 1 ? <Meter pct={b >= 1 ? 62 : 100} /> : <div className="w6sp-art"><ArtSpecific b={b - 2} /></div>}
+        </div>
+        <div className="card w6sp-sent w6ov-sent">
+          Doing internships{' '}
+          {b >= 1 && <span className="w6sp-slot"><span className="w6sp-add" key="c">can</span>{tag(1, 'hedging language')}</span>}
+          {b >= 1 && ' '}allow{b >= 1 ? '' : 's'}{' '}
+          <span className="w6sp-slot">{b >= 2 ? <><span className="w6sp-old">people</span><span className="w6sp-add" key="a0">university students</span></> : 'people'}{b >= 2 && tag(2, OV_SPEC[0])}</span>
+          {' '}to develop{' '}
+          {b >= 3 && <span className="w6sp-slot"><span className="w6sp-add" key="a1">valuable</span>{tag(3, OV_SPEC[1])}</span>}
+          {b >= 3 && ' '}soft skills{b >= 4 ? '' : '.'}
+          {b >= 4 && <span className="w6sp-slot"><span className="w6sp-add" key="a2">, such as time management and task organisation.</span>{tag(4, OV_SPEC[2])}</span>}
+        </div>
+      </div>
+    </Frame>
+  );
+};
+
+/* 2.3 — the 4 hedging tools, one per build, each with its own example (not the warm-up sentence).
+   The absolute word is crossed out, the hedge takes its place; earlier tools fold into one line. */
 export const SConvincing: React.FC<SlideProps> = (props) => {
   const b = props.build;
   return (
     <Frame props={props}>
-      <div className="w6cv">
-        <Meter pct={b >= 1 ? 62 : 100} />
-        <div className={`card w6cv-sent ${b >= 1 ? 'hedged' : ''}`}>
-          Doing internships{' '}
-          {b >= 1 && <span className="w6cv-ins" key="ins"><span className="w6cv-hw">can / may / might</span><span className="w6cv-tag">hedging language</span></span>}
-          {' '}allow<span className={b >= 1 ? 'w6cv-s' : ''}>s</span> people to develop soft skills.
-        </div>
+      <div className="w6ht">
+        {HEDGE_TOOLS.map((t, i) => (
+          <div key={t.id} className={`card w6ht-card ${rv(b, i)}`}>
+            <div className="w6ht-h"><span className="w6-n">{i + 1}</span><span className="w6ht-tool">{t.tool}</span><span className="w6ht-use">{t.use}</span></div>
+            {i === b && <div className="w6ht-before"><Segs segs={t.before} /></div>}
+            <div className="w6ht-after"><span className="w6ht-arr">→</span><Segs segs={t.after} /></div>
+          </div>
+        ))}
       </div>
     </Frame>
   );
@@ -195,21 +229,61 @@ const ArtSpecific: React.FC<{ b: number }> = ({ b }) => (
     </g>
   </svg>
 );
-const SPEC_STEPS = ['use specific noun', 'add adj', 'add examples'];
+/* 2.4 — the techniques on a new sentence (fast food), one per build; the sentence grows, the drawing changes. */
+const ArtFood: React.FC<{ b: number }> = ({ b }) => (
+  <svg viewBox="0 0 300 150" className="w6sp-svg" aria-hidden="true">
+    {/* 0: grown-ups → children */}
+    <g className={`w6sp-l ${b === 0 ? 'on' : ''}`}>
+      {[0, 1, 2, 3].map((i) => (
+        <g key={i} transform={`translate(${62 + i * 58} ${i % 2 ? 84 : 70})`}>
+          <circle cx="0" cy="0" r={i % 2 ? 10 : 12} fill="#fff" stroke="#3b3d54" strokeWidth="2.5" />
+          <path d={i % 2 ? 'M-12 40c0-14 5-22 12-22s12 8 12 22' : 'M-16 54c0-18 7-30 16-30s16 12 16 30'} fill={i % 2 ? '#fdf1f1' : '#fff'} stroke={i % 2 ? '#d63a43' : '#3b3d54'} strokeWidth="2.5" className={i % 2 ? 'w6sp-kid' : 'w6sp-adult'} />
+        </g>
+      ))}
+    </g>
+    {/* 1: a processed burger in a box; fast, easy motion lines */}
+    <g className={`w6sp-l ${b === 1 ? 'on' : ''}`}>
+      <g className="w6sp-ic i1">
+        <path d="M100 66a50 30 0 0 1 100 0z" fill="#f5b83d" stroke="#3b3d54" strokeWidth="3" />
+        <rect x="96" y="70" width="108" height="12" rx="6" fill="#2e9e46" />
+        <rect x="98" y="84" width="104" height="16" rx="6" fill="#b0262e" />
+        <path d="M100 104h100a6 6 0 0 1-6 12H106a6 6 0 0 1-6-12z" fill="#f5b83d" stroke="#3b3d54" strokeWidth="3" />
+        <circle cx="130" cy="52" r="2.5" fill="#fff" /><circle cx="152" cy="46" r="2.5" fill="#fff" /><circle cx="172" cy="54" r="2.5" fill="#fff" />
+      </g>
+      <g className="w6sp-ic i2"><path d="M218 70h40M226 86h40M218 102h40" stroke="#d63a43" strokeWidth="4" strokeLinecap="round" /></g>
+    </g>
+    {/* 2: every day = a calendar ticked day after day */}
+    <g className={`w6sp-l ${b === 2 ? 'on' : ''}`}>
+      <rect x="86" y="30" width="128" height="104" rx="12" fill="#fff" stroke="#3b3d54" strokeWidth="3" />
+      <rect x="86" y="30" width="128" height="24" rx="12" fill="#d63a43" />
+      {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+        <path key={i} className="w6sp-tick" style={{ animationDelay: `${0.2 + i * 0.12}s` }} d={`M${100 + (i % 4) * 28} ${76 + Math.floor(i / 4) * 30}l5 5 9-10`} stroke="#d63a43" strokeWidth="3.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      ))}
+    </g>
+    {/* 3: examples = a scale (obesity) and a drop (diabetes) */}
+    <g className={`w6sp-l ${b === 3 ? 'on' : ''}`}>
+      <g className="w6sp-ic i1"><rect x="70" y="54" width="76" height="70" rx="14" fill="#fff" stroke="#3b3d54" strokeWidth="3" /><path d="M86 80a22 22 0 0 1 44 0" fill="none" stroke="#3b3d54" strokeWidth="3" /><path d="M108 80l10-12" stroke="#d63a43" strokeWidth="4" strokeLinecap="round" /></g>
+      <g className="w6sp-ic i2"><path d="M200 46c18 26 28 42 28 56a28 28 0 0 1-56 0c0-14 10-30 28-56z" fill="#fdf1f1" stroke="#d63a43" strokeWidth="3" strokeLinejoin="round" /><path d="M188 104a12 12 0 0 0 12 12" stroke="#d63a43" strokeWidth="3" fill="none" strokeLinecap="round" /></g>
+    </g>
+  </svg>
+);
 export const SSpecificDemo: React.FC<SlideProps> = (props) => {
   const b = props.build;
-  const tag = (i: number) => <span key={'t' + i} className={`w6sp-tag ${b === i ? 'cur' : 'past'}`}>{SPEC_STEPS[i]}</span>;
   return (
     <Frame props={props}>
       <div className="w6sp">
-        <div className="w6sp-art"><ArtSpecific b={b} /></div>
+        <div className="w6sp-art"><ArtFood b={b} /></div>
+        <div className="w6sp-tools">
+          {SPEC_TOOLS.map((t, i) => <span key={t} className={`w6sp-tool ${rv(b, i)}`}>{i < b && <span className="w6ov-ok">✓</span>}{t}</span>)}
+        </div>
+        <div className="w6sp-base">{SPEC_BASE}</div>
         <div className="card w6sp-sent">
-          Doing internships can allow{' '}
-          <span className="w6sp-slot">{b >= 0 && <span className="w6sp-old">people</span>}<span className="w6sp-add" key="a0">university students</span>{tag(0)}</span>
-          {' '}to develop{' '}
-          {b >= 1 && <span className="w6sp-slot"><span className="w6sp-add" key="a1">valuable</span>{tag(1)}</span>}
-          {b >= 1 && ' '}soft skills{b >= 2 ? '' : '.'}
-          {b >= 2 && <span className="w6sp-slot"><span className="w6sp-add" key="a2">, such as time management and task organisation.</span>{tag(2)}</span>}
+          {b >= 1 && <><span className="w6sp-add" key="adj">Processed</span>{' '}</>}
+          {b >= 1 ? 'fast' : 'Fast'} food can{' '}
+          {b >= 1 && <><span className="w6sp-add" key="adv">easily</span>{' '}</>}
+          cause health problems{b >= 3 && <span className="w6sp-add" key="ex">, such as obesity and diabetes,</span>}
+          {' '}in <span className="w6sp-old">people</span><span className="w6sp-add" key="n">children</span>
+          {b >= 2 && <>{' '}<span className="w6sp-add" key="rc">who eat it every day</span></>}.
         </div>
       </div>
     </Frame>

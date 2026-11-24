@@ -785,3 +785,44 @@
 .w6 .w6mm-name{padding:10px 18px;border-radius:14px;background:#fff;border:2px solid var(--ink);font-weight:800;color:var(--ink);font-size:var(--w6-s);white-space:nowrap}
 .w6 .w6mm-tools{display:flex;flex-wrap:wrap;gap:8px}
 .w6 .w6mm-tools i{font-style:normal;font-size:var(--w6-s);font-weight:700;color:var(--redd);background:var(--redl);border-radius:999px;padding:4px 14px}
+
+/* ---- 2.2 the whole picture: two lanes over one sentence (v2 flow) ------------------------- */
+.w6 .w6ov{display:flex;flex-direction:column;align-items:center;gap:16px;flex:1;justify-content:center}
+.w6 .w6ov-lanes{display:flex;gap:14px}
+.w6 .w6ov-lane{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:999px;border:1.5px solid #ebeae6;background:#fff;font-size:var(--w6-s);font-weight:800;color:var(--sub);transition:all .35s}
+.w6 .w6ov-lane.cur{border-color:var(--red);color:var(--redd);background:#fdf6f6;box-shadow:0 0 0 3px var(--redl)}
+.w6 .w6ov-lane.done{border-color:#bfe0c7;color:var(--okd);background:var(--okl);box-shadow:none}
+.w6 .w6ov-ok{width:22px;height:22px;border-radius:50%;background:var(--ok);color:#fff;font-size:13px;display:inline-flex;align-items:center;justify-content:center}
+.w6 .w6ov-art{height:180px;display:flex;align-items:center;justify-content:center}
+.w6 .w6ov-art .w6cv-meter{width:260px}
+.w6 .w6sp-tag.gone{opacity:0}
+
+/* ---- 2.3 hedging tools ---------------------------------------------------------------------- */
+.w6 .w6ht{display:flex;flex-direction:column;gap:12px;width:100%;max-width:1120px;align-self:center}
+.w6 .w6ht-card{display:flex;flex-direction:column;gap:8px;padding:14px 22px;transition:opacity .35s,box-shadow .3s,border-color .3s}
+.w6 .w6ht-card.w6-on{border-color:var(--red);box-shadow:0 0 0 3px var(--redl),0 3px 0 #efeeea;animation:rise .45s both}
+.w6 .w6ht-card.w6-past{opacity:.55;padding:8px 22px;gap:2px}
+.w6 .w6ht-h{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.w6 .w6ht-tool{font-weight:800;color:var(--redd)}
+.w6 .w6ht-use{margin-left:auto;font-size:var(--w6-ui);font-weight:800;color:var(--sub);background:#f4f4f2;border-radius:999px;padding:3px 12px}
+.w6 .w6ht-card.w6-past .w6ht-use{display:none}
+.w6 .w6ht-before{color:var(--sub);font-weight:600;padding-left:40px}
+.w6 .w6ht-before .w6-m-bad{color:var(--redd);text-decoration:line-through;text-decoration-thickness:3px;font-weight:800}
+.w6 .w6ht-after{display:flex;gap:10px;align-items:baseline;color:var(--ink);font-weight:700;padding-left:8px}
+.w6 .w6ht-card.w6-on .w6ht-after{animation:rise .45s .5s both}
+.w6 .w6ht-card.w6-past .w6ht-after{font-size:var(--w6-s);font-weight:600}
+.w6 .w6ht-arr{color:var(--sub);font-weight:800;width:24px;flex:none}
+.w6 .w6ht-after .w6-m-fix{color:var(--red);font-weight:800;border-bottom:3px solid var(--red)}
+
+/* ---- 2.4 specific on a new sentence --------------------------------------------------------- */
+.w6 .w6sp-base{font-size:var(--w6-s);color:var(--sub);font-weight:600}
+.w6 .w6sp-base::before{content:'Câu gốc: ';font-weight:800}
+.w6 .w6sp-tick{stroke-dasharray:24;stroke-dashoffset:24;animation:w6s4Draw .3s forwards}
+.w6 .w6sp-l:not(.on) .w6sp-tick{animation:none}
+.w6 .w6sp-kid{animation:w6s4Pop .45s .4s both;transform-box:fill-box;transform-origin:bottom}
+.w6 .w6sp-tools{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.w6 .w6sp-tool{display:inline-flex;align-items:center;gap:6px;font-size:var(--w6-ui);font-weight:800;border-radius:999px;padding:4px 14px;transition:all .3s}
+.w6 .w6sp-tool.w6-on{background:var(--red);color:#fff;animation:pop .45s both}
+.w6 .w6sp-tool.w6-past{background:var(--okl);color:var(--okd)}
+.w6 .w6sp-tool.w6-hide{display:none}
+.w6 .w6s-specificdemo .w6sp-sent{padding-bottom:24px}

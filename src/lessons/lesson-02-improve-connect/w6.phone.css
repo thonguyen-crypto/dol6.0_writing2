@@ -113,3 +113,11 @@
 .phone .w6 .w6mm-br{display:none}
 .phone .w6 .w6mm-rows{height:auto;gap:12px}
 .phone .w6 .w6mm-name{white-space:normal}
+.phone .w6 .w6ov-lanes{flex-direction:column;gap:8px;align-self:stretch}
+.phone .w6 .w6ov-art{height:150px}
+.phone .w6 .w6sp-tag.gone{display:none}
+.phone .w6 .w6ht-use{margin-left:0}
+.phone .w6 .w6ht-before{padding-left:0}
+.phone .w6 .w6ht-after{font-size:var(--w6-s)}
+.phone .w6 .w6s-specificdemo .w6sp-art,.phone .w6 .w6s-twoways .w6sp-art{height:96px}
+.phone .w6 .w6sp-tool.w6-past{display:none}
