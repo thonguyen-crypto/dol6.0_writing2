@@ -37,6 +37,36 @@ const ArtBlur = () => (
   </svg>
 );
 
+/* 2.1 build 3 drawings (looping): a certainty gauge whose needle backs off from 100%; a lens that brings blurry bars into focus */
+const ArtGauge = () => (
+  <svg viewBox="0 0 220 120" className="w6i-art2" aria-hidden="true">
+    <path d="M30 100 A80 80 0 0 1 190 100" fill="none" stroke="#ebeae6" strokeWidth="16" strokeLinecap="round" />
+    <path className="w6i-gfill" d="M30 100 A80 80 0 0 1 190 100" fill="none" stroke="#d63a43" strokeWidth="16" strokeLinecap="round" />
+    <g transform="translate(110 100)"><g className="w6i-needle"><path d="M0 0 L74 0" stroke="#3b3d54" strokeWidth="5" strokeLinecap="round" /></g></g>
+    <circle cx="110" cy="100" r="9" fill="#3b3d54" />
+    <path className="w6i-gspark" d="M182 28 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3z" fill="#f5b83d" />
+  </svg>
+);
+const ArtLens = () => (
+  <svg viewBox="0 0 220 120" className="w6i-art2" aria-hidden="true">
+    <defs>
+      <filter id="w6i-bl" x="-10%" y="-30%" width="120%" height="160%"><feGaussianBlur stdDeviation="3" /></filter>
+      <clipPath id="w6i-lc"><circle className="w6i-lclip" cx="0" cy="0" r="34" /></clipPath>
+    </defs>
+    <g filter="url(#w6i-bl)" opacity=".8">
+      <rect x="22" y="34" width="70" height="14" rx="7" fill="#cfcdd6" /><rect x="100" y="34" width="96" height="14" rx="7" fill="#cfcdd6" />
+      <rect x="22" y="64" width="110" height="14" rx="7" fill="#cfcdd6" /><rect x="140" y="64" width="56" height="14" rx="7" fill="#cfcdd6" />
+    </g>
+    <g clipPath="url(#w6i-lc)">
+      <circle className="w6i-lclip" cx="0" cy="0" r="34" fill="#fff" />
+      <rect x="22" y="34" width="70" height="14" rx="7" fill="#3b3d54" /><rect x="100" y="34" width="96" height="14" rx="7" fill="#d63a43" />
+      <rect x="22" y="64" width="110" height="14" rx="7" fill="#f5b83d" /><rect x="140" y="64" width="56" height="14" rx="7" fill="#3b3d54" />
+      <circle cx="47" cy="41" r="3" fill="#fff" /><circle cx="160" cy="41" r="3" fill="#fff" /><circle cx="62" cy="71" r="3" fill="#fff" />
+    </g>
+    <g className="w6i-lens"><circle r="34" fill="none" stroke="#d63a43" strokeWidth="6" /><path d="M24 24 L44 44" stroke="#d63a43" strokeWidth="10" strokeLinecap="round" /></g>
+  </svg>
+);
+
 /* 2.1 — Build 1: the sentence and its 2 problems · Build 2: hard words ≠ good sentence → improve meaning · Build 3: TR → 2 ways */
 export const SMeaning: React.FC<SlideProps> = (props) => {
   const b = props.build;
@@ -62,13 +92,15 @@ export const SMeaning: React.FC<SlideProps> = (props) => {
             </div>
           )}
           {b === 2 && (
-            <div className="w6i-tree" key="t">
+            <div className="w6i-tree2" key="t">
               <div className="w6i-tr">Task Response</div>
-              <svg className="w6i-br" viewBox="0 0 120 200" preserveAspectRatio="none" aria-hidden="true"><path d="M0 100 C60 100 60 40 120 40" /><path d="M0 100 C60 100 60 160 120 160" /></svg>
-              <div className="w6i-ways">
-                {[['Avoid “overgeneralization”', 'convincing'], ['Add more details', 'specific']].map(([how, k], i) => (
-                  <div key={k} className="w6i-way" style={{ animationDelay: `${0.3 + i * 0.35}s` }}>
-                    <span className="w6i-how">{how}</span><span className="w6i-arr">→</span>
+              <svg className="w6i-br2" viewBox="0 0 600 60" preserveAspectRatio="none" aria-hidden="true"><path d="M300 0 V24 H150 V60" /><path d="M300 0 V24 H450 V60" /></svg>
+              <div className="w6i-pair">
+                {([['Avoid “overgeneralization”', 'convincing', <ArtGauge key="g" />], ['Add more details', 'specific', <ArtLens key="l" />]] as const).map(([how, k, art], i) => (
+                  <div key={k} className="card w6i-wcard" style={{ animationDelay: `${0.3 + i * 0.25}s` }}>
+                    <div className="w6i-wart">{art}</div>
+                    <span className="w6i-how">{how}</span>
+                    <span className="w6i-arr">↓</span>
                     <span className="w6i-goal">make it more <b>{k}</b></span>
                   </div>
                 ))}

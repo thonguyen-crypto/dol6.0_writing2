@@ -826,3 +826,23 @@
 .w6 .w6sp-tool.w6-past{background:var(--okl);color:var(--okd)}
 .w6 .w6sp-tool.w6-hide{display:none}
 .w6 .w6s-specificdemo .w6sp-sent{padding-bottom:24px}
+
+/* ---- 2.1 build 3 (v2): TR on top, two equal cards with a looping drawing each -------------- */
+.w6 .w6i-tree2{display:flex;flex-direction:column;align-items:center;width:900px;max-width:100%;animation:fadeIn .4s both}
+.w6 .w6i-br2{width:600px;max-width:66%;height:44px;display:block}
+.w6 .w6i-br2 path{fill:none;stroke:var(--red);stroke-width:3;vector-effect:non-scaling-stroke;stroke-dasharray:400;stroke-dashoffset:400;animation:w6s4Draw .6s .15s forwards}
+.w6 .w6i-pair{display:grid;grid-template-columns:1fr 1fr;gap:40px;width:100%}
+.w6 .w6i-wcard{display:flex;flex-direction:column;align-items:center;gap:10px;padding:18px 22px 20px;animation:rise .45s both}
+.w6 .w6i-wart{width:220px;height:120px}
+.w6 .w6i-art2{width:100%;height:100%;overflow:visible}
+.w6 .w6i-wcard .w6i-how{white-space:nowrap}
+.w6 .w6i-wcard .w6i-arr{font-size:var(--w6-s);line-height:1}
+.w6 .w6i-gfill{stroke-dasharray:252;animation:w6iFill 6s cubic-bezier(.45,0,.25,1) infinite}
+@keyframes w6iFill{0%,15%{stroke-dashoffset:0}40%,80%{stroke-dashoffset:96}100%{stroke-dashoffset:0}}
+.w6 .w6i-needle{animation:w6iNeedle 6s cubic-bezier(.45,0,.25,1) infinite}
+@keyframes w6iNeedle{0%,15%{transform:rotate(0)}40%,80%{transform:rotate(-69deg)}100%{transform:rotate(0)}}
+.w6 .w6i-gspark{transform-box:fill-box;transform-origin:center;opacity:0;animation:w6iSp 6s ease-out infinite}
+@keyframes w6iSp{0%,40%{opacity:0;transform:scale(0)}48%{opacity:1;transform:scale(1.1) rotate(45deg)}62%,100%{opacity:0;transform:scale(0) rotate(90deg)}}
+.w6 .w6i-lens,.w6 .w6i-lclip{animation:w6iLens 6s cubic-bezier(.45,0,.25,1) infinite}
+@keyframes w6iLens{0%{transform:translate(40px,58px)}45%{transform:translate(180px,58px)}55%{transform:translate(180px,58px)}100%{transform:translate(40px,58px)}}
+@media (prefers-reduced-motion:reduce){.w6 .w6i-gfill,.w6 .w6i-needle,.w6 .w6i-gspark,.w6 .w6i-lens,.w6 .w6i-lclip{animation:none}.w6 .w6i-lens,.w6 .w6i-lclip{transform:translate(110px,58px)}}
