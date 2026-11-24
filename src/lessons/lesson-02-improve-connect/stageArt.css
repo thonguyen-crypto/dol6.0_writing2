@@ -1,0 +1,68 @@
+/* Lesson 2 · stage divider illustrations (screens/StageArt.tsx): shape pictures with one gentle loop each.
+   Same organisation as 7.5W Lesson 1 @ 88fc379: shared bob / sparkle, one block of keyframes per scene, reduced motion, phone layout. */
+.sart svg{display:block;overflow:visible}
+.sart .sa-spark,.sart .sa-rv-glow,.sart .sa-im-glow,.sart .sa-lk-ring,.sart .sa-lk-glow,.sart .sa-dm-glow,.sart .sa-dm-star{transform-box:fill-box;transform-origin:center}
+.sa-bob{animation:saBob 3.2s ease-in-out infinite alternate}
+.sa-bob.sa-d2{animation-delay:-1.6s}
+@keyframes saBob{from{transform:translateY(0)}to{transform:translateY(-9px)}}
+.sa-spark{animation:saTw 2.6s ease-in-out infinite}
+.sa-spark.sa-d2{animation-delay:-.9s}.sa-spark.sa-d3{animation-delay:-1.7s}
+@keyframes saTw{0%,100%{transform:scale(.35) rotate(0);opacity:.4}50%{transform:scale(1) rotate(45deg);opacity:1}}
+/* sparks that answer the hero: hidden, then a burst right after the hero lands */
+@keyframes saBurst{0%,40%{transform:scale(0);opacity:0}48%{transform:scale(1.1) rotate(45deg);opacity:1}64%,100%{transform:scale(0) rotate(90deg);opacity:0}}
+
+/* 1 · Revision: the red block comes down into the empty floor, the slot glows, it lifts again */
+.sa-rv-block{animation:saRvBlock 10s cubic-bezier(.5,0,.3,1) infinite}
+@keyframes saRvBlock{0%,10%{transform:translate(0,-118px) rotate(-6deg)}20%{transform:translate(0,-132px) rotate(4deg)}36%,70%{transform:translate(0,0) rotate(0)}84%,100%{transform:translate(0,-118px) rotate(-6deg)}}
+.sa-rv-glow{opacity:0;animation:saRvGlow 10s ease-out infinite}
+@keyframes saRvGlow{0%,36%{opacity:0;transform:scale(.94)}42%{opacity:1;transform:scale(1.04)}50%,66%{opacity:.75;transform:scale(1)}74%,100%{opacity:0;transform:scale(1)}}
+.sa-spark.sa-rvs{animation:saBurst 10s ease-out infinite}
+.sa-spark.sa-rvs.sa-d2{animation-delay:.25s}
+
+/* 2 · Improve: the lens sweeps the row (the sharp copy is clipped to it) and rests on the star */
+.sa-im-lens,.sa-im-clip{animation:saImLens 12s cubic-bezier(.45,0,.25,1) infinite}
+@keyframes saImLens{0%{transform:translate(105px,153px)}14%{transform:translate(225px,153px)}24%,58%{transform:translate(330px,153px)}70%{transform:translate(442px,153px)}82%{transform:translate(528px,153px)}100%{transform:translate(105px,153px)}}
+.sa-im-glow{opacity:0;animation:saImGlow 12s ease-out infinite}
+@keyframes saImGlow{0%,24%{opacity:0;transform:scale(.8)}32%{opacity:1;transform:scale(1.08)}40%,54%{opacity:.8;transform:scale(1)}60%,100%{opacity:0;transform:scale(1)}}
+.sa-spark.sa-ims{animation:saBurstIm 12s ease-out infinite}
+.sa-spark.sa-ims.sa-d2{animation-delay:.25s}
+@keyframes saBurstIm{0%,26%{transform:scale(0);opacity:0}34%{transform:scale(1.1) rotate(45deg);opacity:1}50%,100%{transform:scale(0) rotate(90deg);opacity:0}}
+
+/* 3 · Linking words: the red link drops, turns flat and locks between the two rings; the chain lights up */
+.sa-lk-ring{animation:saLkRing 10s cubic-bezier(.5,0,.3,1) infinite}
+@keyframes saLkRing{0%,10%{transform:translate(0,-112px) rotate(90deg) scale(.8)}22%{transform:translate(0,-60px) rotate(40deg) scale(.9)}34%,72%{transform:translate(0,0) rotate(0) scale(1)}86%,100%{transform:translate(0,-112px) rotate(90deg) scale(.8)}}
+.sa-lk-over{opacity:0;animation:saLkOver 10s steps(1) infinite}
+@keyframes saLkOver{0%,33%{opacity:0}34%,72%{opacity:1}73%,100%{opacity:0}}
+.sa-lk-glow{opacity:0;animation:saLkGlow 10s ease-out infinite}
+@keyframes saLkGlow{0%,36%{opacity:0;transform:scale(.96)}44%{opacity:1;transform:scale(1.03)}52%,66%{opacity:.7;transform:scale(1)}72%,100%{opacity:0}}
+.sa-spark.sa-lks{animation:saBurst 10s ease-out infinite}
+.sa-spark.sa-lks.sa-d2{animation-delay:.25s}.sa-spark.sa-lks.sa-d3{animation-delay:.5s}
+
+/* 4 · Dominoes: each one tips about its bottom-right corner a beat after the one before; the star lights up; all stand again */
+.sart .sa-dm{transform-box:fill-box;transform-origin:right bottom;animation:saDm 10s cubic-bezier(.55,0,.35,1) infinite}
+.sa-dm1{animation-delay:.35s!important}.sa-dm2{animation-delay:.7s!important}.sa-dm3{animation-delay:1.05s!important}.sa-dm4{animation-delay:1.4s!important}
+@keyframes saDm{0%,12%{transform:rotate(0)}20%,72%{transform:rotate(26deg)}84%,100%{transform:rotate(0)}}
+.sart .sa-dm4{animation-name:saDmLast}
+@keyframes saDmLast{0%,12%{transform:rotate(0)}20%,72%{transform:rotate(38deg)}84%,100%{transform:rotate(0)}}
+.sa-dm-glow{opacity:0;animation:saDmGlow 10s ease-out infinite}
+@keyframes saDmGlow{0%,32%{opacity:0;transform:scale(.8)}40%{opacity:1;transform:scale(1.1)}48%,64%{opacity:.8;transform:scale(1)}72%,100%{opacity:0}}
+.sa-dm-star{animation:saDmStar 10s cubic-bezier(.3,1.4,.5,1) infinite}
+@keyframes saDmStar{0%,32%{transform:none}38%{transform:translate(8px,-14px) rotate(20deg) scale(1.15)}46%,70%{transform:rotate(0) scale(1.05)}80%,100%{transform:none}}
+.sart .sa-dm-star path{transition:fill .3s}
+.sa-spark.sa-dms{animation:saBurstDm 10s ease-out infinite}
+.sa-spark.sa-dms.sa-d2{animation-delay:.25s}
+@keyframes saBurstDm{0%,34%{transform:scale(0);opacity:0}42%{transform:scale(1.1) rotate(45deg);opacity:1}58%,100%{transform:scale(0) rotate(90deg);opacity:0}}
+
+@media (prefers-reduced-motion: reduce){
+  .sart *{animation:none!important}
+  .sart .sa-rv-glow,.sart .sa-im-glow,.sart .sa-lk-glow,.sart .sa-dm-glow,.sart .sa-lk-over{opacity:0}
+  .sart .sa-rv-block{transform:translate(0,-118px)}
+  .sart .sa-lk-ring{transform:translate(0,-112px) rotate(90deg) scale(.8)}
+  .sart .sa-im-lens,.sart .sa-im-clip{transform:translate(330px,153px)}
+}
+.phone .dvwrap{flex-direction:column!important;align-items:stretch!important;gap:22px!important;padding:16px 16px 8px!important}
+.phone .dvwrap .dvnum{width:112px!important;height:112px!important;font-size:56px!important;border-width:5px!important;box-shadow:0 0 0 1.5px #f3c9cb,0 6px 0 #b0262e!important}
+.phone .dvwrap h1{font-size:36px!important}
+.phone .dvwrap .dvart{width:auto!important}
+.phone .dvwrap .dvblob{width:440px!important;height:440px!important;right:-120px!important;top:auto!important;bottom:-140px;margin-top:0!important}
+.phone .dvwrap .dvdeco{display:none}

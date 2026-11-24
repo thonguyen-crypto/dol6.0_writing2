@@ -74,23 +74,38 @@ export const CoverSlide: React.FC<SlideProps> = ({ lesson, onStart, view }) => (
   </div>
 );
 
-/** Default stage divider built from lesson meta. */
-export const DividerSlide: React.FC<SlideProps> = ({ step, lesson }) => {
+const coin = (n: number, size: number): React.CSSProperties => ({ width: size, height: size, flex: 'none', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: size * 0.5, fontWeight: 800, lineHeight: 1, animation: 'pop .6s both', backgroundColor: '#d63a43', backgroundImage: 'radial-gradient(circle, rgba(255,255,255,.22) 1.5px, transparent 2px)', backgroundSize: '16px 16px', border: `${Math.round(size / 22)}px solid #fff`, boxShadow: `0 0 0 1.5px #f3c9cb, 0 ${Math.round(size / 16)}px 0 #b0262e` });
+
+/** Default stage divider built from lesson meta. With `art` (an animated illustration) the number and the title lead on the left and the art sits at the side. */
+export const DividerSlide: React.FC<SlideProps & { art?: React.ReactNode }> = ({ step, lesson, art }) => {
   const stage = lesson.stages.find((s) => s.n === step.stage);
   if (!stage) return null;
+  if (art) {
+    const fl = (d: string): React.CSSProperties => ({ position: 'absolute', animation: `float 6s ease-in-out ${d} infinite` });
+    return (
+      <div className="dvwrap" style={{ flex: 1, display: 'flex', alignItems: 'center', gap: 40, position: 'relative', overflow: 'hidden', padding: '40px 56px 40px 88px' }}>
+        <span className="dvblob" style={{ position: 'absolute', right: -150, top: '50%', width: 680, height: 680, marginTop: -340, borderRadius: '50%', background: 'radial-gradient(circle at 45% 45%, #fdf1f1 0%, #fdf1f1 52%, rgba(253,241,241,0) 71%)', animation: 'zoomIn 1s both' }} />
+        <span className="dvdots" style={{ position: 'absolute', left: 28, top: 26, width: 220, height: 150, backgroundImage: 'radial-gradient(#f3c9cb 1.7px, transparent 2.2px)', backgroundSize: '18px 18px', WebkitMaskImage: 'radial-gradient(ellipse at 0 0, #000 30%, transparent 75%)', maskImage: 'radial-gradient(ellipse at 0 0, #000 30%, transparent 75%)' }} />
+        <span className="dvdeco" style={{ ...fl('0s'), right: 96, top: 64, width: 46, height: 46, borderRadius: '50%', border: '3px solid #f3c9cb' }} />
+        <span className="dvdeco" style={{ ...fl('-2s'), left: '47%', bottom: 72, width: 22, height: 22, borderRadius: 7, background: '#fde7a9' }} />
+        <span className="dvdeco" style={{ ...fl('-4s'), left: '44%', top: 92, width: 12, height: 12, borderRadius: '50%', background: '#d63a43', opacity: 0.45 }} />
+        <span className="dvdeco" style={{ ...fl('-3s'), right: 70, bottom: 90, width: 16, height: 16, borderRadius: '50%', background: '#fff', boxShadow: '0 0 0 3px #fde7a9' }} />
+        <div className="dvtext" style={{ flex: '1 1 0', minWidth: 0, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 20, position: 'relative' }}>
+          <div className="dvnum" style={coin(stage.n, 168)}>{stage.n}</div>
+          <h1 className="enter d1" style={{ margin: '12px 0 0', fontSize: 64, lineHeight: 1.06, fontWeight: 800, color: '#3b3d54', letterSpacing: '-.025em', maxWidth: 640 }}>{stage.name}</h1>
+        </div>
+        <div className="dvart" style={{ flex: 'none', width: 540, position: 'relative', animation: 'rise .7s .35s both' }}>{art}</div>
+      </div>
+    );
+  }
   return (
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 18, textAlign: 'center', position: 'relative', overflow: 'hidden', padding: 40 }}>
       <span className="deco" style={{ left: 120, top: 110, width: 16, height: 16, borderRadius: '50%', background: '#f3c9cb' }} />
       <span className="deco" style={{ right: 140, bottom: 120, width: 22, height: 22, borderRadius: 7, background: '#fde7a9', animationDelay: '-2s' }} />
-      <div style={{ width: 128, height: 128, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 58, fontWeight: 800, animation: 'pop .6s both', backgroundColor: '#d63a43', backgroundImage: 'radial-gradient(circle, rgba(255,255,255,.22) 1.5px, transparent 2px)', backgroundSize: '16px 16px', border: '6px solid #fff', boxShadow: '0 0 0 1.5px #f3c9cb, 0 8px 0 #b0262e' }}>{stage.n}</div>
+      <div style={coin(stage.n, 128)}>{stage.n}</div>
       <div className="lbl enter d1">Chặng {stage.n}</div>
       <h1 className="enter d2" style={{ margin: 0, fontSize: 52, fontWeight: 800, color: '#3b3d54', letterSpacing: '-.02em' }}>{stage.name}</h1>
       {stage.sub && <p className="enter d3" style={{ margin: 0, fontSize: 20, color: '#6b6d82', fontWeight: 600, maxWidth: 760 }}>{stage.sub}</p>}
-      {stage.topics && (
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center', marginTop: 8 }}>
-          {stage.topics.map((t, i) => <span key={t} className="ex" style={{ background: '#fdf1f1', color: '#b0262e', animationDelay: `${0.35 + i * 0.07}s` }}>{t}</span>)}
-        </div>
-      )}
     </div>
   );
 };

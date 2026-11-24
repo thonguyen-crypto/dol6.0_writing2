@@ -24,6 +24,8 @@ const steps: StepMeta[] = [
     ] },
 
   /* ---- Stage 1 · Revision ---- */
+  { key: 'd1', kind: 'divider', stage: 1, name: 'Chặng 1 · Revision',
+    notes: [{ title: 'Cách triển khai', text: 'Hỏi nhanh: buổi trước học gì để viết một câu đúng? (4 bước, LR + GRA.) Rồi vào ôn tập.' }] },
   { key: 'revision', kind: 'theory', stage: 1, name: 'Revision', short: 'Revision', builds: 2,
     head: { chip: 'Revision', pre: 'Revision', key: '', vi: '', custom: true },
     notes: [
@@ -39,6 +41,8 @@ const steps: StepMeta[] = [
     ] },
 
   /* ---- Stage 2 · Improve a sentence ---- */
+  { key: 'd2', kind: 'divider', stage: 2, name: 'Chặng 2 · Improve a sentence',
+    notes: [{ title: 'Cách triển khai', text: 'Câu đã đúng rồi, giờ làm câu HAY: improve meaning (thuyết phục hơn, cụ thể hơn), không chạy theo từ khó.' }] },
   { key: 'meaning', kind: 'theory', stage: 2, name: 'Câu hay = ý nghĩa tốt hơn', short: 'Improve meaning', builds: 3,
     head: H('Improve a sentence', 'Improve a sentence by', 'meaning', 'Câu hay không phải vì từ khó, cấu trúc khó'),
     notes: [
@@ -81,6 +85,8 @@ const steps: StepMeta[] = [
     ] },
 
   /* ---- Stage 3 · Linking words ---- */
+  { key: 'd3', kind: 'divider', stage: 3, name: 'Chặng 3 · Linking words',
+    notes: [{ title: 'Cách triển khai', text: 'Phần này chỉ 5–7 phút: linking words HV đã quen; tập trung vào chức năng của từng nhóm.' }] },
   { key: 'cc', kind: 'theory', stage: 3, name: 'Coherence & Cohesion', short: 'CC', builds: 1,
     head: H('Linking words', 'Next:', 'Coherence & Cohesion', 'Nối các câu với nhau'),
     notes: [
@@ -111,6 +117,8 @@ const steps: StepMeta[] = [
     ] },
 
   /* ---- Stage 4 · Without linking words ---- */
+  { key: 'd4', kind: 'divider', stage: 4, name: 'Chặng 4 · Without linking words',
+    notes: [{ title: 'Cách triển khai', text: 'Đẳng cấp nối câu cao hơn: nối mà không cần linking words. Hỏi lớp: cả bài câu nào cũng Firstly, Therefore, As a result… thì đọc thấy sao?' }] },
   { key: 'mindset', kind: 'theory', stage: 4, name: 'Mindset: A → B, B → C', short: 'Mindset', builds: 2,
     head: H('Without linking words', 'Mindset:', 'A → B, B → C', 'Câu sau phải nối tiếp ý câu trước'),
     notes: [

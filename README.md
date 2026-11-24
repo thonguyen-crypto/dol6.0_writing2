@@ -13,7 +13,7 @@ Nguồn nội dung: `[2023]Writing6.0_Session02.pptx` (66 slide). Đã dùng ch�
 | 4 · Without linking words | xong |
 | 5 · Conclusion | xong |
 
-Có 27 bước: 1 bìa và 26 trang. `BUILT_TO` trong `meta.ts` (hiện = 5, cả bài) dùng lúc dựng từng chặng; test dùng cả bài (`fullLesson`).
+Có 31 bước: 1 bìa, 4 slide mở chặng và 26 trang. `BUILT_TO` trong `meta.ts` (hiện = 5, cả bài) dùng lúc dựng từng chặng; test dùng cả bài (`fullLesson`).
 
 ## Các bước theo chặng
 
@@ -25,6 +25,8 @@ Có 27 bước: 1 bìa và 26 trang. `BUILT_TO` trong `meta.ts` (hiện = 5, c�
 | 3 · Linking words | 3.1 Coherence & Cohesion · 3.2 Find the linking words (chạm, chấm tự động) · 3.3 3 chức năng · 3.3a Small practice (chip) |
 | 4 · Without linking words | 4.1 Mindset A → B, B → C · 4.2 This + verb pattern · 4.3 Effects (6 nhóm +/−) · 4.3a/b gõ pattern (chấm tự động) · 4.3c viết This + V (AI) · 4.4 Structures · 4.4a Common mistake: thereby V-ing · 4.4b viết theo cấu trúc (AI) · 4.5, 4.6 viết đoạn từ outline (AI, 1 ô cả đoạn) |
 | 5 · Conclusion | 5.1 4 tiêu chí (LR, GRA ✓ buổi trước; TR, CC hôm nay) · 5.2 Summary (Parts: improve a sentence · connect sentences) · 5.3 Homework (LMS: Build a sentence + Connect sentences, checklist 3 bước) |
+
+**Slide mở chặng (d1–d4):** chỉ có số chặng (vòng đỏ), tên chặng và hình động (`screens/StageArt.tsx`, `stageArt.css`), theo mẫu 7.5W Lesson 1 @ 88fc379. `DividerSlide` trong kit lấy y nguyên bản mới (prop `art`, không hiện `sub` / `topics`). Ẩn dụ: 1 Revision = móng đã xong, tầng trên còn trống · 2 Improve = kính lúp làm hình rõ nét · 3 Linking words = mắt xích · 4 Without linking words = domino. Chặng Conclusion không có slide mở chặng.
 
 Notes cho GV (phím N) được viết lại từ speaker notes của bản gốc.
 
