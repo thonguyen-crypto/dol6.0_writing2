@@ -1337,3 +1337,20 @@
 .w6 .w6so{gap:10px}
 .w6 .w6so-sent{line-height:1.45;padding:16px 26px}
 .w6 .w6so-col{gap:3px;padding:8px 14px}
+
+/* ---- a sheet of notebook paper for written sentences (2.1 show-off sentence, 2.1 part 2 overview) ---- */
+.w6 .w6paper{--lh:1.55em;--pt:18px;position:relative;border:0;border-radius:6px;background-color:#fffdf8;
+  background-image:radial-gradient(circle at 22px 50%,#ebe8e1 0 8px,transparent 9px),linear-gradient(90deg,transparent 48px,#f3c9cb 48px,#f3c9cb 50px,transparent 50px),repeating-linear-gradient(180deg,transparent 0,transparent calc(var(--lh) - 2px),#e7eaf3 calc(var(--lh) - 2px),#e7eaf3 var(--lh));
+  background-size:44px 92px,auto,auto;background-repeat:repeat-y,no-repeat,repeat;background-position:0 10px,0 0,0 var(--pt);
+  padding:var(--pt) 30px var(--pt) 70px;line-height:var(--lh);box-shadow:0 1px 0 #e9e7e1,0 14px 30px rgba(59,61,84,.10),4px 4px 0 #f1efe9;transform:rotate(-.4deg)}
+.w6 .w6so-sent.w6paper{--lh:1.6em}
+.w6 .w6ov-sent.w6paper{--lh:1.9em;padding-bottom:calc(var(--pt) + 22px)}
+/* softer marks: red pen for misused words, pencil grey for bolted-on structures */
+.w6 .w6so-sent.marked .w6so-seg.w{color:var(--redd);text-decoration:underline solid rgba(214,58,67,.45);text-decoration-thickness:2px;text-underline-offset:6px}
+.w6 .w6so-sent.marked .w6so-seg.s{color:var(--ink);background:rgba(139,141,161,.12);box-shadow:inset 0 -2px 0 #c9c8d2;padding:0 4px}
+.w6 .w6so-seg.s .w6so-n,.w6 .w6so-col.s .w6so-n{background:#8b8da1}
+.w6 .w6so-col{background:#fffdf8!important;border:1.5px solid #ebeae6;border-left-width:5px}
+.w6 .w6so-col.w{border-left-color:var(--red)}
+.w6 .w6so-col.s{border-left-color:#8b8da1}
+.w6 .w6so-col.s b{color:var(--sub)}
+.w6 .w6so-seg .w6so-n{vertical-align:baseline;position:relative;top:-.55em;height:1.35em;min-width:1.35em}

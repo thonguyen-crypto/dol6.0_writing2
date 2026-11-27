@@ -193,3 +193,4 @@
 .phone .w6 .w6sx-g{flex-wrap:wrap}
 .phone .w6 .w6so-sent{font-size:var(--w6-s);padding:14px}
 .phone .w6 .w6so-legend{grid-template-columns:1fr}
+.phone .w6 .w6paper{padding-left:44px;background-image:linear-gradient(90deg,transparent 30px,#f3c9cb 30px,#f3c9cb 32px,transparent 32px),repeating-linear-gradient(180deg,transparent 0,transparent calc(var(--lh) - 2px),#e7eaf3 calc(var(--lh) - 2px),#e7eaf3 var(--lh));background-size:auto,auto;background-repeat:no-repeat,repeat;background-position:0 0,0 var(--pt)}

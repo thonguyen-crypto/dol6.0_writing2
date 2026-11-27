@@ -85,7 +85,7 @@ export const SMeaning: React.FC<SlideProps> = (props) => {
           {showoff && (
             <div className="w6so" key="so">
               <span className="w6so-down" aria-hidden="true">↓</span>
-              <p className={`card w6so-sent${b >= 2 ? ' marked' : ''}`}>
+              <p className={`w6paper w6so-sent${b >= 2 ? ' marked' : ''}`}>
                 {SHOWOFF.map((x, i) => (x.k
                   ? <span key={i} className={`w6so-seg ${x.k}`}>{x.t}{b >= 2 && <sup className="w6so-n">{flagNo[i]}</sup>}</span>
                   : <React.Fragment key={i}>{x.t}</React.Fragment>))}
@@ -172,7 +172,7 @@ export const SOverview: React.FC<SlideProps> = (props) => {
         <div className="w6ov-art">
           {b <= 1 ? <Meter pct={b >= 1 ? 62 : 100} /> : <div className="w6sp-art"><ArtSpecific b={b - 2} /></div>}
         </div>
-        <div className="card w6sp-sent w6ov-sent">
+        <div className="w6paper w6sp-sent w6ov-sent">
           Doing internships{' '}
           {b >= 1 && <span className="w6sp-slot"><span className="w6sp-add" key="c">can</span>{tag(1, 'hedging language')}</span>}
           {b >= 1 && ' '}allow{b >= 1 ? '' : 's'}{' '}
