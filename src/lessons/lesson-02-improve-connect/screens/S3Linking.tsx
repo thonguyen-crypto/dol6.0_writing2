@@ -120,47 +120,43 @@ export const SLinkFns: React.FC<SlideProps> = (props) => {
 /* 3.3a — choose a linking word for each gap (any word of the right function, as on the previous page) */
 /* drawing for 3.2a. Before: the topic — a phone in class pinging with chats while the book sits closed.
    After all three are right: one stamp prints the same "LW," block onto three sentence bars, over and over = 1 pattern only. */
-const LwArt: React.FC<{ pattern: boolean }> = ({ pattern }) => (
-  <svg className={`w6la${pattern ? ' on' : ''}`} viewBox="0 0 220 220" aria-hidden="true">
-    {!pattern ? (
-      <g key="phone">
-        <rect x="18" y="150" width="184" height="12" rx="6" fill="#e9e7e1" />
-        <g className="w6la-book"><rect x="34" y="122" width="74" height="28" rx="5" fill="#f4f4f2" stroke="#3b3d54" strokeWidth="3" /><path d="M71 124v24" stroke="#3b3d54" strokeWidth="3" /></g>
-        <g className="w6la-phone">
-          <rect x="128" y="62" width="52" height="88" rx="10" fill="#3b3d54" />
-          <rect className="w6la-screen" x="134" y="72" width="40" height="64" rx="4" fill="#fdf1f1" />
-          <circle cx="154" cy="143" r="3" fill="#fff" />
-        </g>
-        {[0, 1, 2].map((i) => (
-          <g key={i} className={`w6la-ping p${i}`}>
-            <rect x={i === 1 ? 70 : 96} y={i === 2 ? 46 : 20} width="56" height="26" rx="13" fill="#d63a43" />
-            {[0, 1, 2].map((d) => <circle key={d} cx={(i === 1 ? 86 : 112) + d * 12} cy={(i === 2 ? 59 : 33)} r="3" fill="#fff" />)}
-          </g>
-        ))}
-        <text x="152" y="108" textAnchor="middle" className="w6la-zz">z z</text>
+const LwPhone: React.FC = () => (
+  <svg className="w6la" viewBox="0 0 220 220" aria-hidden="true">
+    <rect x="18" y="150" width="184" height="12" rx="6" fill="#e9e7e1" />
+    <g className="w6la-book"><rect x="34" y="122" width="74" height="28" rx="5" fill="#f4f4f2" stroke="#3b3d54" strokeWidth="3" /><path d="M71 124v24" stroke="#3b3d54" strokeWidth="3" /></g>
+    <g className="w6la-phone">
+      <rect x="128" y="62" width="52" height="88" rx="10" fill="#3b3d54" />
+      <rect className="w6la-screen" x="134" y="72" width="40" height="64" rx="4" fill="#fdf1f1" />
+      <circle cx="154" cy="143" r="3" fill="#fff" />
+    </g>
+    {[0, 1, 2].map((i) => (
+      <g key={i} className={`w6la-ping p${i}`}>
+        <rect x={i === 1 ? 70 : 96} y={i === 2 ? 46 : 20} width="56" height="26" rx="13" fill="#d63a43" />
+        {[0, 1, 2].map((d) => <circle key={d} cx={(i === 1 ? 86 : 112) + d * 12} cy={(i === 2 ? 59 : 33)} r="3" fill="#fff" />)}
       </g>
-    ) : (
-      <g key="stamp">
-        {[0, 1, 2].map((i) => (
-          <g key={i} transform={`translate(18 ${92 + i * 40})`}>
-            <rect width="184" height="26" rx="8" fill="#f4f4f2" />
-            <rect className={`w6la-ink i${i}`} x="4" y="4" width="56" height="18" rx="5" fill="#d63a43" />
-            <rect x="70" y="10" width="100" height="6" rx="3" fill="#c9c8d2" />
-          </g>
-        ))}
-        <g className="w6la-stamp">
-          <rect x="34" y="20" width="16" height="30" rx="5" fill="#3b3d54" />
-          <rect x="22" y="48" width="40" height="14" rx="4" fill="#3b3d54" />
-          <rect x="22" y="60" width="40" height="6" rx="2" fill="#d63a43" />
-        </g>
-        <text x="150" y="56" textAnchor="middle" className="w6la-x">×3</text>
+    ))}
+  </svg>
+);
+/* the message drawing: one stamp prints the same "LW," block onto three sentence bars, over and over */
+const LwStamp: React.FC = () => (
+  <svg className="w6la w6la-st" viewBox="0 0 220 200" aria-hidden="true">
+    {[0, 1, 2].map((i) => (
+      <g key={i} transform={`translate(18 ${82 + i * 40})`}>
+        <rect width="184" height="26" rx="8" fill="#f4f4f2" />
+        <rect className={`w6la-ink i${i}`} x="4" y="4" width="56" height="18" rx="5" fill="#d63a43" />
+        <rect x="70" y="10" width="100" height="6" rx="3" fill="#c9c8d2" />
       </g>
-    )}
+    ))}
+    <g className="w6la-stamp">
+      <rect x="34" y="10" width="16" height="30" rx="5" fill="#3b3d54" />
+      <rect x="22" y="38" width="40" height="14" rx="4" fill="#3b3d54" />
+      <rect x="22" y="50" width="40" height="6" rx="2" fill="#d63a43" />
+    </g>
   </svg>
 );
 
-/* 3.2a — choose the linking word for each gap (any word of the right function). Only once all three are right
-   (or the GV reveals the key) the shared pattern "Linking word, S V" appears: correct, but every sentence looks the same. */
+/* 3.2a — choose the linking word for each gap (any word of the right function). Build 2 (a click): everything else
+   blurs and the message takes the centre: "Linking word, + S V" ×3 — correct, but every sentence has the same pattern. */
 export const SLwPractice: React.FC<SlideProps> = (props) => {
   const key = props.step.key;
   const [fx, burst] = useBurst();
@@ -172,7 +168,7 @@ export const SLwPractice: React.FC<SlideProps> = (props) => {
   const showKey = props.revealed || act.locked;
   const lockedUi = act.locked || act.paused;
   const done = gaps.filter((g) => pick[g.id]).length;
-  const pattern = !!act.latest?.isCorrect || showKey;
+  const pattern = props.build >= 1;
   const submit = async () => {
     const lines = gaps.map((g) => ({ id: g.id, label: FN_VI[g.fn], value: pick[g.id] || '—', correct: lwOk(g.fn, pick[g.id]) }));
     const right = lines.filter((l) => l.correct).length;
@@ -185,7 +181,8 @@ export const SLwPractice: React.FC<SlideProps> = (props) => {
   const bar = <SubmitBar act={act} ready={done === gaps.length} hint={`Chọn đủ ${gaps.length} chỗ trống (${done}/${gaps.length})`} label={act.latest ? 'Nộp lại' : 'Nộp bài'} onSubmit={submit} />;
   return (
     <Frame props={props} bar={bar} fx={fx}>
-      <div className={`w6lp${pattern ? ' w6lp-on' : ''}`}>
+      <div className={`w6lp-wrap${pattern ? ' w6lp-on' : ''}`}>
+      <div className="w6lp">
         <div className="w6lp-main">
           <p className="w6lp-first">{LW_PRACTICE.first}</p>
           {gaps.map((g, i) => {
@@ -200,14 +197,18 @@ export const SLwPractice: React.FC<SlideProps> = (props) => {
               </p>
             );
           })}
-          {pattern && (
-            <div className="w6lp-formula enter">
-              <span className="w6lp-lw">Linking word,</span><span className="w6lp-plus">+</span><span className="w6lp-sv">S V</span>
-              <span className="w6lp-x">× 3 câu → đơn điệu</span>
-            </div>
-          )}
         </div>
-        <LwArt pattern={pattern} />
+        <LwPhone />
+      </div>
+      {pattern && (
+        <div className="w6lp-msg" role="note">
+          <LwStamp />
+          <div className="w6lp-formula">
+            <span className="w6lp-lw">Linking word,</span><span className="w6lp-plus">+</span><span className="w6lp-sv">S V</span>
+          </div>
+          <div className="w6lp-x">× 3 câu · cùng 1 pattern → đơn điệu</div>
+        </div>
+      )}
       </div>
     </Frame>
   );
