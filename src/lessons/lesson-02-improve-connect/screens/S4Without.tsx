@@ -55,7 +55,7 @@ export const SMindset: React.FC<SlideProps> = (props) => {
    6 "This" and "help" light up, then the paper blurs and "this + verb pattern" slams into the centre (Effects tag on the verb pattern). */
 const reduceMotion = () => typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 /** ms since this build started (ticks until `until`); jumps to the end when motion is reduced */
-function useClock(build: number, until = 7000): number {
+export function useClock(build: number, until = 7000): number {
   const [t, setT] = useState(() => (reduceMotion() ? 1e9 : 0));
   useEffect(() => {
     if (reduceMotion()) { setT(1e9); return; }
@@ -66,10 +66,10 @@ function useClock(build: number, until = 7000): number {
   }, [build, until]);
   return t;
 }
-const ERASE_MS = 1300;
-const CHAR_MS = 32;
+export const ERASE_MS = 1300;
+export const CHAR_MS = 32;
 /** text being rubbed out: a paper-coloured cover follows the eraser left → right */
-const Erase: React.FC<{ text: string; t: number; cls?: string }> = ({ text, t, cls = '' }) => {
+export const Erase: React.FC<{ text: string; t: number; cls?: string }> = ({ text, t, cls = '' }) => {
   const p = Math.min(1, Math.max(0, t / ERASE_MS));
   return (
     <span className={`w6tv-er ${cls}`}>
@@ -85,7 +85,7 @@ const Erase: React.FC<{ text: string; t: number; cls?: string }> = ({ text, t, c
   );
 };
 /** text being written: revealed character by character, the pen tip sits at the caret */
-const Write: React.FC<{ parts: { t: string; cls?: string }[]; t: number }> = ({ parts, t }) => {
+export const Write: React.FC<{ parts: { t: string; cls?: string }[]; t: number }> = ({ parts, t }) => {
   let n = Math.max(0, Math.floor(t / CHAR_MS));
   const total = parts.reduce((k, p) => k + p.t.length, 0);
   const writing = n < total;

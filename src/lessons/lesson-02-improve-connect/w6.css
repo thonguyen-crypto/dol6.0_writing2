@@ -1461,3 +1461,7 @@
 .w6 .w6pc-dot.on.ok,.w6 .w6pc-dot.on.bad{box-shadow:0 0 0 4px var(--redl)}
 .w6 .w6pc-dash{width:64px;height:0;border-top:3px dashed #d9d8d3;transition:border-color .3s}
 .w6 .w6pc-dash.on{border-top-color:var(--red)}
+.w6 .w6d-cen .w6tv-cover{background:#fff}
+.w6 .w6d-cen .w6tv-eraser{width:52px;height:36px;margin:-22px 0 0 -14px}
+.w6 .w6d-cen .w6tv-pen svg{width:28px;height:44px}
+.w6 .w6wc-fill{display:inline}

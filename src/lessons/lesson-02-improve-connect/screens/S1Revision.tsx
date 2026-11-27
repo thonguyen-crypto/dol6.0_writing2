@@ -3,6 +3,7 @@ import React from 'react';
 import type { SlideProps } from '../../../kit/slides';
 import { STEPS4, WARM_KEYS } from '../logic';
 import { CritTree, Frame, Parts, type Part } from '../runtime';
+import { CHAR_MS, ERASE_MS, Erase, Write, useClock } from './S4Without';
 
 /* ---- 4-step drawings (same set as Lesson 1 · 4.1, so the two lessons look like one series) ---- */
 const ArtMeaning = () => (
@@ -121,11 +122,22 @@ export const SWarmup: React.FC<SlideProps> = (props) => {
   const b = props.build;
   const stepAt = b <= 3 ? b : b <= 5 ? 3 : Math.min(b - 2, 5);
   const sc = (i: number) => `w6d-sc${b === i ? ' on' : b > i ? ' gone' : ''}`;
+  /* build 5: the eraser rubs out "somebody", the pen writes "people"; then "do something" goes and "___ soft skills" is written */
+  const t = useClock(b, 5000);
+  const T1 = ERASE_MS + 100, T2 = T1 + 'people'.length * CHAR_MS + 250, T3 = T2 + ERASE_MS + 100;
+  const fillIn = (
+    <span className="w6wc-fill">
+      {t < T1 ? <Erase text="somebody" t={t} /> : <Write t={t - T1} parts={[{ t: 'people' }]} />}
+      {' '}<i>to</i>{' '}
+      {t < T2 ? 'do something' : t < T3 ? <Erase text="do something" t={t - T2} />
+        : <><span className="w6wc-slot"><span className="q">?</span></span>{' '}<Write t={t - T3 - 150} parts={[{ t: 'soft skills' }]} /></>}
+    </span>
+  );
   const cols = [
     { vi: 'Đi thực tập', role: 'S', cls: 'rS', en: <>Doing internships</> },
     { vi: 'giúp', role: 'V', cls: 'rV', en: <>allows</> },
     { vi: '(người ta) phát triển kỹ năng mềm', role: b === 3 ? 'pattern' : '', cls: b >= 3 ? 'rP' : 'rx',
-      en: b >= 4 ? <>people <i>to</i> <span className="w6wc-slot">{b === 4 ? <span className="q">?</span> : <span className="w" key="dev">develop</span>}</span> soft skills</>
+      en: b === 4 ? fillIn : b >= 5 ? <>people <i>to</i> <span className="w6wc-slot"><span className="w" key="dev">develop</span></span> soft skills</>
         : b >= 3 ? <>somebody <i>to</i> do something</> : <>…</> },
   ];
   return (
@@ -163,7 +175,7 @@ export const SWarmup: React.FC<SlideProps> = (props) => {
               <div key={i} className={`w6d-col ${c.cls}`} style={{ animationDelay: `${0.15 + i * 0.25}s` }}>
                 <span className="w6d-cvi">{c.vi}</span>
                 <span className="w6d-arr" style={{ animationDelay: `${0.45 + i * 0.25}s` }}>↓</span>
-                <span key={c.cls + (i === 2 && b >= 4 ? 'c' : '')} className="w6d-cen" style={{ animationDelay: i === 2 && b >= 3 ? '.15s' : `${0.6 + i * 0.25}s` }}>{c.en}</span>
+                <span key={c.cls} className="w6d-cen" style={{ animationDelay: i === 2 && b >= 3 ? '.15s' : `${0.6 + i * 0.25}s` }}>{c.en}</span>
                 <span key={'r' + c.role} className="w6d-role" style={{ animationDelay: i === 2 && b >= 3 ? '.35s' : `${0.85 + i * 0.25}s`, visibility: c.role ? 'visible' : 'hidden' }}>{c.role || '·'}</span>
                 {i === 2 && b === 3 && <span className="w6d-src">Oxford · allow (v)</span>}
                 {i === 2 && b === 5 && <span className="w6d-src" key="oz">Ozdic · skill (n): <b>develop</b> / acquire ~ skills</span>}
