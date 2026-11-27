@@ -72,7 +72,7 @@ pnpm check:lesson && pnpm lint && pnpm test && pnpm build
 - **1.2: HS không gõ câu**, GV hỏi miệng (đã chốt).
 - **Chặng 2 đổi flow (theo yêu cầu 24/11):** 2.1 (phần 2) dùng câu internships để show toàn cảnh 2 hướng (convincing rồi specific, slide 13–15); 2.2 và 2.3 dạy lý thuyết từng hướng bằng ví dụ mới do DOL soạn (smartphones, fast food), không dùng lại câu internships; practice nằm ngay sau lý thuyết của nó.
 - **Gộp trang (27/11):** 2.1 + 2.2 thành một trang “Demo”; 3.1 + 3.2 thành “Demo: Linking words” (phần 2 không còn là bài tập, chỉ là demo cho GV; outline và đoạn văn cùng cỡ chữ lớn `--w6-t`, không có tag chức năng); 4.1 + 4.2 + 4.3 thành “This + verb pattern”. Mỗi trang dùng `Parts`, mỗi phần giữ tiêu đề riêng; các trang sau lùi mã.
-- **2.3a chọn chip** (có chip nhiễu All, will, always, definitely); chấm xong mỗi thẻ hiện tên công cụ (quantifier, modal verb, adverb of frequency, language of probability). Chỗ trống adverb nhận cả usually và often (notes slide 18).
+- **2.2a chọn chip** (có chip nhiễu All, will, always, definitely); chấm xong mỗi thẻ hiện tên công cụ (quantifier, modal verb, adverb of frequency, language of probability). Chỗ trống adverb nhận cả usually và often (notes slide 18).
 - **2.4a:** nhãn kỹ thuật (add examples…) chỉ hiện sau khi chấm hoặc khi GV mở đáp án, để HS tự nhận ra. Chấm xong, 4 câu thành danh sách: câu nào chưa đạt mở nhận xét trước.
 - **3.1 phần 2 (demo):** 6 build, mỗi build ghép một ý của outline với một câu; câu mới bay vào, linking word nổi bật trên nền đỏ, các câu trước nhạt màu nhưng linking word vẫn đỏ.
 - **3.3a nhận mọi từ nối cùng chức năng** như bảng ở 3.3 (giữ giống slide, kể cả In fact ở nhóm Expand); đáp án mẫu là đáp án slide 40.
