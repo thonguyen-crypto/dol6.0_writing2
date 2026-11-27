@@ -846,3 +846,67 @@
 .w6 .w6i-lens,.w6 .w6i-lclip{animation:w6iLens 6s cubic-bezier(.45,0,.25,1) infinite}
 @keyframes w6iLens{0%{transform:translate(40px,58px)}45%{transform:translate(180px,58px)}55%{transform:translate(180px,58px)}100%{transform:translate(40px,58px)}}
 @media (prefers-reduced-motion:reduce){.w6 .w6i-gfill,.w6 .w6i-needle,.w6 .w6i-gspark,.w6 .w6i-lens,.w6 .w6i-lclip{animation:none}.w6 .w6i-lens,.w6 .w6i-lclip{transform:translate(110px,58px)}}
+
+/* ---- 2.3 v2: drawing that acts out the current hedging tool + the tool list ------------------ */
+.w6 .w6ht2{display:grid;grid-template-columns:380px 1fr;gap:26px;align-items:center;width:100%;max-width:1200px;align-self:center}
+.w6 .w6ht-viz{display:flex;flex-direction:column;align-items:center;gap:14px;padding:22px 22px 18px;animation:rise .45s both;background:linear-gradient(180deg,#fff, #fdf8f6)}
+.w6 .w6ht-swap{display:flex;align-items:center;gap:12px;font-size:var(--w6-t);font-weight:800}
+.w6 .w6ht-swap s{color:var(--sub);text-decoration-color:var(--red);text-decoration-thickness:3px}
+.w6 .w6ht-swap b{color:#fff;background:var(--red);border-radius:12px;padding:2px 14px;animation:pop .5s .6s both}
+.w6 .w6ht-swarr{color:var(--sub)}
+.w6 .w6ht2 .w6ht{max-width:none}
+.w6 .w6ht-swap{font-size:var(--w6-s);flex-wrap:wrap;justify-content:center;text-align:center}
+.w6 .w6ht-swap s,.w6 .w6ht-swap b{white-space:nowrap}
+
+/* ---- 3.3 v2: outline blocks + linking words as snapping joints -------------------------------- */
+.w6 .w6fm{display:flex;flex-direction:column;align-items:stretch}
+.w6 .w6fm-node{display:flex;gap:12px;align-items:baseline;padding:12px 18px;font-size:var(--w6-s);color:var(--ink);line-height:1.5;transition:box-shadow .35s,border-color .35s}
+.w6 .w6fm-node b{flex:none;width:76px;color:var(--redd)}
+.w6 .w6fm-node.fx{border-color:var(--red);box-shadow:0 0 0 3px var(--redl)}
+.w6 .w6fm-gap{position:relative;height:46px;display:flex;align-items:center;justify-content:center}
+.w6 .w6fm-rail{position:absolute;left:50%;top:0;bottom:0;width:0;border-left:3px dashed #d8d7d2;transition:border-color .3s}
+.w6 .w6fm-gap.on .w6fm-rail{border-left:3px solid var(--red)}
+.w6 .w6fm-chip{position:relative;z-index:1;font-size:var(--w6-s);font-weight:800;color:#fff;background:var(--red);border-radius:12px;padding:4px 16px;box-shadow:0 4px 0 var(--redd);animation:w6fmSnap .7s cubic-bezier(.3,1.5,.5,1) both}
+.w6 .w6fm-gap:not(.cur) .w6fm-chip{background:#fff;color:var(--redd);border:2px solid var(--red);box-shadow:none;animation:none}
+@keyframes w6fmSnap{0%{opacity:0;transform:translateX(260px) rotate(8deg)}60%{opacity:1;transform:translateX(-10px) rotate(-3deg)}100%{transform:none}}
+.w6 .w6fm-spark{position:absolute;left:calc(50% - 6px);top:-6px;width:12px;height:12px;border-radius:50%;background:#f5b83d;box-shadow:0 0 0 4px rgba(245,184,61,.25);animation:w6fmSpark 1.8s .7s ease-in infinite}
+@keyframes w6fmSpark{0%{transform:translateY(0);opacity:0}15%{opacity:1}85%{opacity:1}100%{transform:translateY(46px);opacity:0}}
+.w6 .w6fm-arr{display:inline-block;font-size:var(--w6-ui);font-weight:800;color:#fff;background:var(--red);border-radius:10px;padding:0 10px;margin:0 6px;line-height:1.7;animation:w6fmSnap .7s cubic-bezier(.3,1.5,.5,1) both}
+.w6 .w6fm-node .w6fm-arr:nth-of-type(2){animation-delay:.25s}
+@media (prefers-reduced-motion:reduce){.w6 .w6fm-spark{display:none}.w6 .w6fm-chip,.w6 .w6fm-arr{animation:none}}
+
+/* ---- 4.1 v2: a spark runs along the chain; the loose linking word falls off ---------------------- */
+.w6 .w6ch-row{overflow:visible}
+.w6 .w6ch-row.cur::after{content:'';position:absolute;left:34px;top:50%;width:14px;height:14px;margin-top:-7px;border-radius:50%;background:#f5b83d;box-shadow:0 0 0 5px rgba(245,184,61,.25),0 0 18px rgba(245,184,61,.6);animation:w6chRun 3.2s 1s cubic-bezier(.45,0,.55,1) infinite}
+@keyframes w6chRun{0%{left:34px;opacity:0}10%{opacity:1}88%{opacity:1}100%{left:calc(100% - 48px);opacity:0}}
+.w6 .w6ch-row.cur:not(:has(.w6ch-this))::after{animation-name:w6chStop}
+@keyframes w6chStop{0%{left:34px;opacity:0}10%{opacity:1}45%{left:38%;opacity:1}60%,100%{left:38%;opacity:0}}
+.w6 .w6ch-row.cur .w6ch-lw{animation:w6chFall 3.2s 1.2s ease-in infinite;transform-origin:left center}
+@keyframes w6chFall{0%,35%{transform:none;opacity:1}55%{transform:translateY(30px) rotate(24deg);opacity:.4}70%,100%{transform:translateY(30px) rotate(24deg);opacity:0}}
+.w6 .w6ch-dot.again{animation:w6chCopy .8s .5s cubic-bezier(.3,1.3,.5,1) both,w6pulse 1.4s 1.4s ease-in-out 2}
+@keyframes w6chCopy{from{transform:translateX(-170px) scale(.8);opacity:.3}to{transform:none;opacity:1}}
+
+/* ---- 4.2 v2: sentence A collapses into the "This" capsule ---------------------------------- */
+.w6 .w6tv-ghost{position:absolute;left:0;top:0;width:100%;height:100%;border-radius:14px;background:var(--redl);border:2px solid var(--red);animation:w6tvGhost .9s cubic-bezier(.5,0,.3,1) both;pointer-events:none}
+@keyframes w6tvGhost{0%{transform:translate(260px,-70px) scaleX(9) scaleY(1.2);opacity:.6}100%{transform:none;opacity:0}}
+.w6 .w6tv-this{position:relative;animation-delay:.75s}
+
+/* ---- 4.3 v2: an icon acts out each group ------------------------------------------------------ */
+.w6 .w6ef-gi{display:flex;gap:12px;align-items:center}
+
+/* ---- 4.4 v2: live sentence with a switching joint --------------------------------------------- */
+.w6 .w6st-live{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 24px 14px;width:100%;max-width:1180px;border-color:var(--red);box-shadow:0 0 0 3px var(--redl)}
+.w6 .w6st-livepat{font-size:var(--w6-s);font-weight:800;color:#fff;background:var(--red);border-radius:999px;padding:2px 16px;animation:pop .45s both}
+.w6 .w6st-livesent{font-size:var(--w6-t);font-weight:700;color:var(--ink);text-align:center;line-height:1.45}
+.w6 .w6st-joint{display:inline;animation:w6stJ .55s cubic-bezier(.3,1.3,.5,1) both}
+.w6 .w6st-joint .w6-m-key{color:var(--red);font-weight:800;background:var(--redl);border-radius:8px;padding:0 4px}
+@keyframes w6stJ{from{opacity:0;filter:blur(4px)}to{opacity:1;filter:none}}
+.w6 .w6st-dots{display:flex;gap:6px}
+.w6 .w6st-dots i{width:8px;height:8px;border-radius:50%;background:#e1e0dc;transition:all .3s}
+.w6 .w6st-dots i.on{width:22px;border-radius:4px;background:var(--red)}
+.w6 .w6st-g .w6st-ex{font-size:var(--w6-ui)}
+@media (prefers-reduced-motion:reduce){.w6 .w6ch-row.cur::after,.w6 .w6ch-row.cur .w6ch-lw,.w6 .w6tv-ghost{animation:none;display:none}}
+.w6 .w6st-joint .w6-m-key{padding:0 4px 0 0}
+/* 5.2 v2: an icon on each branch, taken from the page that taught it */
+.w6 .w6mm-name{display:inline-flex;align-items:center;gap:10px;padding:8px 16px 8px 10px}
+.w6 .w6mm-name .w6v-si{width:48px;height:34px}

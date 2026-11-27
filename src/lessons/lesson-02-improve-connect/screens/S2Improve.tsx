@@ -7,6 +7,7 @@ import { useActivity, useDraft } from '../../../kit/activities/useActivity';
 import {
   HEDGE, HEDGE_TOOLS, PARA, PARA_TOPIC, SPEC_BASE, SPEC_TOOLS, SPECIFIC, frameAnswer, frameCheck, hedgeOk, paraModel, paraSentence, paraSlots, slotOk, slotText, type ParaSlot,
 } from '../logic';
+import { HEDGE_VIZ } from './Viz';
 import { Frame, GradedList, Segs, Slot, SubmitBar, rv, useAiSet, useBurst, useOpenSlot } from '../runtime';
 
 /* ---- 2.1 drawings ------------------------------------------------------------------------ */
@@ -163,16 +164,25 @@ export const SOverview: React.FC<SlideProps> = (props) => {
    The absolute word is crossed out, the hedge takes its place; earlier tools fold into one line. */
 export const SConvincing: React.FC<SlideProps> = (props) => {
   const b = props.build;
+  const cur = HEDGE_TOOLS[Math.min(b, HEDGE_TOOLS.length - 1)];
+  const Viz = HEDGE_VIZ[cur.id];
+  const word = (segs: typeof cur.before) => segs.find(([, m]) => m)?.[0] || '';
   return (
     <Frame props={props}>
-      <div className="w6ht">
-        {HEDGE_TOOLS.map((t, i) => (
-          <div key={t.id} className={`card w6ht-card ${rv(b, i)}`}>
-            <div className="w6ht-h"><span className="w6-n">{i + 1}</span><span className="w6ht-tool">{t.tool}</span><span className="w6ht-use">{t.use}</span></div>
-            {i === b && <div className="w6ht-before"><Segs segs={t.before} /></div>}
-            <div className="w6ht-after"><span className="w6ht-arr">→</span><Segs segs={t.after} /></div>
-          </div>
-        ))}
+      <div className="w6ht2">
+        <div className="card w6ht-viz" key={cur.id}>
+          <Viz />
+          <div className="w6ht-swap"><s>{word(cur.before)}</s><span className="w6ht-swarr">→</span><b>{word(cur.after)}</b></div>
+        </div>
+        <div className="w6ht">
+          {HEDGE_TOOLS.map((t, i) => (
+            <div key={t.id} className={`card w6ht-card ${rv(b, i)}`}>
+              <div className="w6ht-h"><span className="w6-n">{i + 1}</span><span className="w6ht-tool">{t.tool}</span><span className="w6ht-use">{t.use}</span></div>
+              {i === b && <div className="w6ht-before"><Segs segs={t.before} /></div>}
+              <div className="w6ht-after"><span className="w6ht-arr">→</span><Segs segs={t.after} /></div>
+            </div>
+          ))}
+        </div>
       </div>
     </Frame>
   );

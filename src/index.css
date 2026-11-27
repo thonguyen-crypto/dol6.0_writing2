@@ -9,6 +9,7 @@
 @import "./lessons/lesson-02-improve-connect/w6.css";
 @import "./lessons/lesson-02-improve-connect/w6.phone.css";
 @import "./lessons/lesson-02-improve-connect/stageArt.css";
+@import "./lessons/lesson-02-improve-connect/viz.css";
 
 html, body, #root { margin: 0; height: 100%; }
 body { background: #f4f4f2; }

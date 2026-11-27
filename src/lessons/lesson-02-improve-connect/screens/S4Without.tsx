@@ -2,7 +2,7 @@
    4.1 Mindset A → B, B → C · 4.2 This + verb pattern · 4.3 Effects (verb patterns)
    4.3a / 4.3b This + verb pattern, typed (auto) · 4.3c write This + V (AI)
    4.4 Structures · 4.4a Common mistake: thereby V-ing · 4.4b write with structures (AI) · 4.5 / 4.6 write a paragraph (AI) */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import type { SlideProps } from '../../../kit/slides';
 import { useActivity, useDraft } from '../../../kit/activities/useActivity';
 import { precheck } from '../checks';
@@ -10,6 +10,7 @@ import {
   EFFECT_TOP, PARA_WRITE, STRUCTS, STRUCT_A, STRUCT_WRITE, THEREBY, THIS_DEMO, THIS_WRITE, TYPE_NEG, TYPE_POS, VGROUPS,
   gapOk, type TypeSet, type VGroup,
 } from '../logic';
+import { EFFECT_ICON } from './Viz';
 import { FbRows, Frame, GradedList, Segs, SubmitBar, Verdict, useAiSet, useBurst } from '../runtime';
 
 /* ---- circles chain (4.1, 4.4) -------------------------------------------------------------- */
@@ -62,7 +63,7 @@ export const SThisVerb: React.FC<SlideProps> = (props) => {
           ) : (
             <>
               <span className="w6tv-lw out" aria-hidden="true">{THIS_DEMO.lw}</span>
-              <span className="w6tv-thisw"><span className="w6tv-this">This</span><span className="w6tv-eq">= ý câu A</span></span>
+              <span className="w6tv-thisw"><span className="w6tv-ghost" aria-hidden="true" /><span className="w6tv-this">This</span><span className="w6tv-eq">= ý câu A</span></span>
               <span key={b >= 2 ? 'v2' : 'v1'} className={`w6tv-rest v${b >= 2 ? ' flip' : ''}`}>{b >= 2 ? THIS_DEMO.v2 : THIS_DEMO.v1}</span>
             </>
           )}
@@ -80,8 +81,9 @@ export const SThisVerb: React.FC<SlideProps> = (props) => {
 /* ---- 4.3 effects ---------------------------------------------------------------------------- */
 const GroupCard: React.FC<{ g: VGroup; delay?: number; compact?: boolean }> = ({ g, delay = 0, compact }) => (
   <div className={`card w6ef-g s-${g.sign === '+' ? 'pos' : 'neg'}${compact ? ' compact' : ''}`} style={{ animationDelay: `${delay}s` }}>
-    <div className="w6ef-gn">{g.name}</div>
-    <ul>{g.pats.map((p) => <li key={p}>{p}</li>)}</ul>
+    {!compact && EFFECT_ICON[g.id] ? (
+      <div className="w6ef-gi">{React.createElement(EFFECT_ICON[g.id])}<div><div className="w6ef-gn">{g.name}</div><ul>{g.pats.map((p) => <li key={p}>{p}</li>)}</ul></div></div>
+    ) : (<><div className="w6ef-gn">{g.name}</div><ul>{g.pats.map((p) => <li key={p}>{p}</li>)}</ul></>)}
   </div>
 );
 export const SEffects: React.FC<SlideProps> = (props) => {
@@ -196,6 +198,25 @@ export const SThisWrite: React.FC<SlideProps> = (props) => {
 /* ---- 4.4 structures ------------------------------------------------------------------------- */
 /* Build 1: LW / this between two sentences → "limited range of structures" · Build 2: A → B → C in one sentence
    Build 3: the which group · Build 4: the thus group; the running example changes its ending */
+/** the running example with a "joint" that keeps switching through the connectors of the group being taught */
+const LiveStruct: React.FC<{ grp: 'which' | 'thus' }> = ({ grp }) => {
+  const items = STRUCTS.filter((x) => x.group === grp);
+  const [k, setK] = useState(0);
+  useEffect(() => {
+    setK(0);
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+    const t = setInterval(() => setK((x) => (x + 1) % items.length), 2600);
+    return () => clearInterval(t);
+  }, [grp, items.length]);
+  const x = items[k];
+  return (
+    <div className="card w6st-live">
+      <span className="w6st-livepat" key={'p' + x.id}>{x.pat}</span>
+      <span className="w6st-livesent">{STRUCT_A}<span className="w6st-joint" key={x.id}><Segs segs={x.end} /></span></span>
+      <span className="w6st-dots">{items.map((it, i) => <i key={it.id} className={i === k ? 'on' : ''} />)}</span>
+    </div>
+  );
+};
 export const SStructs: React.FC<SlideProps> = (props) => {
   const b = props.build;
   return (
@@ -213,6 +234,7 @@ export const SStructs: React.FC<SlideProps> = (props) => {
               <Dot n="A" /><Arr delay={0.1} /><Dot n="B" delay={0.2} /><Arr delay={0.3} /><Dot n="C" delay={0.4} /><Stop />
               <span className="w6ch-note ok">1 câu</span>
             </div>
+            {b >= 2 && <LiveStruct grp={b >= 3 ? 'thus' : 'which'} />}
             {b >= 2 && (
               <div className="w6st-groups">
                 {(['which', 'thus'] as const).map((grp, gi) => (

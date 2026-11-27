@@ -82,6 +82,34 @@ export const SFindLinks: React.FC<SlideProps> = (props) => {
   );
 };
 
+/* 3.3 drawing: the outline as three blocks; a linking word is the joint that snaps into the gap between two blocks.
+   Build 1: "This is because" joins Idea → Expand · Build 2: "For example," joins Expand → Example ·
+   Build 3: the ⇒ arrows inside the blocks become joints too (As a result / and thus / Therefore). A spark runs down the joints that are in. */
+const FlowMap: React.FC<{ b: number }> = ({ b }) => {
+  const joint = (on: boolean, cur: boolean, text: string) => (
+    <div className={`w6fm-gap${on ? ' on' : ''}${cur ? ' cur' : ''}`}>
+      <span className="w6fm-rail" />
+      {on && <span className="w6fm-chip" key={text}>{text}</span>}
+      {on && <span className="w6fm-spark" />}
+    </div>
+  );
+  const arrows = (parts: string[], effect: boolean) => parts.map((t, i) => (
+    <React.Fragment key={i}>
+      {i > 0 && (effect ? <span className="w6fm-arr on">{['As a result', 'and thus', 'Therefore'][Math.min(i - 1, 2)]}</span> : <i className="w6ol-arr"> ⇒ </i>)}
+      {t}
+    </React.Fragment>
+  ));
+  return (
+    <div className="w6fm">
+      <div className="card w6fm-node"><b>Idea</b><span>{OUTLINE.idea}</span></div>
+      {joint(b >= 0, b === 0, 'This is because')}
+      <div className={`card w6fm-node${b === 2 ? ' fx' : ''}`}><b>Expand</b><span>{arrows(OUTLINE.expand, b >= 2)}</span></div>
+      {joint(b >= 1, b === 1, 'For example,')}
+      <div className={`card w6fm-node${b === 2 ? ' fx' : ''}`}><b>Example</b><span>{arrows(OUTLINE.example, b >= 2)}</span></div>
+    </div>
+  );
+};
+
 /* 3.3 — each build lights one part of the outline and opens the words that introduce it; earlier functions fold into chips */
 export const SLinkFns: React.FC<SlideProps> = (props) => {
   const b = props.build;
@@ -89,7 +117,7 @@ export const SLinkFns: React.FC<SlideProps> = (props) => {
   return (
     <Frame props={props}>
       <div className="w6lf">
-        <Outline lit={cur.fn} />
+        <FlowMap b={b} />
         <div className="w6lf-r">
           {LINK_FNS.map((f, i) => (
             <div key={f.fn} className={`card w6lf-card fn-${f.fn} ${i < b ? 'past' : i === b ? 'cur' : 'w6-hide'}`}>

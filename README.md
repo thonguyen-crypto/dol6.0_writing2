@@ -28,6 +28,8 @@ Có 32 bước: 1 bìa, 4 slide mở chặng và 27 trang. `BUILT_TO` trong `met
 
 **Slide mở chặng (d1–d4):** chỉ có số chặng (vòng đỏ), tên chặng và hình động (`screens/StageArt.tsx`, `stageArt.css`), theo mẫu 7.5W Lesson 1 @ 88fc379. `DividerSlide` trong kit lấy y nguyên bản mới (prop `art`, không hiện `sub` / `topics`). Ẩn dụ: 1 Revision = móng đã xong, tầng trên còn trống · 2 Improve = kính lúp làm hình rõ nét · 3 Linking words = mắt xích · 4 Without linking words = domino. Chặng Conclusion không có slide mở chặng.
 
+**Hình mô phỏng kiến thức (`screens/Viz.tsx`, `viz.css`, lặp 4–6 giây, dừng khi bật giảm chuyển động):** 2.3 mỗi công cụ hedging một hình (10 người → 7 người · đồng hồ chắc chắn lùi kim · lịch 7 ngày bớt tick · bia: 3 mũi tên trượt) · 3.3 outline thành 3 khối, linking word là khớp nối trượt vào khe, tia sáng chạy qua · 4.1 tia sáng chạy dọc chuỗi A → B → B → C, “As a result” lỏng thì rơi · 4.2 câu A co lại thành viên nang This · 4.3 icon động cho 6 nhóm Effects · 4.4 câu ví dụ có khớp nối tự đổi qua các cấu trúc của nhóm đang học · 5.2 icon động trên từng nhánh.
+
 Notes cho GV (phím N) được viết lại từ speaker notes của bản gốc.
 
 ## Cấu trúc

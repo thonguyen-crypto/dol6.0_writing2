@@ -125,3 +125,11 @@
 .phone .w6 .w6i-br2{display:none}
 .phone .w6 .w6i-tree2 .w6i-tr{margin-bottom:12px}
 .phone .w6 .w6i-wart{height:96px;width:176px}
+.phone .w6 .w6ht2{grid-template-columns:1fr;gap:12px}
+.phone .w6 .w6ht-viz{padding:12px}
+.phone .w6 .w6ht-viz .w6v{max-width:240px}
+.phone .w6 .w6ht-card.w6-hide{display:none}
+.phone .w6 .w6fm-node{flex-direction:column;gap:2px}
+.phone .w6 .w6st-livesent{font-size:var(--w6-s)}
+.phone .w6 .w6ch-row.cur::after{display:none}
+.phone .w6 .w6tv-ghost{display:none}

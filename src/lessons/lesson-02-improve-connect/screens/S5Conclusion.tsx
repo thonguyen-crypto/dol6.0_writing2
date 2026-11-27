@@ -2,6 +2,7 @@
 import React from 'react';
 import type { SlideProps } from '../../../kit/slides';
 import { CritTree, Frame, Parts, type Part } from '../runtime';
+import { SumIcon } from './Viz';
 
 /* 5.1 — LR, GRA from Lesson 1 (✓), TR and CC from today (red) */
 export const SCriteria: React.FC<SlideProps> = (props) => (
@@ -11,7 +12,7 @@ export const SCriteria: React.FC<SlideProps> = (props) => (
 );
 
 /* 5.2 — two mind maps, one per part: root → branches → tools */
-interface Branch { name: string; tools: string[] }
+interface Branch { name: string; tools: string[]; icon: 'gauge' | 'lens' | 'link' | 'this' | 'struct' }
 const MindMap: React.FC<{ root: string; branches: Branch[] }> = ({ root, branches }) => (
   <div className="w6mm">
     <div className="w6mm-root">{root}</div>
@@ -24,7 +25,7 @@ const MindMap: React.FC<{ root: string; branches: Branch[] }> = ({ root, branche
     <div className="w6mm-rows">
       {branches.map((b, i) => (
         <div key={b.name} className="w6mm-row" style={{ animationDelay: `${0.35 + i * 0.25}s` }}>
-          <span className="w6mm-name">{b.name}</span>
+          <span className="w6mm-name"><SumIcon id={b.icon} />{b.name}</span>
           <span className="w6mm-tools">{b.tools.map((t) => <i key={t}>{t}</i>)}</span>
         </div>
       ))}
@@ -34,17 +35,17 @@ const MindMap: React.FC<{ root: string; branches: Branch[] }> = ({ root, branche
 const SumImprove: React.FC<SlideProps> = (props) => (
   <Frame props={props}>
     <MindMap root="Improve a sentence" branches={[
-      { name: 'make it more convincing', tools: ['hedging language'] },
-      { name: 'make it more specific', tools: ['add adj, add adv', 'add examples', 'add relative clauses', 'use specific nouns'] },
+      { name: 'make it more convincing', tools: ['hedging language'], icon: 'gauge' },
+      { name: 'make it more specific', tools: ['add adj, add adv', 'add examples', 'add relative clauses', 'use specific nouns'], icon: 'lens' },
     ]} />
   </Frame>
 );
 const SumConnect: React.FC<SlideProps> = (props) => (
   <Frame props={props}>
     <MindMap root="Connect sentences" branches={[
-      { name: 'with linking words', tools: ['explanation', 'effects', 'examples'] },
-      { name: 'without linking words', tools: ['This + verb pattern'] },
-      { name: 'other structures', tools: [', which + V', ', meaning that S V', ', thereby V-ing', ', and thus S V'] },
+      { name: 'with linking words', tools: ['explanation', 'effects', 'examples'], icon: 'link' },
+      { name: 'without linking words', tools: ['This + verb pattern'], icon: 'this' },
+      { name: 'other structures', tools: [', which + V', ', meaning that S V', ', thereby V-ing', ', and thus S V'], icon: 'struct' },
     ]} />
   </Frame>
 );
