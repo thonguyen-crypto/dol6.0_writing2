@@ -1281,3 +1281,17 @@
 @keyframes w6wcIn{from{opacity:0;transform:translateY(-40px) scale(.7)}to{opacity:1;transform:none}}
 .w6 .w6d-src b{color:var(--redd)}
 @media (prefers-reduced-motion:reduce){.w6 .w6wc-slot .q{opacity:0}.w6 .w6wc-slot .w{animation:none}}
+
+/* ---- 2.3 where to add detail: Verb (+ adv) · Noun (before: adj · itself: specific noun · after: RC or examples) ---- */
+.w6 .w6sx{display:flex;gap:16px;align-items:stretch;flex-wrap:wrap;justify-content:center}
+.w6 .w6sx-g{display:flex;align-items:center;gap:8px;padding:6px 10px 6px 6px;border-radius:16px;background:#fff;border:1.5px solid #ebeae6}
+.w6 .w6sx-k{font-size:var(--w6-ui);font-weight:800;color:#fff;background:var(--ink);border-radius:10px;padding:6px 12px;align-self:stretch;display:flex;align-items:center}
+.w6 .w6sx-g.n .w6sx-k{background:var(--redd)}
+.w6 .w6sx-i{display:inline-flex;align-items:center;gap:6px;font-size:var(--w6-ui);font-weight:800;color:var(--sub);border-radius:12px;padding:4px 12px;border:1.5px solid transparent;transition:all .35s}
+.w6 .w6sx-i small{font-size:var(--w6-ui);font-weight:700;color:#a5a6b5;margin-right:2px}
+.w6 .w6sx-i i{font-style:normal;color:var(--ok)}
+.w6 .w6sx-i em{font-style:normal;font-weight:700;color:#a5a6b5;margin:0 2px}
+.w6 .w6sx-i.cur{color:var(--redd);background:var(--redl);border-color:var(--red);box-shadow:0 0 0 3px var(--redl)}
+.w6 .w6sx-i.cur small{color:var(--red)}
+.w6 .w6sx-i.done{color:var(--okd)}
+.w6 .w6sx-i .pick{color:#fff;background:var(--red);border-radius:8px;padding:0 8px;animation:pop .4s both}

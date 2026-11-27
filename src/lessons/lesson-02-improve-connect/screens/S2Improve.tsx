@@ -5,7 +5,7 @@ import React from 'react';
 import type { SlideProps } from '../../../kit/slides';
 import { useActivity, useDraft } from '../../../kit/activities/useActivity';
 import {
-  HEDGE, HEDGE_TOOLS, PARA, PARA_TOPIC, SPEC_BASE, SPEC_TOOLS, SPECIFIC, frameAnswer, frameCheck, hedgeOk, paraModel, paraSentence, paraSlots, slotOk, slotText, type ParaSlot,
+  HEDGE, HEDGE_TOOLS, PARA, PARA_TOPIC, SPEC_BASE, SPECIFIC, frameAnswer, frameCheck, hedgeOk, paraModel, paraSentence, paraSlots, slotOk, slotText, type ParaSlot,
 } from '../logic';
 import { HEDGE_VIZ } from './Viz';
 import { Frame, GradedList, Parts, Segs, Slot, SubmitBar, rv, useAiSet, useBurst, useOpenSlot, type Part } from '../runtime';
@@ -309,23 +309,39 @@ const ArtFood: React.FC<{ b: number }> = ({ b }) => (
     </g>
   </svg>
 );
+/* 2.3 — every step on a click. 1 the base sentence + the map of where to add detail
+   2 Verb: + adverb → easily · 3 before the noun: + adjective → Processed · 4 the noun itself: a specific noun → children
+   5 after the noun: + relative clause → who eat it every day · 6 … or + examples → such as obesity and diabetes (pick one) */
+const SPEC_ART = [-1, 1, 1, 0, 2, 3];
 export const SSpecificDemo: React.FC<SlideProps> = (props) => {
   const b = props.build;
+  const st = (on: number[]) => (on.includes(b) ? ' cur' : b > Math.max(...on) ? ' done' : '');
   return (
     <Frame props={props}>
       <div className="w6sp">
-        <div className="w6sp-art"><ArtFood b={b} /></div>
-        <div className="w6sp-tools">
-          {SPEC_TOOLS.map((t, i) => <span key={t} className={`w6sp-tool ${rv(b, i)}`}>{i < b && <span className="w6ov-ok">✓</span>}{t}</span>)}
+        <div className="w6sp-art"><ArtFood b={SPEC_ART[b] ?? 3} /></div>
+        <div className="w6sx">
+          <div className="w6sx-g v">
+            <b className="w6sx-k">Verb</b>
+            <span className={`w6sx-i${st([1])}`}>{b > 1 && <i>✓</i>}+ adverb</span>
+          </div>
+          <div className="w6sx-g n">
+            <b className="w6sx-k">Noun</b>
+            <span className={`w6sx-i${st([2])}`}>{b > 2 && <i>✓</i>}<small>trước N</small>+ adjective</span>
+            <span className={`w6sx-i${st([3])}`}>{b > 3 && <i>✓</i>}<small>chính N</small>specific noun</span>
+            <span className={`w6sx-i${st([4, 5])}`}><small>sau N · chọn 1</small>
+              <span className={b === 4 ? 'pick' : ''}>relative clause</span><em>hoặc</em><span className={b === 5 ? 'pick' : ''}>examples</span>
+            </span>
+          </div>
         </div>
         <div className="w6sp-base">{SPEC_BASE}</div>
         <div className="card w6sp-sent">
-          {b >= 1 && <><span className="w6sp-add" key="adj">Processed</span>{' '}</>}
-          {b >= 1 ? 'fast' : 'Fast'} food can{' '}
+          {b >= 2 && <><span className="w6sp-add" key="adj">Processed</span>{' '}</>}
+          {b >= 2 ? 'fast' : 'Fast'} food can{' '}
           {b >= 1 && <><span className="w6sp-add" key="adv">easily</span>{' '}</>}
-          cause health problems{b >= 3 && <span className="w6sp-add" key="ex">, such as obesity and diabetes,</span>}
-          {' '}in <span className="w6sp-old">people</span><span className="w6sp-add" key="n">children</span>
-          {b >= 2 && <>{' '}<span className="w6sp-add" key="rc">who eat it every day</span></>}.
+          cause health problems{b === 5 && <span className="w6sp-add" key="ex">, such as obesity and diabetes,</span>}
+          {' '}in {b >= 3 ? <>{b === 3 && <span className="w6sp-old">people</span>}<span className="w6sp-add" key="n">children</span></> : 'people'}
+          {b === 4 && <>{' '}<span className="w6sp-add" key="rc">who eat it every day</span></>}.
         </div>
       </div>
     </Frame>
