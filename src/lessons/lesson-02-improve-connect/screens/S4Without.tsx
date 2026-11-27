@@ -379,6 +379,7 @@ const StructBridge: React.FC<{ small?: boolean }> = ({ small }) => {
       <span className="w6sb-bridge">
         <i className="w6sb-rail" aria-hidden="true" />
         <span className="w6sb-plank" key={k}>{small ? 'structure' : joints[k]}</span>
+        {small && <svg className="w6sb-down" viewBox="0 0 20 60" preserveAspectRatio="none" aria-hidden="true"><path d="M10 0 V52" /><path d="M3 46 L10 56 L17 46" /></svg>}
       </span>
       <Dot n="C" delay={0.4} /><Stop />
       <span className="w6ch-note ok">1 câu</span>
@@ -428,14 +429,10 @@ export const SStructs: React.FC<SlideProps> = (props) => {
       <>
         <StructBridge small />
         <div className={`w6s1 g-${x.group}`}>
-          <div className="w6s1-top">
-            <span className="w6s1-dots">{STRUCTS.map((y, i) => <i key={y.id} className={i === k ? 'on' : i < k ? 'past' : ''} />)}</span>
-          </div>
           <div className="w6s1-pat" key={'p' + x.id}>{x.pat}</div>
           <p className="card w6s1-sent">
             {STRUCT_A}<span className="w6s1-joint" key={x.id}><Segs segs={x.end} /></span>
           </p>
-          <div className="w6s1-hint" key={'h' + x.id}>{x.hint}</div>
           {k === STRUCTS.length - 1 && <div className="w6st-eff enter">Cả 5 cấu trúc → Effects</div>}
         </div>
       </>
