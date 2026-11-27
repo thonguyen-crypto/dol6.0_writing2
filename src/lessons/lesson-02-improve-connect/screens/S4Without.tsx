@@ -50,9 +50,9 @@ export const SMindset: React.FC<SlideProps> = (props) => {
   );
 };
 
-/* 4.1 part 2 — a sheet of paper. Build 1: sentence A + "As a result, they …".
-   Build 2: an eraser rubs out the whole "As a result, …" line, then a pen writes "This can help them to …" in its place.
-   Build 3: the eraser rubs out only "can help them to", the pen writes "can provide them with more opportunities to"; formula. */
+/* 4.1 part 2 — a sheet of paper; every step waits for a click. 1 sentence A + "As a result, they …" · 2 the eraser rubs out
+   "As a result," · 3 the pen writes "This" · 4 the eraser rubs out the rest · 5 the pen writes "can help them to find …" ·
+   6 "This" and "help" light up; formula this + verb pattern, the Effects tag hangs on the verb pattern. */
 const reduceMotion = () => typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 /** ms since this build started (ticks until `until`); jumps to the end when motion is reduced */
 function useClock(build: number, until = 7000): number {
@@ -113,35 +113,34 @@ const Write: React.FC<{ parts: { t: string; cls?: string }[]; t: number }> = ({ 
 export const SThisVerb: React.FC<SlideProps> = (props) => {
   const b = props.build;
   const t = useClock(b);
-  const W0 = ERASE_MS + 200;
-  const old = `${THIS_DEMO.lw} ${THIS_DEMO.lwRest}`;
-  const tail = ' find a well-paying job after graduation.';
-  const v1 = THIS_DEMO.v1.slice(0, THIS_DEMO.v1.length - tail.length);
-  const v2 = THIS_DEMO.v2.slice(0, THIS_DEMO.v2.length - tail.length);
-  const writtenThis = b >= 2 || t > W0 + 4 * CHAR_MS;
+  const gone = t > ERASE_MS + 100; // this build's eraser is done
+  const rest = THIS_DEMO.lwRest;
+  const [vHead, vTail] = [THIS_DEMO.v1.slice(0, THIS_DEMO.v1.indexOf('help')), THIS_DEMO.v1.slice(THIS_DEMO.v1.indexOf('help') + 4)];
   let lineB: React.ReactNode;
-  if (b === 0) lineB = <span className="w6tv-old"><b>{THIS_DEMO.lw}</b> {THIS_DEMO.lwRest}</span>;
-  else if (b === 1) lineB = t < ERASE_MS + 100 ? <Erase text={old} t={t} cls="w6tv-old" />
-    : <Write t={t - W0} parts={[{ t: 'This', cls: 'w6tv-this' }, { t: ` ${THIS_DEMO.v1}` }]} />;
+  if (b === 0) lineB = <span className="w6tv-old"><b>{THIS_DEMO.lw}</b> {rest}</span>;
+  else if (b === 1) lineB = <>{!gone && <><Erase text={THIS_DEMO.lw} t={t} cls="w6tv-old" />{' '}</>}{rest}</>;
+  else if (b === 2) lineB = <><Write t={t} parts={[{ t: 'This', cls: 'w6tv-this' }]} />{' '}{rest}</>;
+  else if (b === 3) lineB = <><span className="w6tv-this">This</span>{' '}{!gone && <Erase text={rest} t={t} />}</>;
+  else if (b === 4) lineB = <><span className="w6tv-this">This</span>{' '}<Write t={t} parts={[{ t: THIS_DEMO.v1 }]} /></>;
   else lineB = (
     <>
-      <span className="w6tv-this">This</span>{' '}
-      {t < ERASE_MS + 100 ? <Erase text={v1} t={t} /> : <span className="w6tv-vp"><Write t={t - W0} parts={[{ t: v2 }]} /></span>}
-      {tail}
+      <span className="w6tv-mark this">This<em>this</em></span>{' '}{vHead}
+      <span className="w6tv-mark vp">help<em>verb pattern</em></span>{vTail}
     </>
   );
   return (
     <Frame props={props}>
       <div className="w6tv">
-        <div className="w6tv-paper">
+        <div className={`w6tv-paper${b >= 5 ? ' done' : ''}`}>
           <i className="w6tv-hole h0" /><i className="w6tv-hole h1" /><i className="w6tv-hole h2" />
-          {b >= 1 && writtenThis && <span className="w6tv-eqtag">This = ý câu A</span>}
-          <p className={`w6tv-line a${b >= 1 && writtenThis ? ' lit' : ''}`}><span className="w6ch-dot c-a sm">A</span><span className="w6tv-atext">{THIS_DEMO.a}</span></p>
+          {b >= 2 && <span className="w6tv-eqtag">This = ý câu A</span>}
+          <p className={`w6tv-line a${b >= 2 ? ' lit' : ''}`}><span className="w6ch-dot c-a sm">A</span><span className="w6tv-atext">{THIS_DEMO.a}</span></p>
           <p className="w6tv-line">{lineB}</p>
         </div>
-        {b >= 2 && (
+        {b >= 5 && (
           <div className="w6tv-formula w6tv-late">
-            <span className="w6tv-f this">this</span><span className="w6tv-plus">+</span><span className="w6tv-f vp">verb pattern</span><span className="w6tv-plus">→</span><span className="w6tv-f eff">Effects</span>
+            <span className="w6tv-f this">this</span><span className="w6tv-plus">+</span>
+            <span className="w6tv-f vp">verb pattern<span className="w6tv-efftag">Effects</span></span>
           </div>
         )}
       </div>
@@ -432,7 +431,7 @@ export const SPara2: React.FC<SlideProps> = (props) => <ParaScreen props={props}
 /* 4.1 This + verb pattern — one page, three parts: mindset · This + verb · effects verb patterns */
 const TV_PARTS: Part[] = [
   { C: SMindset, n: 2, kind: 'theory', pre: 'Mindset:', key: 'A → B, B → C', vi: 'Câu sau phải nối tiếp ý câu trước' },
-  { C: SThisVerb, n: 3, kind: 'theory', pre: 'Without linking words:', key: 'This + verb', vi: 'Thay linking word bằng This + động từ' },
+  { C: SThisVerb, n: 6, kind: 'theory', pre: 'Without linking words:', key: 'This + verb', vi: 'Thay linking word bằng This + động từ' },
   { C: SEffects, n: 3, kind: 'theory', pre: 'Effects:', key: 'verb patterns', vi: 'Những pattern diễn tả hệ quả hay dùng nhất trong IELTS' },
 ];
 export const SThisVerbPage: React.FC<SlideProps> = (props) => <Parts props={props} parts={TV_PARTS} />;

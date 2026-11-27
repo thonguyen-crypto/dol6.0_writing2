@@ -115,11 +115,11 @@ const steps: StepMeta[] = [
   /* ---- Stage 4 · Without linking words ---- */
   { key: 'd4', kind: 'divider', stage: 4, name: 'Chặng 4 · Without linking words',
     notes: [{ title: 'Cách triển khai', text: 'Đẳng cấp nối câu cao hơn: nối mà không cần linking words. Hỏi lớp: cả bài câu nào cũng Firstly, Therefore, As a result… thì đọc thấy sao?' }] },
-  { key: 'thisverb', kind: 'theory', stage: 4, name: 'This + verb pattern', short: 'This + V', builds: 8,
+  { key: 'thisverb', kind: 'theory', stage: 4, name: 'This + verb pattern', short: 'This + V', builds: 11,
     head: { chip: 'Without linking words', pre: 'This + verb pattern', key: '', vi: '', custom: true },
     notes: [
       { title: 'Phần 1 · Mindset', text: 'Một đẳng cấp nối câu hay hơn: nối mà không dùng linking words. Tưởng tượng 1 bài mà đầu câu nào cũng Firstly, Therefore, As a result, For example → chán, không sang. Build 1: A → B. As a result, C → D. “As a result” rơi mất → lộ ra hai câu không liên quan: linking word chỉ đang gồng để nối. Build 2: A → B. B → C → D: câu sau nhắc lại B → thực sự connected. Khi lặp lại B, ta dùng this.' },
-      { title: 'Phần 2 · This + verb', text: 'Build 1: đọc câu trước (dùng As a result). Build 2: cục tẩy xoá cả dòng As a result, they…; cây bút viết lại This can help them to… Cho HV đọc câu sau, hỏi: thấy thích không, nghe ổn hơn không? Build 3: tẩy riêng can help them to, viết lại can provide them with more opportunities to; chốt This + verb pattern để diễn tả Effects.' },
+      { title: 'Phần 2 · This + verb', text: 'Mỗi bước một lần bấm. Build 1: đọc câu dùng As a result. Build 2: cục tẩy xoá As a result,. Build 3: bút viết This (= ý câu A). Build 4: tẩy phần sau. Build 5: viết lại can help them to find a well-paying job after graduation. Cho HV đọc, hỏi: nghe ổn hơn không? Build 6: highlight This và help, công thức this + verb pattern; verb pattern diễn tả Effects.' },
       { title: 'Phần 2 · Ý cần chốt', text: 'This thì ai cũng viết được. Nghệ thuật là chọn verb nào để diễn đạt quan hệ nhân quả và hợp ngữ cảnh. Buổi 1 đã nói cần học verb patterns để viết: giờ là những verb pattern cần thuộc nằm lòng, “gối đầu giường”.' },
       { title: 'Phần 3 · Effects: verb patterns', text: 'Cách DOL gom nhóm, phân loại cho dễ học. Build 1: dùng được cả 2 chiều: result in / lead to. Build 2: Effects tốt (+): 3 nhóm hay xài: giúp ai (allow), cung cấp cho ai (provide), có lợi cho ai (beneficial). Build 3: Effects xấu (−): khiến ai (make), ngăn ai (prevent), có hại cho ai (harmful).' },
     ] },
