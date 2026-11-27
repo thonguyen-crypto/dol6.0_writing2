@@ -611,17 +611,45 @@
 .w6 .w6lf-w b{color:var(--ink)}
 
 /* ---- 3.3a small practice ---------------------------------------------------------------------- */
-.w6 .w6lp{display:flex;flex-direction:column;gap:12px}
-.w6 .w6lp-first{font-weight:700;color:var(--ink);padding:0 6px;transition:opacity .35s}
-.w6 .w6lp-row{display:flex;align-items:center;gap:16px;padding:12px 18px;position:relative;transition:opacity .35s}
-.w6 .w6lp-row.menu{z-index:6;opacity:1!important}
-.w6 .w6lp-row .w6sl-btn{min-width:300px;font-size:var(--w6-s)}
-.w6 .w6lp-s{flex:1;font-size:var(--w6-s);color:var(--ink);line-height:1.45}
-.w6 .w6lp .w6sl-menu{display:grid;grid-template-columns:1fr 1fr;left:0;transform:none;min-width:520px}
-.w6 .w6lp-formula{align-self:center;display:flex;align-items:center;gap:14px;margin-top:6px}
-.w6 .w6lp-lw{padding:12px 26px;border-radius:16px;background:var(--red);color:#fff;font-weight:800;box-shadow:0 0 0 4px var(--redl)}
+/* 3.2a: every sentence at one size; the slot sits inline at the start of its sentence */
+.w6 .w6lp{display:grid;grid-template-columns:1fr 220px;gap:22px;align-items:center}
+.w6 .w6lp-main{display:flex;flex-direction:column;gap:10px;min-width:0}
+.w6 .w6lp-first,.w6 .w6lp-row{margin:0;font-size:var(--w6-t);line-height:1.5;color:var(--ink)}
+.w6 .w6lp-first{font-weight:700;padding:0 6px}
+.w6 .w6lp-row{padding:10px 18px;position:relative;border-left:6px solid transparent;transition:border-color .4s}
+.w6 .w6lp-row.menu{z-index:6}
+.w6 .w6lp-row .w6sl-btn{min-width:250px;font-size:var(--w6-t);vertical-align:baseline}
+.w6 .w6lp-s{color:var(--ink)}
+.w6 .w6lp .w6sl-menu{display:grid;grid-template-columns:1fr 1fr;left:0;transform:none;min-width:560px}
+.w6 .w6lp-formula{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:4px}
+.w6 .w6lp-lw{padding:6px 20px;border-radius:14px;background:var(--red);color:#fff;font-weight:800;box-shadow:0 0 0 4px var(--redl)}
 .w6 .w6lp-plus{font-weight:800;color:var(--sub)}
-.w6 .w6lp-sv{padding:12px 26px;border-radius:16px;background:#fff;border:2px solid var(--ink);color:var(--ink);font-weight:800}
+.w6 .w6lp-sv{padding:6px 20px;border-radius:14px;background:#fff;border:2px solid var(--ink);color:var(--ink);font-weight:800}
+.w6 .w6lp-x{font-size:var(--w6-ui);font-weight:800;color:var(--redd);background:var(--redl);border-radius:999px;padding:4px 12px}
+/* the pattern: the three rows beat together, same red bar, same slot glow */
+.w6 .w6lp.w6lp-on .w6lp-row{border-left-color:var(--red);animation:w6lpBeat 2.4s ease-in-out infinite}
+.w6 .w6lp.w6lp-on .w6lp-row .w6sl-btn{box-shadow:0 0 0 4px var(--redl)}
+@keyframes w6lpBeat{0%,100%{transform:none}12%{transform:translateX(6px)}24%{transform:none}}
+/* drawing */
+.w6 .w6la{width:220px;height:220px;overflow:visible}
+.w6 .w6la-ping{opacity:0;transform-box:fill-box;transform-origin:50% 100%;animation:w6laPing 3.6s ease-out infinite}
+.w6 .w6la-ping.p1{animation-delay:1.2s}.w6 .w6la-ping.p2{animation-delay:2.4s}
+@keyframes w6laPing{0%{opacity:0;transform:translateY(14px) scale(.6)}12%{opacity:1;transform:none}55%{opacity:1}75%,100%{opacity:0;transform:translateY(-12px)}}
+.w6 .w6la-screen{animation:w6laGlow 1.2s ease-in-out infinite alternate}
+@keyframes w6laGlow{from{fill:#fdf1f1}to{fill:#f3c9cb}}
+.w6 .w6la-phone{transform-box:fill-box;transform-origin:50% 100%;animation:w6laBuzz 3.6s infinite}
+@keyframes w6laBuzz{0%,8%,100%{transform:none}2%{transform:rotate(-4deg)}4%{transform:rotate(4deg)}6%{transform:rotate(-3deg)}}
+.w6 .w6la-zz{font-size:15px;font-weight:800;fill:#a5a6b5;display:none}
+.w6 .w6la-book{opacity:.7}
+.w6 .w6la-stamp{animation:w6laStamp 3s ease-in-out infinite}
+@keyframes w6laStamp{0%,100%{transform:translate(0,0)}10%{transform:translate(0,46px)}18%{transform:translate(0,30px)}33%{transform:translate(0,86px)}41%{transform:translate(0,70px)}56%{transform:translate(0,126px)}64%{transform:translate(0,110px)}80%{transform:translate(0,0)}}
+.w6 .w6la-ink{opacity:0;animation:w6laInk 3s infinite}
+.w6 .w6la-ink.i1{animation-name:w6laInk1}.w6 .w6la-ink.i2{animation-name:w6laInk2}
+@keyframes w6laInk{0%,9%{opacity:0}10%,92%{opacity:1}100%{opacity:0}}
+@keyframes w6laInk1{0%,32%{opacity:0}33%,92%{opacity:1}100%{opacity:0}}
+@keyframes w6laInk2{0%,55%{opacity:0}56%,92%{opacity:1}100%{opacity:0}}
+.w6 .w6la-x{font-size:26px;font-weight:800;fill:#d63a43}
+@media (prefers-reduced-motion:reduce){.w6 .w6lp.w6lp-on .w6lp-row,.w6 .w6la-ping,.w6 .w6la-screen,.w6 .w6la-phone,.w6 .w6la-stamp,.w6 .w6la-ink{animation:none}.w6 .w6la-ping,.w6 .w6la-ink{opacity:1}}
 .w6 .w6fl-text{text-align:left;word-spacing:normal}
 .w6 .w6fl-fn.need{background:#f4f4f2;color:var(--sub)}
 

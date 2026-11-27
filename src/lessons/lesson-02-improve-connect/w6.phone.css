@@ -82,8 +82,9 @@
 .phone .w6 .w6sp-tag.past{display:none}
 .phone .w6 .w6fl,.phone .w6 .w6lf{grid-template-columns:1fr}
 .phone .w6 .w6ol{padding-left:48px}
-.phone .w6 .w6lp-row{flex-direction:column;align-items:stretch;gap:8px}
-.phone .w6 .w6lp-row .w6sl-btn{min-width:0;width:100%}
+.phone .w6 .w6lp{grid-template-columns:1fr}
+.phone .w6 .w6la{width:150px;height:150px;justify-self:center;order:-1}
+.phone .w6 .w6lp-row .w6sl-btn{min-width:0;width:100%;margin-bottom:6px}
 .phone .w6 .w6lp .w6sl-menu{grid-template-columns:1fr;min-width:0;width:100%}
 .phone .w6 .w6lf-card.w6-hide{display:none}
 .phone .w6 .w6lf-r{order:-1}

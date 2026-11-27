@@ -103,11 +103,11 @@ const steps: StepMeta[] = [
       { title: 'Cách triển khai', text: 'Giới thiệu outline: Idea = ý chung, tổng quát; Expand = câu cụ thể hơn để làm rõ idea; Example = ví dụ cụ thể nhất để chứng minh. (Làm sao ra được flow như vậy thì buổi sau, buổi “siêu tư duy”; hôm nay quan tâm cách nối câu.) Build 1: Expand → This is because / The reason for this is that / In fact. Build 2: Example → For example / For instance / By way of illustration. Build 3: các mũi tên ⇒ trong flow là quan hệ nhân → quả → As a result / Therefore / Thus / Consequently.' },
       { title: 'Lưu ý khi dạy', text: 'In fact chỉ dùng để dẫn ra một sự thật, sự việc. Câu example chỉ cần những từ trên là đủ, đừng “đam mê” từ lạ. Câu expand quá dài → cắt đôi: S – V. As a result, S – V.' },
     ] },
-  { key: 'lwpractice', kind: 'activity', sub: true, stage: 3, name: 'Small practice: linking words', short: 'Small practice', builds: 2,
+  { key: 'lwpractice', kind: 'activity', sub: true, stage: 3, name: 'Small practice: linking words', short: 'Small practice', builds: 1,
     head: H('Linking words', 'Small practice:', 'linking words', 'Chọn từ nối cho mỗi chỗ trống'),
     tracking: { parts: [{ id: 'all', label: '3 chỗ trống' }], grading: 'auto', maxAttempts: 2 },
     notes: [
-      { title: 'Cách triển khai', text: 'Build 1: HS chạm vào chỗ trống, chọn từ nối; nhận mọi từ cùng chức năng như bảng ở trang trước. Nộp, chấm tự động. Build 2: công thức Linking word, S – V.' },
+      { title: 'Cách triển khai', text: 'HS chạm vào chỗ trống, chọn từ nối; nhận mọi từ cùng chức năng như bảng ở trang trước. Nộp, chấm tự động. Khi HS chọn đúng cả 3 (hoặc GV mở đáp án), công thức Linking word, + S V hiện ra, 3 câu cùng nhịp, hình con dấu đóng cùng một khối lên 3 câu: dùng đúng rồi nhưng câu nào cũng một pattern → bị limited.' },
       { title: 'Đáp án cần chốt', text: 'The reason for this is that (giải thích) · For example, (ví dụ) · As a result, (kết quả).' },
       { title: 'Kết', text: 'Linking words các bạn học nhiêu đó đủ rồi, không cần học nhiều: nếu chỉ dùng mỗi linking words thì đoạn văn rất đơn điệu → cần học cách liên kết tự nhiên hơn.' },
     ] },
