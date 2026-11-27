@@ -52,7 +52,7 @@ export const SMindset: React.FC<SlideProps> = (props) => {
 
 /* 4.1 part 2 — a sheet of paper; every step waits for a click. 1 sentence A + "As a result, they …" · 2 the eraser rubs out
    "As a result," · 3 the pen writes "This" · 4 the eraser rubs out the rest · 5 the pen writes "can help them to find …" ·
-   6 "This" and "help" light up; formula this + verb pattern, the Effects tag hangs on the verb pattern. */
+   6 "This" and "help" light up, then the paper blurs and "this + verb pattern" slams into the centre (Effects tag on the verb pattern). */
 const reduceMotion = () => typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 /** ms since this build started (ticks until `until`); jumps to the end when motion is reduced */
 function useClock(build: number, until = 7000): number {
@@ -124,13 +124,13 @@ export const SThisVerb: React.FC<SlideProps> = (props) => {
   else if (b === 4) lineB = <><span className="w6tv-this">This</span>{' '}<Write t={t} parts={[{ t: THIS_DEMO.v1 }]} /></>;
   else lineB = (
     <>
-      <span className="w6tv-mark this">This<em>this</em></span>{' '}{vHead}
-      <span className="w6tv-mark vp">help<em>verb pattern</em></span>{vTail}
+      <span className="w6tv-mark this">This</span>{' '}{vHead}
+      <span className="w6tv-mark vp">help</span>{vTail}
     </>
   );
   return (
     <Frame props={props}>
-      <div className="w6tv">
+      <div className={`w6tv${b >= 5 ? ' focus' : ''}`}>
         <div className={`w6tv-paper${b >= 5 ? ' done' : ''}`}>
           <i className="w6tv-hole h0" /><i className="w6tv-hole h1" /><i className="w6tv-hole h2" />
           {b >= 2 && <span className="w6tv-eqtag">This = ý câu A</span>}
@@ -138,9 +138,11 @@ export const SThisVerb: React.FC<SlideProps> = (props) => {
           <p className="w6tv-line">{lineB}</p>
         </div>
         {b >= 5 && (
-          <div className="w6tv-formula w6tv-late">
-            <span className="w6tv-f this">this</span><span className="w6tv-plus">+</span>
-            <span className="w6tv-f vp">verb pattern<span className="w6tv-efftag">Effects</span></span>
+          <div className="w6tv-slam" role="note">
+            <div className="w6tv-formula">
+              <span className="w6tv-f this">this</span><span className="w6tv-plus">+</span>
+              <span className="w6tv-f vp">verb pattern<span className="w6tv-efftag">Effects</span></span>
+            </div>
           </div>
         )}
       </div>

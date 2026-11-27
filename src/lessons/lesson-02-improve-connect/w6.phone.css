@@ -141,3 +141,6 @@
 .phone .w6 .w6tv-line{line-height:33px;min-height:33px}
 .phone .w6 .w6tv-er{white-space:normal}
 .phone .w6 .w6tv-line .w6ch-dot.sm{width:26px;height:26px;font-size:var(--w6-ui);margin-right:8px}
+.phone .w6 .w6tv-slam .w6tv-formula{font-size:var(--w6-t);gap:10px}
+.phone .w6 .w6tv-slam .w6tv-f{padding:10px 18px}
+.phone .w6 .w6tv-slam::before{width:300px;height:300px}
