@@ -144,3 +144,9 @@
 .phone .w6 .w6tv-slam .w6tv-formula{font-size:var(--w6-t);gap:10px}
 .phone .w6 .w6tv-slam .w6tv-f{padding:10px 18px}
 .phone .w6 .w6tv-slam::before{width:300px;height:300px}
+.phone .w6 .w6nf{flex-direction:column;gap:10px;padding:12px 14px}
+.phone .w6 .w6nf.big{padding:20px 16px}
+.phone .w6 .w6nf-o,.phone .w6 .w6nf-verbs span{white-space:normal}
+.phone .w6 .w6nf:not(.big) .w6nf-verbs,.phone .w6 .w6nf:not(.big) .w6nf-objs{flex-wrap:wrap;justify-content:center}
+.phone .w6 .w6nf.big{transform:none}
+.phone .w6 .w6nf.big .w6nf-verbs span{white-space:nowrap}

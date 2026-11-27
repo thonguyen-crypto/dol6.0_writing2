@@ -158,6 +158,23 @@ const GroupCard: React.FC<{ g: VGroup; delay?: number; compact?: boolean }> = ({
     ) : (<><div className="w6ef-gn">{g.name}</div><ul>{g.pats.map((p) => <li key={p}>{p}</li>)}</ul></>)}
   </div>
 );
+/* the neutral group first: one verb, two ways to finish it. Big and centred on build 1, a compact header after. */
+const Neutral: React.FC<{ big: boolean }> = ({ big }) => (
+  <div className={`w6nf${big ? ' big' : ''}`}>
+    <span className="w6nf-tag"><b>±</b>Trung tính</span>
+    <div className="w6nf-row">
+      <div className="w6nf-verbs">{EFFECT_TOP.map((v) => <span key={v}>{v}</span>)}</div>
+      <svg className="w6nf-fork" viewBox="0 0 80 100" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 50 C 40 50, 40 18, 80 18" /><path d="M0 50 C 40 50, 40 82, 80 82" />
+      </svg>
+      <span className="w6nf-plus">+</span>
+      <div className="w6nf-objs">
+        <span className="w6nf-o n">N</span><span className="w6nf-or">/</span>
+        <span className="w6nf-o sv">the fact that <b>S V</b></span>
+      </div>
+    </div>
+  </div>
+);
 export const SEffects: React.FC<SlideProps> = (props) => {
   const b = props.build;
   const side = (sign: '+' | '-', at: number) => (
@@ -169,11 +186,8 @@ export const SEffects: React.FC<SlideProps> = (props) => {
   return (
     <Frame props={props}>
       <div className="w6ef">
-        <div className={`w6ef-top ${b === 0 ? 'cur' : ''}`}><span className="w6ef-tlab">Effects</span>{EFFECT_TOP.map((t) => <span key={t} className="w6ef-tp">{t}</span>)}</div>
-        <svg className="w6ef-br" viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M500 0v14H250v26" className={b >= 1 ? 'on' : ''} /><path d="M500 0v14H750v26" className={b >= 2 ? 'on' : ''} />
-        </svg>
-        <div className="w6ef-cols">{side('+', 1)}{side('-', 2)}</div>
+        <Neutral big={b === 0} />
+        {b >= 1 && <div className="w6ef-cols">{side('+', 1)}{side('-', 2)}</div>}
       </div>
     </Frame>
   );

@@ -173,7 +173,7 @@ export const THIS_DEMO = {
 
 /* ---- 4.3 Effects: verb patterns ------------------------------------------------------------ */
 export interface VGroup { id: string; name: string; sign: '+' | '-'; pats: string[] }
-export const EFFECT_TOP = ['can result in N / the fact that S V', 'can lead to N / the fact that S V'];
+export const EFFECT_TOP = ['can result in', 'can lead to'];
 export const VGROUPS: VGroup[] = [
   { id: 'allow', name: 'The “allow” group', sign: '+', pats: ['allow someone to do something', 'enable someone to do something', 'help someone (to) do something'] },
   { id: 'provide', name: 'The “provide” group', sign: '+', pats: ['provide someone with the opportunity to do something', 'offer someone the opportunity to do something'] },
