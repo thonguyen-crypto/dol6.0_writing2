@@ -124,7 +124,7 @@ export const SWarmup: React.FC<SlideProps> = (props) => {
   const cols = [
     { vi: 'Đi thực tập', role: 'S', cls: 'rS', en: <>Doing internships</> },
     { vi: 'giúp', role: 'V', cls: 'rV', en: <>allows</> },
-    { vi: '(người ta) phát triển kỹ năng mềm', role: b >= 4 ? 'collocation' : b >= 3 ? 'pattern' : '', cls: b >= 3 ? 'rP' : 'rx',
+    { vi: '(người ta) phát triển kỹ năng mềm', role: b === 3 ? 'pattern' : '', cls: b >= 3 ? 'rP' : 'rx',
       en: b >= 4 ? <>people <i>to</i> <span className="w6wc-slot"><span className="q">?</span><span className="w">develop</span></span> soft skills</>
         : b >= 3 ? <>somebody <i>to</i> do something</> : <>…</> },
   ];
