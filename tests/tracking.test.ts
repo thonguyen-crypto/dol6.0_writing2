@@ -55,7 +55,7 @@ test('page codes follow stage order and skip covers/dividers', () => {
   assert.equal(codes.specificdemo, '2.3');
   assert.equal(codes.specific, '2.3a');
   assert.equal(codes.paraimprove, '2.4');
-  assert.equal(codes.findlinks, '3.1'); // CC + find the linking words on one page
+  assert.equal(codes.lwdemo, '3.1'); // CC + outline → paragraph demo on one page
   assert.equal(codes.linkfns, '3.2');
   assert.equal(codes.lwpractice, '3.2a');
   assert.equal(codes.thisverb, '4.1'); // mindset + This + verb + effects on one page

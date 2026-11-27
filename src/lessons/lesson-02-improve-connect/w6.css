@@ -910,3 +910,20 @@
 /* 5.2 v2: an icon on each branch, taken from the page that taught it */
 .w6 .w6mm-name{display:inline-flex;align-items:center;gap:10px;padding:8px 16px 8px 10px}
 .w6 .w6mm-name .w6v-si{width:48px;height:34px}
+
+/* ---- 3.1 part 2: outline → paragraph demo (one outline item + one sentence per build) ------- */
+.w6 .w6fd{grid-template-columns:1.2fr 1fr;gap:18px}
+.w6 .w6fd-ol{font-size:var(--w6-t);line-height:1.25;gap:2px;padding-top:12px;padding-bottom:12px}
+.w6 .w6fd-item{display:grid;grid-template-columns:112px 1fr;gap:10px;align-items:baseline;padding:4px 10px;border-radius:12px;border:1.5px solid transparent;opacity:.28;transition:opacity .4s,background .4s,border-color .4s}
+.w6 .w6fd-item.head{margin-top:4px}
+.w6 .w6fd-item.on{opacity:1}
+.w6 .w6fd-item.cur{border-color:var(--red);background:#fdf6f6;box-shadow:0 0 0 3px var(--redl)}
+.w6 .w6fd-blk{font-weight:800;text-align:right}
+.w6 .w6fd-item .w6ol-arr{color:var(--red)}
+.w6 .w6fd-text{font-size:var(--w6-s);line-height:2.1}
+.w6 .w6fd-seg{color:var(--sub);transition:color .4s}
+.w6 .w6fd-seg.cur{color:var(--ink);animation:w6fly .5s both}
+.w6 .w6fd-lw{white-space:nowrap;font-weight:800;color:var(--redd);background:var(--redl);border-radius:8px;padding:1px 6px}
+.w6 .w6fd-seg.cur .w6fd-lw{color:#fff;background:var(--red);animation:pop .45s .35s both}
+.w6 .w6fd-fn{background:var(--red);margin:0 2px 0 4px}
+.w6 .w6fd-seg:not(.cur) .w6fd-fn{background:#f4f4f2;color:var(--sub)}

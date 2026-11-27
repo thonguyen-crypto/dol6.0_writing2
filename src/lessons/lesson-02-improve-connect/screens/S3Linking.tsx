@@ -1,9 +1,9 @@
 /* Stage 3 · Connect sentences with linking words
-   3.1 Coherence & Cohesion (criteria tree) · 3.2 Find the linking words (tap, auto) · 3.3 3 functions · 3.3a Small practice (chips, auto) */
+   3.1 Coherence & Cohesion (criteria tree) · 3.1 part 2 outline → paragraph demo · 3.3 3 functions · 3.3a Small practice (chips, auto) */
 import React from 'react';
 import type { SlideProps } from '../../../kit/slides';
 import { useActivity, useDraft } from '../../../kit/activities/useActivity';
-import { LINKS, LINK_FNS, LW_BANK, LW_PRACTICE, OUTLINE, PARA_LINK, lwOk, type LinkFn } from '../logic';
+import { LINKS, LINK_FNS, LINK_SEGS, LW_BANK, LW_PRACTICE, OUTLINE, OUTLINE_ITEMS, lwOk, type LinkFn } from '../logic';
 import { CritTree, Frame, Parts, Slot, SubmitBar, useBurst, useOpenSlot, type Part } from '../runtime';
 
 /* 3.1 */
@@ -26,53 +26,36 @@ const Outline: React.FC<{ lit?: LinkFn | null; compact?: boolean }> = ({ lit, co
   </div>
 );
 
-/* 3.2 — tap the words that link the sentences; a device counts as found when any of its words is tapped */
+/* 3.1 part 2 — GV demo, no submission. Each build lights one outline item and writes its sentence into the
+   paragraph; the linking word that opens the sentence pops in with its function. Earlier links stay marked. */
 export const SFindLinks: React.FC<SlideProps> = (props) => {
-  const key = props.step.key;
-  const [fx, burst] = useBurst();
-  const act = useActivity(key, 'all');
-  const [sel, setSel] = useDraft<number[]>(`${key}:sel`, []);
-  const graded = !!act.latest;
-  const showKey = props.revealed || act.locked;
-  const lockedUi = act.locked || act.paused;
-  const found = (id: number) => sel.some((i) => PARA_LINK[i].link === id);
-  const wrong = sel.filter((i) => PARA_LINK[i].link === undefined);
-  const toggle = (i: number) => { if (!lockedUi) setSel((s) => (s.includes(i) ? s.filter((x) => x !== i) : [...s, i])); };
-  const submit = async () => {
-    const lines = LINKS.map((l) => ({ id: String(l.id), label: l.text, value: found(l.id) ? l.text : '—', correct: found(l.id) }));
-    const right = lines.filter((l) => l.correct).length;
-    const ok = right === LINKS.length && !wrong.length;
-    const a = await act.submit({
-      answer: { picked: sel.map((i) => PARA_LINK[i].t).join(' · ') },
-      lines: [...lines, ...(wrong.length ? [{ id: 'x', label: 'Chạm nhầm', value: wrong.map((i) => PARA_LINK[i].t).join(', '), correct: false }] : [])],
-      isCorrect: ok, score: Math.max(0, right - wrong.length), maxScore: LINKS.length,
-      scoreDisplay: `${right}/${LINKS.length} công cụ${wrong.length ? ` · ${wrong.length} chỗ chạm nhầm` : ''}`,
-      models: LINKS.map((l) => ({ id: String(l.id), label: FN_VI[l.fn], value: l.text, correct: true })),
-    });
-    if (a?.isCorrect) burst();
-  };
-  const bar = <SubmitBar act={act} ready={sel.length > 0} hint="Chạm vào các từ dùng để nối câu" label={act.latest ? 'Nộp lại' : 'Nộp bài'} onSubmit={submit} />;
+  const b = props.build;
+  let prev = '';
   return (
-    <Frame props={props} bar={bar} fx={fx}>
-      <div className="w6fl">
-        <Outline compact />
+    <Frame props={props}>
+      <div className="w6fl w6fd">
+        <div className="card w6ol w6fd-ol">
+          <div className="w6ol-tag">Outline</div>
+          {OUTLINE_ITEMS.map((it, i) => {
+            const head = it.blk !== prev; prev = it.blk;
+            return (
+              <div key={i} className={`w6fd-item${i <= b ? ' on' : ''}${i === b ? ' cur' : ''}${head ? ' head' : ''}`}>
+                <b className="w6fd-blk">{head ? it.blk : <i className="w6ol-arr">⇒</i>}</b>
+                <span>{it.t}</span>
+              </div>
+            );
+          })}
+        </div>
         <div className="card w6fl-para">
           <div className="w6fl-tag">Finished paragraph</div>
-          <p className="w6fl-text">
-            {PARA_LINK.map((t, i) => {
-              const on = sel.includes(i);
-              const link = t.link !== undefined ? LINKS[t.link] : null;
-              let st = on ? 'sel' : '';
-              if (graded || showKey) {
-                if (link && (found(link.id) || showKey)) st = 'ok';
-                else if (on && !link) st = 'bad';
-              }
-              const lastTok = link && PARA_LINK[i + 1]?.link !== t.link;
+          <p className="w6fl-text w6fd-text">
+            {LINK_SEGS.slice(0, b + 1).map((sg, i) => {
+              const link = sg.link !== undefined ? LINKS[sg.link] : null;
               return (
-                <React.Fragment key={i}>
-                  <button className={`w6fl-w ${st}`} onClick={() => toggle(i)} disabled={lockedUi}>{t.t}</button>
-                  {lastTok && st.startsWith('ok') && <span className="w6fl-fn">{FN_VI[link.fn]}</span>}{' '}
-                </React.Fragment>
+                <span key={i} className={`w6fd-seg${i === b ? ' cur' : ''}`}>
+                  {link && <><span className="w6fd-lw">{link.text}</span><span className="w6fl-fn w6fd-fn">{FN_VI[link.fn]}</span>{' '}</>}
+                  {sg.text}{' '}
+                </span>
               );
             })}
           </p>
@@ -187,6 +170,6 @@ export const SLwPractice: React.FC<SlideProps> = (props) => {
 /* 3.1 Demo: Linking words — one page, two parts: Coherence & Cohesion · find the linking words (activity) */
 const LDEMO_PARTS: Part[] = [
   { C: SCC, n: 1, kind: 'theory', pre: 'Next:', key: 'Coherence & Cohesion', vi: 'Nối các câu với nhau' },
-  { C: SFindLinks, n: 1, kind: 'activity', pre: 'Find the', key: 'linking words', vi: 'Đọc dàn bài và đoạn văn, chạm vào các công cụ liên kết' },
+  { C: SFindLinks, n: 6, kind: 'theory', pre: 'From outline to', key: 'paragraph', vi: 'Mỗi ý trong dàn bài thành một câu, linking word nối câu' },
 ];
 export const SLinkDemo: React.FC<SlideProps> = (props) => <Parts props={props} parts={LDEMO_PARTS} />;

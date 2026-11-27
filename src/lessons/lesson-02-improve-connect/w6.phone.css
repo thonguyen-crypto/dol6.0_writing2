@@ -133,3 +133,5 @@
 .phone .w6 .w6st-livesent{font-size:var(--w6-s)}
 .phone .w6 .w6ch-row.cur::after{display:none}
 .phone .w6 .w6tv-ghost{display:none}
+.phone .w6 .w6fd{grid-template-columns:1fr}
+.phone .w6 .w6fd-item{grid-template-columns:72px 1fr}

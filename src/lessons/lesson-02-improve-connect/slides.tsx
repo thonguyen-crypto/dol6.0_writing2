@@ -13,7 +13,7 @@ const slides: SlideRegistry = {
   cover: SCover,
   revision: SRevision, warmup: SWarmup,
   demo: SDemo, convincing: SConvincing, hedge: SHedge, specificdemo: SSpecificDemo, specific: SSpecific, paraimprove: SParaImprove,
-  findlinks: SLinkDemo, linkfns: SLinkFns, lwpractice: SLwPractice,
+  lwdemo: SLinkDemo, linkfns: SLinkFns, lwpractice: SLwPractice,
   thisverb: SThisVerbPage, thispos: SThisPos, thisneg: SThisNeg, thiswrite: SThisWrite,
   structs: SStructs, thereby: SThereby, structwrite: SStructWrite, para1: SPara1, para2: SPara2,
   criteria: SCriteria, summary: SSummary, homework: SHomework,

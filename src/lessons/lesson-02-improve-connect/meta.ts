@@ -90,13 +90,11 @@ const steps: StepMeta[] = [
   /* ---- Stage 3 · Linking words ---- */
   { key: 'd3', kind: 'divider', stage: 3, name: 'Chặng 3 · Linking words',
     notes: [{ title: 'Cách triển khai', text: 'Phần này chỉ 5–7 phút: linking words HV đã quen; tập trung vào chức năng của từng nhóm.' }] },
-  { key: 'findlinks', kind: 'activity', stage: 3, name: 'Demo: Linking words', short: 'Demo', builds: 2,
+  { key: 'lwdemo', kind: 'theory', stage: 3, name: 'Demo: Linking words', short: 'Demo', builds: 7,
     head: { chip: 'Linking words', pre: 'Demo: Linking words', key: '', vi: '', custom: true },
-    tracking: { parts: [{ id: 'all', label: '5 công cụ' }], grading: 'auto', maxAttempts: 2 },
     notes: [
       { title: 'Phần 1 · Coherence & Cohesion', text: 'Quay lại 4 tiêu chí: TR đã có cách improve. Còn Coherence & Cohesion: dùng nhiều cách khác nhau để nối câu. Đi vào bản chất của câu (sentence structure, word structure, meaning) → giúp cả grammar, vocab và CC. Chặng linking words chỉ nên 5–7 phút: phần này khá dễ với HV; dành thời gian cho phần nối không dùng linking words.' },
-      { title: 'Phần 2 · Find the linking words', text: 'HS đọc outline và đoạn hoàn chỉnh, chạm vào các từ dùng để liên kết câu. Nộp, chấm tự động: tìm đủ và không chạm nhầm. Sau đó map mỗi công cụ với chức năng của nó (trang sau).' },
-      { title: 'Đáp án cần chốt (phần 2)', text: 'This is because (giải thích) · As a result, (kết quả) · and thus (kết quả) · For example, (ví dụ) · Therefore, (kết quả).' },
+      { title: 'Phần 2 · From outline to paragraph (GV demo)', text: 'Không phải bài tập. Mỗi lần bấm Xem tiếp: bên Outline sáng một ý, bên Finished paragraph hiện câu tương ứng, linking word mở đầu câu được tô đỏ kèm chức năng. Build 1: Idea → câu chủ đề. Build 2: Expand → This is because (giải thích). Build 3: ⇒ conserve → As a result, (kết quả). Build 4: ⇒ build → and thus (kết quả). Build 5: Example → For example, (ví dụ). Build 6: ⇒ decrease → Therefore, (kết quả). Hỏi HV trước khi bấm: câu tiếp theo nên mở bằng từ gì?' },
       { title: 'Lưu ý khi dạy', text: 'Bản gốc ghi “extensive cycling infrastructure have led”; app sửa thành “has led”.' },
     ] },
   { key: 'linkfns', kind: 'theory', stage: 3, name: '3 chức năng của linking words', short: '3 chức năng', builds: 3,

@@ -22,7 +22,7 @@ Có 32 bước: 1 bìa, 4 slide mở chặng và 27 trang. `BUILT_TO` trong `met
 | 0 | Bìa: mục tiêu bài + dòng chặng 1–4 (gộp slide agenda), hình động: câu thường → thêm hedge + chi tiết → câu sau móc vào bằng This |
 | 1 · Revision | **1.1 Revision** (Parts: 4 tiêu chí, LR + GRA ✓ · DOL's 4 steps, dùng lại bộ hình của Lesson 1) · **1.2 Đúng, nhưng chưa hay** (hình thực tập sinh → 3 từ khoá, GV hỏi miệng → câu mẫu → dấu “Đúng, nhưng chưa hay!” → cây 4 tiêu chí, TR + CC còn “?”) |
 | 2 · Improve a sentence | **2.1 Demo** (Parts: improve by meaning · one sentence, 2 ways, câu internships convincing → specific) · 2.2 Make it more convincing (4 công cụ hedging, ví dụ smartphones) · 2.2a Practice 1 (chip, chấm tự động) · 2.3 Make it more specific (4 kỹ thuật trên câu fast food) · 2.3a Practice 2 (AI, 4 câu một màn) · 2.4 Extra practice: improve a paragraph (chấm tự động từng câu, build cuối hiện cả đoạn) |
-| 3 · Linking words | **3.1 Demo: Linking words** (Parts: Coherence & Cohesion · find the linking words, chạm, chấm tự động) · 3.2 3 chức năng · 3.2a Small practice (chip) |
+| 3 · Linking words | **3.1 Demo: Linking words** (Parts: Coherence & Cohesion · from outline to paragraph, GV bấm từng bước: outline sáng một ý, đoạn văn hiện câu tương ứng, linking word tô đỏ kèm chức năng) · 3.2 3 chức năng · 3.2a Small practice (chip) |
 | 4 · Without linking words | **4.1 This + verb pattern** (Parts: mindset A → B, B → C · This + verb · Effects 6 nhóm +/−) · 4.1a/b gõ pattern (chấm tự động) · 4.1c viết This + V (AI) · 4.2 Structures · 4.2a Common mistake: thereby V-ing · 4.2b viết theo cấu trúc (AI) · 4.3, 4.4 viết đoạn từ outline (AI, 1 ô cả đoạn) |
 | 5 · Conclusion | 5.1 4 tiêu chí (LR, GRA ✓ buổi trước; TR, CC hôm nay) · 5.2 Summary (Parts: improve a sentence · connect sentences) · 5.3 Homework (LMS: Build a sentence + Connect sentences, checklist 3 bước) |
 
@@ -61,7 +61,7 @@ pnpm check:lesson && pnpm lint && pnpm test && pnpm build
 
 ## Chấm bài
 
-- **Chấm tự động (không AI, không hiện tiêu chí):** 2.2a hedging, 2.4 improve a paragraph, 3.1 tìm linking words (phần 2), 3.2a linking words, 4.1a/b This + verb pattern. Đáp án và hàm chấm ở `logic.ts`, có test.
+- **Chấm tự động (không AI, không hiện tiêu chí):** 2.2a hedging, 2.4 improve a paragraph, 3.2a linking words, 4.1a/b This + verb pattern. Đáp án và hàm chấm ở `logic.ts`, có test.
 - **AI chấm 3 tiêu chí** (Ý nghĩa / Từ vựng / Ngữ pháp, server quyết định kết quả): 2.3a, 4.1c, 4.2b, 4.3, 4.4. hardCheck + pre-check: bỏ trống, chép đề, quá ngắn, thiếu cấu trúc / động từ bắt buộc. Test các ca thật: chép đề → 1/5, đúng cấu trúc nhưng vô nghĩa → Chưa đạt, câu tốt → Đạt, thiếu viết hoa vẫn Đạt.
 - Học sinh không thấy chữ “AI”: nút “Nộp bài / Nộp lại”, ô phản hồi “Nhận xét”.
 
@@ -71,10 +71,10 @@ pnpm check:lesson && pnpm lint && pnpm test && pnpm build
 - **Revision (4, 5) gộp thành 1 trang 2 phần; slide 9 (TR, CC) thành build cuối của 1.2** để cây 4 tiêu chí giữ nguyên hình dạng giữa các trang.
 - **1.2: HS không gõ câu**, GV hỏi miệng (đã chốt).
 - **Chặng 2 đổi flow (theo yêu cầu 24/11):** 2.1 (phần 2) dùng câu internships để show toàn cảnh 2 hướng (convincing rồi specific, slide 13–15); 2.2 và 2.3 dạy lý thuyết từng hướng bằng ví dụ mới do DOL soạn (smartphones, fast food), không dùng lại câu internships; practice nằm ngay sau lý thuyết của nó.
-- **Gộp trang (27/11):** 2.1 + 2.2 thành một trang “Demo”; 3.1 + 3.2 thành “Demo: Linking words” (phần 2 vẫn là bài nộp, giữ key `findlinks` nên dữ liệu nộp không đổi); 4.1 + 4.2 + 4.3 thành “This + verb pattern”. Mỗi trang dùng `Parts`, mỗi phần giữ tiêu đề riêng; các trang sau lùi mã.
+- **Gộp trang (27/11):** 2.1 + 2.2 thành một trang “Demo”; 3.1 + 3.2 thành “Demo: Linking words” (phần 2 không còn là bài tập, chỉ là demo cho GV; outline cỡ chữ lớn `--w6-t`); 4.1 + 4.2 + 4.3 thành “This + verb pattern”. Mỗi trang dùng `Parts`, mỗi phần giữ tiêu đề riêng; các trang sau lùi mã.
 - **2.3a chọn chip** (có chip nhiễu All, will, always, definitely); chấm xong mỗi thẻ hiện tên công cụ (quantifier, modal verb, adverb of frequency, language of probability). Chỗ trống adverb nhận cả usually và often (notes slide 18).
 - **2.4a:** nhãn kỹ thuật (add examples…) chỉ hiện sau khi chấm hoặc khi GV mở đáp án, để HS tự nhận ra. Chấm xong, 4 câu thành danh sách: câu nào chưa đạt mở nhận xét trước.
-- **3.1 tìm linking words:** chạm vào từ nào của một công cụ cũng tính là tìm ra công cụ đó; chạm nhầm từ không nối câu thì trừ điểm. Chấm xong mỗi công cụ có nhãn chức năng (giải thích / kết quả / ví dụ).
+- **3.1 phần 2 (demo):** 6 build, mỗi build ghép một ý của outline với một câu; câu mới bay vào, linking word nổi bật, các linking word trước giữ màu nhạt.
 - **3.3a nhận mọi từ nối cùng chức năng** như bảng ở 3.3 (giữ giống slide, kể cả In fact ở nhóm Expand); đáp án mẫu là đáp án slide 40.
 - **4.1a/b gõ phần còn thiếu, chấm tự động** theo pattern của từng nhóm (có / không có can, may, might); sai pattern (allows them to, makes them to, provides them the opportunity) là sai.
 - **4.4: câu ví dụ chạy suốt trang do DOL soạn thêm** (bản gốc chỉ có tên cấu trúc). 4.4a: phần giải thích “ai làm V-ing” do DOL soạn thêm.

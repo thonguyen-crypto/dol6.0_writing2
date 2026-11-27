@@ -126,6 +126,20 @@ LINK_SRC.split(/(\[\d [^\]]+\])/).filter(Boolean).forEach((chunk) => {
   else chunk.trim().split(/\s+/).filter(Boolean).forEach((t) => PARA_LINK.push({ t }));
 });
 
+/** the paragraph cut into the 6 pieces the GV reveals one by one, each lined up with one outline item
+ *  (Idea · Expand ×3 · Example ×2); `link` = the linking device that opens the piece */
+export const OUTLINE_ITEMS: { blk: 'Idea' | 'Expand' | 'Example'; t: string }[] = [
+  { blk: 'Idea', t: OUTLINE.idea },
+  ...OUTLINE.expand.map((t) => ({ blk: 'Expand' as const, t })),
+  ...OUTLINE.example.map((t) => ({ blk: 'Example' as const, t })),
+];
+export const LINK_SEGS: { link?: number; text: string }[] = [];
+{
+  const bits = LINK_SRC.split(/\[(\d) [^\]]+\]/);
+  LINK_SEGS.push({ text: bits[0].trim() });
+  for (let i = 1; i < bits.length; i += 2) LINK_SEGS.push({ link: Number(bits[i]), text: bits[i + 1].trim() });
+}
+
 /* ---- 3.3 the three functions ---------------------------------------------------------------- */
 export const LINK_FNS: { fn: LinkFn; name: string; vi: string; words: string[] }[] = [
   { fn: 'explain', name: 'Expand', vi: 'Làm rõ idea chung chung ở trước', words: ['This is because S V.', 'The reason for this is that S V.', 'In fact, S V.'] },

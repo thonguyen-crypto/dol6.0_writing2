@@ -5,7 +5,7 @@ import rubrics from '../src/lessons/lesson-02-improve-connect/rubrics';
 import { RUBRIC_OF } from '../src/lessons/lesson-02-improve-connect/meta';
 import { precheck } from '../src/lessons/lesson-02-improve-connect/checks';
 import {
-  HEDGE, LW_PRACTICE, PARA, PARA_LINK, LINKS, PARA_WRITE, SPECIFIC, STRUCT_WRITE, THIS_WRITE, TYPE_NEG, TYPE_POS,
+  HEDGE, LW_PRACTICE, PARA, PARA_LINK, LINKS, LINK_SEGS, OUTLINE_ITEMS, PARA_WRITE, SPECIFIC, STRUCT_WRITE, THIS_WRITE, TYPE_NEG, TYPE_POS,
   frameAnswer, frameCheck, gapOk, hedgeOk, lwOk, paraModel, paraSentence, paraSlots, slotOk,
 } from '../src/lessons/lesson-02-improve-connect/logic';
 
@@ -130,4 +130,6 @@ test('3.2 find the linking words: 5 devices in the paragraph', () => {
   assert.equal(LINKS.length, 5);
   for (const l of LINKS) assert.equal(PARA_LINK.filter((t) => t.link === l.id).map((t) => t.t).join(' '), l.text);
   assert.ok(PARA_LINK.some((t) => t.t === 'has'), 'infrastructure has led (fixed)');
+  assert.equal(LINK_SEGS.length, OUTLINE_ITEMS.length, 'one sentence per outline item');
+  assert.deepEqual(LINK_SEGS.map((s) => s.link), [undefined, 0, 1, 2, 3, 4]);
 });
