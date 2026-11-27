@@ -404,44 +404,48 @@ const StructBridge: React.FC<{ small?: boolean }> = ({ small }) => {
     </div>
   );
 };
-/* 4.2 — 1 a paragraph linked only with This + V: the This sentences light up one by one, then "limited structures"
-   2 the two ways so far: linking word (A → B. LW C → D) and This (A → B. B → C)
-   3 the new way: A → B → C in ONE sentence, a structure is the bridge from B to C (it keeps swapping)
-   4 the which group · 5 the thus group; the running example changes its ending */
+/* 4.2 — every step on a click. 1 a paragraph linked only with This + V · 2 the This sentences light up, S V · This + V ×3
+   3 everything blurs, "Cấu trúc bị giới hạn" slams into the centre · 4 the two ways so far: LW (A → B. LW C → D), A → B. B → C
+   5 the new way: A → B → C in ONE sentence, a structure is the bridge from B to C (it keeps swapping)
+   6 the which group · 7 the thus group; the running example changes its ending */
 export const SStructs: React.FC<SlideProps> = (props) => {
   const b = props.build;
   let body: React.ReactNode;
-  if (b === 0) body = (
-    <div className="w6lim" key="lim">
-      <p className="card w6lim-para">
-        <span className="w6lim-s">{LIMITED_PARA.first}</span>{' '}
-        {LIMITED_PARA.next.map((x, i) => (
-          <React.Fragment key={i}>
-            <span className={`w6lim-s t d${i}`}><b className="w6lim-this">This</b> <b className="w6lim-v">{x.v}</b>{x.rest}</span>{' '}
-          </React.Fragment>
-        ))}
-      </p>
-      <div className="w6lim-strip" aria-hidden="true">
-        <span className="w6lim-blk sv">S V.</span>
-        {LIMITED_PARA.next.map((_, i) => <span key={i} className={`w6lim-blk tv d${i}`}>This + V.</span>)}
+  if (b <= 2) body = (
+    <div className={`w6lim${b >= 1 ? ' lit' : ''}${b >= 2 ? ' focus' : ''}`} key="lim">
+      <div className="w6lim-content">
+        <p className="card w6lim-para">
+          <span className="w6lim-s">{LIMITED_PARA.first}</span>{' '}
+          {LIMITED_PARA.next.map((x, i) => (
+            <React.Fragment key={i}>
+              <span className={`w6lim-s t d${i}`}><b className="w6lim-this">This</b> <b className="w6lim-v">{x.v}</b>{x.rest}</span>{' '}
+            </React.Fragment>
+          ))}
+        </p>
+        {b >= 1 && (
+          <div className="w6lim-strip" aria-hidden="true">
+            <span className="w6lim-blk sv">S V.</span>
+            {LIMITED_PARA.next.map((_, i) => <span key={i} className={`w6lim-blk tv d${i}`}>This + V.</span>)}
+          </div>
+        )}
       </div>
-      <div className="w6st-limited w6lim-stamp">Cấu trúc bị giới hạn</div>
+      {b >= 2 && <div className="w6lim-slam" role="note"><span className="w6lim-tag">Cấu trúc bị giới hạn</span></div>}
     </div>
   );
-  else if (b <= 2) body = (
+  else if (b <= 4) body = (
     <div className="w6ch w6ways" key="ways">
-      <div className={`w6ch-row w6way${b === 2 ? ' w6-past' : ''}`}><span className="w6way-n">1</span><Dot n="A" /><Arr /><Dot n="B" /><Stop /><span className="w6ch-tool lw">Linking word,</span><Dot n="C" /><Arr /><Dot n="D" /></div>
-      <div className={`w6ch-row w6way${b === 2 ? ' w6-past' : ''}`} style={{ animationDelay: '.25s' }}><span className="w6way-n">2</span><Dot n="A" /><Arr /><Dot n="B" /><Stop /><span className="w6ch-tool this">This</span><Dot n="B" cls="again" /><Arr /><Dot n="C" /></div>
-      {b === 2 && <><div className="w6way-new">Cách mới</div><StructBridge /></>}
+      <div className={`w6ch-row w6way${b === 4 ? ' w6-past' : ''}`}><span className="w6way-n">1</span><Dot n="A" /><Arr /><Dot n="B" /><Stop /><span className="w6ch-tool lw">Linking word,</span><Dot n="C" /><Arr /><Dot n="D" /></div>
+      <div className={`w6ch-row w6way${b === 4 ? ' w6-past' : ''}`} style={{ animationDelay: '.25s' }}><span className="w6way-n">2</span><Dot n="A" /><Arr /><Dot n="B" /><Stop /><Dot n="B" cls="again" /><Arr /><Dot n="C" /></div>
+      {b === 4 && <><div className="w6way-new">Cách mới</div><StructBridge /></>}
     </div>
   );
   else body = (
     <>
       <StructBridge small />
-      <LiveStruct grp={b >= 4 ? 'thus' : 'which'} />
+      <LiveStruct grp={b >= 6 ? 'thus' : 'which'} />
       <div className="w6st-groups">
         {(['which', 'thus'] as const).map((grp, gi) => (
-          <div key={grp} className={`card w6st-g ${b < 3 + gi ? 'w6-hide' : b === 3 + gi ? 'cur' : 'w6-past'}`}>
+          <div key={grp} className={`card w6st-g ${b < 5 + gi ? 'w6-hide' : b === 5 + gi ? 'cur' : 'w6-past'}`}>
             {STRUCTS.filter((x) => x.group === grp).map((x, i) => (
               <div key={x.id} className="w6st-row" style={{ animationDelay: `${0.15 + i * 0.2}s` }}>
                 <span className="w6st-pat">{x.pat}</span>
@@ -450,7 +454,7 @@ export const SStructs: React.FC<SlideProps> = (props) => {
             ))}
           </div>
         ))}
-        {b >= 4 && <div className="w6st-eff enter">→ Effects</div>}
+        {b >= 6 && <div className="w6st-eff enter">→ Effects</div>}
       </div>
     </>
   );

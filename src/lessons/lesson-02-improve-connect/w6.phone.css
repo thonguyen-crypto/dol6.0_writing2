@@ -159,3 +159,5 @@
 .phone .w6 .w6lim-strip{flex-wrap:wrap;justify-content:center}
 .phone .w6 .w6way .w6ch-dot{width:40px;height:40px}
 .phone .w6 .w6sb-bridge{min-width:170px;height:60px}
+.phone .w6 .w6lim-tag{font-size:var(--w6-t);padding:12px 20px}
+.phone .w6 .w6lim-slam::before{width:300px;height:300px}

@@ -1106,20 +1106,29 @@
 @media (prefers-reduced-motion:reduce){.w6 .w6tw-art *{animation:none!important;opacity:1}.w6 .w6tw-card{animation:none}}
 
 /* ---- 4.2 structures: limited paragraph → two ways → the structure bridge B → C ---------------- */
-.w6 .w6lim{display:flex;flex-direction:column;align-items:center;gap:18px;width:100%;max-width:1150px;position:relative}
+.w6 .w6lim{position:relative;width:100%;max-width:1150px}
+.w6 .w6lim-content{display:flex;flex-direction:column;align-items:center;gap:18px;transition:filter .6s,opacity .6s}
 .w6 .w6lim-para{margin:0;padding:20px 26px;font-size:var(--w6-t);line-height:1.6;color:var(--ink)}
-.w6 .w6lim-s.t{border-radius:8px;animation:w6limLit .5s both;-webkit-box-decoration-break:clone;box-decoration-break:clone}
-.w6 .w6lim-s.t.d0{animation-delay:.6s}.w6 .w6lim-s.t.d1{animation-delay:1.3s}.w6 .w6lim-s.t.d2{animation-delay:2s}
+.w6 .w6lim-s.t{border-radius:8px;transition:background .5s;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.w6 .w6lim-this,.w6 .w6lim-v{font-weight:inherit;transition:all .4s}
+.w6 .w6lim.lit .w6lim-s.t{animation:w6limLit .5s both}
+.w6 .w6lim.lit .w6lim-s.t.d0{animation-delay:.1s}.w6 .w6lim.lit .w6lim-s.t.d1{animation-delay:.6s}.w6 .w6lim.lit .w6lim-s.t.d2{animation-delay:1.1s}
 @keyframes w6limLit{from{background:transparent}to{background:var(--redl)}}
-.w6 .w6lim-this{color:#fff;background:var(--red);border-radius:8px;padding:0 6px}
-.w6 .w6lim-v{color:var(--redd)}
+.w6 .w6lim.lit .w6lim-this{font-weight:800;color:#fff;background:var(--red);border-radius:8px;padding:0 6px}
+.w6 .w6lim.lit .w6lim-v{font-weight:800;color:var(--redd)}
 .w6 .w6lim-strip{display:flex;gap:10px;align-items:center}
 .w6 .w6lim-blk{font-size:var(--w6-s);font-weight:800;border-radius:12px;padding:8px 18px;animation:pop .4s both}
-.w6 .w6lim-blk.sv{background:#fff;border:2px solid var(--ink);color:var(--ink);animation-delay:.3s}
-.w6 .w6lim-blk.tv{background:var(--red);color:#fff;animation:pop .4s both,w6limBeat 1.2s 3.2s ease-in-out infinite}
-.w6 .w6lim-blk.tv.d0{animation-delay:.8s,3.2s}.w6 .w6lim-blk.tv.d1{animation-delay:1.5s,3.2s}.w6 .w6lim-blk.tv.d2{animation-delay:2.2s,3.2s}
+.w6 .w6lim-blk.sv{background:#fff;border:2px solid var(--ink);color:var(--ink);animation-delay:.2s}
+.w6 .w6lim-blk.tv{background:var(--red);color:#fff;animation:pop .4s both,w6limBeat 1.2s 2.2s ease-in-out infinite}
+.w6 .w6lim-blk.tv.d0{animation-delay:.4s,2.2s}.w6 .w6lim-blk.tv.d1{animation-delay:.9s,2.2s}.w6 .w6lim-blk.tv.d2{animation-delay:1.4s,2.2s}
 @keyframes w6limBeat{0%,100%{transform:none}30%{transform:translateY(-6px)}}
-.w6 .w6lim-stamp{animation:w6stamp .5s 2.8s cubic-bezier(.3,1.6,.5,1) both}
+.w6 .w6lim.focus .w6lim-content{filter:blur(5px);opacity:.3}
+.w6 .w6lim.focus .w6lim-blk.tv{animation:none}
+.w6 .w6lim-slam{position:absolute;inset:-40px 0;display:flex;align-items:center;justify-content:center;z-index:8;pointer-events:none}
+.w6 .w6lim-slam::before{content:'';position:absolute;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(214,58,67,.16),rgba(214,58,67,0) 65%);animation:w6tvGlow .6s .35s both}
+.w6 .w6lim-tag{position:relative;font-size:calc(var(--w6-t) * 1.6);font-weight:800;color:var(--redd);background:#fff;border:4px solid var(--red);border-radius:22px;padding:18px 40px;box-shadow:0 0 0 10px var(--redl),0 12px 0 var(--redd),0 24px 50px rgba(214,58,67,.3);transform:rotate(-3deg);animation:w6limSlam .55s .35s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes w6limSlam{0%{opacity:0;transform:scale(2.6) rotate(-10deg)}60%{opacity:1;transform:scale(.94) rotate(-2deg)}75%{transform:scale(1.04) rotate(-3deg)}100%{opacity:1;transform:rotate(-3deg)}}
+.w6 .w6lim.focus{animation:w6tvShake .35s .85s both}
 .w6 .w6ways{gap:20px}
 .w6 .w6way{border-color:#ebeae6;background:#fff;box-shadow:0 3px 0 #efeeea;animation:rise .45s both}
 .w6 .w6way-n{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;font-size:var(--w6-ui);font-weight:800;margin-right:6px}
@@ -1133,4 +1142,4 @@
 @keyframes w6sbDrop{0%{opacity:0;transform:translateY(-46px) rotate(-6deg)}70%{opacity:1;transform:translateY(4px)}100%{transform:none}}
 .w6 .w6sb.small .w6sb-bridge{min-width:150px;height:50px}
 .w6 .w6sb.small .w6sb-plank{font-size:var(--w6-ui);padding:4px 12px;box-shadow:none;animation:none}
-@media (prefers-reduced-motion:reduce){.w6 .w6lim-blk.tv{animation:none}.w6 .w6sb-plank{animation:none}}
+@media (prefers-reduced-motion:reduce){.w6 .w6lim-blk.tv,.w6 .w6lim.focus,.w6 .w6lim-tag,.w6 .w6lim-slam::before{animation:none}.w6 .w6sb-plank{animation:none}}
