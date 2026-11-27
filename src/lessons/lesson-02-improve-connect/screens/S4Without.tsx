@@ -11,7 +11,7 @@ import {
   gapOk, type TypeSet, type VGroup,
 } from '../logic';
 import { EFFECT_ICON } from './Viz';
-import { FbRows, Frame, GradedList, Segs, SubmitBar, Verdict, useAiSet, useBurst } from '../runtime';
+import { FbRows, Frame, GradedList, Parts, Segs, SubmitBar, Verdict, useAiSet, useBurst, type Part } from '../runtime';
 
 /* ---- circles chain (4.1, 4.4) -------------------------------------------------------------- */
 type Node = string;
@@ -357,3 +357,11 @@ const ParaScreen: React.FC<{ props: SlideProps; idx: number }> = ({ props, idx }
 };
 export const SPara1: React.FC<SlideProps> = (props) => <ParaScreen props={props} idx={0} />;
 export const SPara2: React.FC<SlideProps> = (props) => <ParaScreen props={props} idx={1} />;
+
+/* 4.1 This + verb pattern — one page, three parts: mindset · This + verb · effects verb patterns */
+const TV_PARTS: Part[] = [
+  { C: SMindset, n: 2, kind: 'theory', pre: 'Mindset:', key: 'A → B, B → C', vi: 'Câu sau phải nối tiếp ý câu trước' },
+  { C: SThisVerb, n: 3, kind: 'theory', pre: 'Without linking words:', key: 'This + verb', vi: 'Thay linking word bằng This + động từ' },
+  { C: SEffects, n: 3, kind: 'theory', pre: 'Effects:', key: 'verb patterns', vi: 'Những pattern diễn tả hệ quả hay dùng nhất trong IELTS' },
+];
+export const SThisVerbPage: React.FC<SlideProps> = (props) => <Parts props={props} parts={TV_PARTS} />;

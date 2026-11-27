@@ -4,7 +4,7 @@ import React from 'react';
 import type { SlideProps } from '../../../kit/slides';
 import { useActivity, useDraft } from '../../../kit/activities/useActivity';
 import { LINKS, LINK_FNS, LW_BANK, LW_PRACTICE, OUTLINE, PARA_LINK, lwOk, type LinkFn } from '../logic';
-import { CritTree, Frame, Slot, SubmitBar, useBurst, useOpenSlot } from '../runtime';
+import { CritTree, Frame, Parts, Slot, SubmitBar, useBurst, useOpenSlot, type Part } from '../runtime';
 
 /* 3.1 */
 export const SCC: React.FC<SlideProps> = (props) => (
@@ -183,3 +183,10 @@ export const SLwPractice: React.FC<SlideProps> = (props) => {
     </Frame>
   );
 };
+
+/* 3.1 Demo: Linking words — one page, two parts: Coherence & Cohesion · find the linking words (activity) */
+const LDEMO_PARTS: Part[] = [
+  { C: SCC, n: 1, kind: 'theory', pre: 'Next:', key: 'Coherence & Cohesion', vi: 'Nối các câu với nhau' },
+  { C: SFindLinks, n: 1, kind: 'activity', pre: 'Find the', key: 'linking words', vi: 'Đọc dàn bài và đoạn văn, chạm vào các công cụ liên kết' },
+];
+export const SLinkDemo: React.FC<SlideProps> = (props) => <Parts props={props} parts={LDEMO_PARTS} />;

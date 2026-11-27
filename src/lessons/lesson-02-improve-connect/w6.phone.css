@@ -119,7 +119,7 @@
 .phone .w6 .w6ht-use{margin-left:0}
 .phone .w6 .w6ht-before{padding-left:0}
 .phone .w6 .w6ht-after{font-size:var(--w6-s)}
-.phone .w6 .w6s-specificdemo .w6sp-art,.phone .w6 .w6s-twoways .w6sp-art{height:96px}
+.phone .w6 .w6s-specificdemo .w6sp-art,.phone .w6 .w6s-demo .w6sp-art{height:96px}
 .phone .w6 .w6sp-tool.w6-past{display:none}
 .phone .w6 .w6i-pair{grid-template-columns:1fr;gap:12px}
 .phone .w6 .w6i-br2{display:none}

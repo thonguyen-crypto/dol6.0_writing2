@@ -8,7 +8,7 @@ import {
   HEDGE, HEDGE_TOOLS, PARA, PARA_TOPIC, SPEC_BASE, SPEC_TOOLS, SPECIFIC, frameAnswer, frameCheck, hedgeOk, paraModel, paraSentence, paraSlots, slotOk, slotText, type ParaSlot,
 } from '../logic';
 import { HEDGE_VIZ } from './Viz';
-import { Frame, GradedList, Segs, Slot, SubmitBar, rv, useAiSet, useBurst, useOpenSlot } from '../runtime';
+import { Frame, GradedList, Parts, Segs, Slot, SubmitBar, rv, useAiSet, useBurst, useOpenSlot, type Part } from '../runtime';
 
 /* ---- 2.1 drawings ------------------------------------------------------------------------ */
 /* "quơ đũa cả nắm": one sweep ticks every person the same way */
@@ -443,3 +443,10 @@ export const SParaImprove: React.FC<SlideProps> = (props) => {
     </Frame>
   );
 };
+
+/* 2.1 Demo — one page, two parts: improve by meaning · one sentence, 2 ways to improve */
+const DEMO_PARTS: Part[] = [
+  { C: SMeaning, n: 3, kind: 'theory', pre: 'Improve a sentence by', key: 'meaning', vi: 'Câu hay không phải vì từ khó, cấu trúc khó' },
+  { C: SOverview, n: 5, kind: 'theory', pre: 'One sentence,', key: '2 ways to improve', vi: 'Thuyết phục hơn, rồi cụ thể hơn' },
+];
+export const SDemo: React.FC<SlideProps> = (props) => <Parts props={props} parts={DEMO_PARTS} />;

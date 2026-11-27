@@ -49,18 +49,21 @@ test('page codes follow stage order and skip covers/dividers', () => {
   assert.equal(codes.cover, undefined);
   assert.equal(codes.revision, '1.1');
   assert.equal(codes.warmup, '1.2');
-  assert.equal(codes.meaning, '2.1');
-  assert.equal(codes.twoways, '2.2');
-  assert.equal(codes.convincing, '2.3');
-  assert.equal(codes.hedge, '2.3a'); // each practice hangs off the theory page before it
-  assert.equal(codes.specificdemo, '2.4');
-  assert.equal(codes.specific, '2.4a');
-  assert.equal(codes.paraimprove, '2.5');
-  assert.equal(codes.lwpractice, '3.3a');
-  assert.equal(codes.effects, '4.3');
-  assert.equal(codes.thiswrite, '4.3c');
-  assert.equal(codes.thereby, '4.4a');
-  assert.equal(codes.structwrite, '4.4b');
-  assert.equal(codes.para2, '4.6');
+  assert.equal(codes.demo, '2.1'); // 2 parts on one page
+  assert.equal(codes.convincing, '2.2');
+  assert.equal(codes.hedge, '2.2a'); // each practice hangs off the theory page before it
+  assert.equal(codes.specificdemo, '2.3');
+  assert.equal(codes.specific, '2.3a');
+  assert.equal(codes.paraimprove, '2.4');
+  assert.equal(codes.findlinks, '3.1'); // CC + find the linking words on one page
+  assert.equal(codes.linkfns, '3.2');
+  assert.equal(codes.lwpractice, '3.2a');
+  assert.equal(codes.thisverb, '4.1'); // mindset + This + verb + effects on one page
+  assert.equal(codes.thispos, '4.1a');
+  assert.equal(codes.thiswrite, '4.1c');
+  assert.equal(codes.structs, '4.2');
+  assert.equal(codes.thereby, '4.2a');
+  assert.equal(codes.structwrite, '4.2b');
+  assert.equal(codes.para2, '4.4');
   assert.equal(codes.homework, '5.3');
 });
