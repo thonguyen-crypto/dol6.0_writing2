@@ -5,7 +5,7 @@ import React from 'react';
 import type { SlideProps } from '../../../kit/slides';
 import { useActivity, useDraft } from '../../../kit/activities/useActivity';
 import {
-  HEDGE, HEDGE_TOOLS, SHOWOFF, SPEC_CHOICE, PARA, PARA_TOPIC, SPEC_BASE, SPECIFIC, frameAnswer, frameCheck, hedgeOk, paraModel, paraSentence, paraSlots, slotOk, slotText, type ParaSlot,
+  HEDGE, HEDGE_TOOLS, SHOWOFF, SPEC_FILL, specBlanks, PARA, PARA_TOPIC, SPEC_BASE, SPECIFIC, frameAnswer, frameCheck, hedgeOk, paraModel, paraSentence, paraSlots, slotOk, slotText, type ParaSlot,
 } from '../logic';
 import { HEDGE_VIZ } from './Viz';
 import { Frame, GradedList, Parts, Segs, Slot, SubmitBar, rv, useAiSet, useBurst, useOpenSlot, type Part } from '../runtime';
@@ -398,62 +398,63 @@ export const SSpecific: React.FC<SlideProps> = (props) => {
   const key = props.step.key;
   const [fx, burst] = useBurst();
   const act = useActivity(key, 'all');
-  const [pick, setPick] = useDraft<Record<string, number>>(`${key}:pick`, {});
+  const [pick, setPick] = useDraft<Record<string, string>>(`${key}:fill`, {});
+  const [open, setOpen] = useOpenSlot();
   const [k, setK] = React.useState(0);
   const last = new Map((act.latest?.lines || []).map((l) => [l.id, l]));
   const showKey = props.revealed || act.locked;
   const lockedUi = act.locked || act.paused;
-  const done = SPEC_CHOICE.filter((it) => pick[it.id] !== undefined).length;
+  const all = SPEC_FILL.flatMap((it) => specBlanks(it));
+  const done = all.filter((x) => pick[x.id]).length;
   const submit = async () => {
-    const lines = SPEC_CHOICE.map((it, i) => ({ id: it.id, label: `Câu ${i + 1}`, value: pick[it.id] !== undefined ? it.opts[pick[it.id]] : '—', correct: pick[it.id] === it.ok }));
+    const lines = all.map((x) => ({ id: x.id, label: x.id, value: pick[x.id] || '—', correct: pick[x.id] === x.ok }));
     const right = lines.filter((l) => l.correct).length;
     const a = await act.submit({
-      answer: Object.fromEntries(SPEC_CHOICE.map((it) => [it.id, pick[it.id] ?? null])), lines,
-      isCorrect: right === SPEC_CHOICE.length, score: right, maxScore: SPEC_CHOICE.length, scoreDisplay: `${right}/${SPEC_CHOICE.length} đúng`,
-      models: SPEC_CHOICE.map((it, i) => ({ id: it.id, label: `Câu ${i + 1}`, value: it.opts[it.ok], correct: true })),
+      answer: { ...pick }, lines, isCorrect: right === all.length, score: right, maxScore: all.length, scoreDisplay: `${right}/${all.length} chỗ đúng`,
+      models: all.map((x) => ({ id: x.id, label: x.id, value: x.ok, correct: true })),
     });
     if (a?.isCorrect) burst();
   };
-  const bar = <SubmitBar act={act} ready={done === SPEC_CHOICE.length} hint={`Chọn đủ ${SPEC_CHOICE.length} câu (${done}/${SPEC_CHOICE.length})`} label={act.latest ? 'Nộp lại' : 'Nộp bài'} onSubmit={submit} />;
-  const it = SPEC_CHOICE[k];
-  const r = last.get(it.id);
-  const sent = (act.latest?.answer as Record<string, number | null> | undefined)?.[it.id];
-  const solved = showKey || !!r?.correct;
+  const bar = <SubmitBar act={act} ready={done === all.length} hint={`Điền đủ ${all.length} chỗ trống (${done}/${all.length})`} label={act.latest ? 'Nộp lại' : 'Nộp bài'} onSubmit={submit} />;
+  const it = SPEC_FILL[k];
+  const solved = showKey || specBlanks(it).every((x) => last.get(x.id)?.correct);
   return (
     <Frame props={props} bar={bar} fx={fx}>
       <div className="w6pc">
         <div className="w6tw-steps" role="tablist">
-          {SPEC_CHOICE.map((x, i) => {
-            const rr = last.get(x.id);
-            const st = rr ? (rr.correct ? ' ok' : ' bad') : pick[x.id] !== undefined ? ' done' : '';
+          {SPEC_FILL.map((x, i) => {
+            const bl = specBlanks(x);
+            const graded = bl.some((y) => last.get(y.id));
+            const ok = graded && bl.every((y) => last.get(y.id)?.correct);
+            const st = graded ? (ok ? ' ok' : ' bad') : bl.every((y) => pick[y.id]) ? ' done' : '';
             return (
               <button key={x.id} role="tab" aria-selected={i === k} className={`w6tw-step${i === k ? ' on' : ''}${st}`} onClick={() => setK(i)}>
-                <span>{rr ? (rr.correct ? '✓' : '!') : i + 1}</span>Câu {i + 1}
+                <span>{graded ? (ok ? '✓' : '!') : i + 1}</span>Câu {i + 1}
               </button>
             );
           })}
         </div>
-        <div className="card w6pc-card" key={it.id}>
+        <div className={`card w6pc-card${open ? ' menu' : ''}`} key={it.id}>
           <SpecArt k={k} />
           <div className="w6pc-main">
             <div className="w6pc-orig"><b>Câu gốc</b>{it.orig}</div>
-            <div className="w6pc-q">Câu nào cụ thể hơn và đúng?</div>
-            <div className="w6pc-opts" role="radiogroup">
-              {it.opts.map((o, j) => {
-                const chosen = pick[it.id] === j;
-                const st = solved ? (j === it.ok ? ' ok' : ' dim') : r && !r.correct && sent === j && chosen ? ' bad' : chosen ? ' on' : '';
+            <div className="w6pc-q">Chạm vào chỗ trống, chọn cách làm câu cụ thể hơn</div>
+            <p className="w6pc-frame">
+              {it.parts.map((p, i) => {
+                if (typeof p === 'string') return <React.Fragment key={i}>{p}</React.Fragment>;
+                const r = last.get(p.id);
+                const st = r ? (r.correct ? 'ok' : 'try') : showKey ? 'key' : '';
+                const val = showKey && !r?.correct ? p.ok : pick[p.id];
                 return (
-                  <button key={j} role="radio" aria-checked={chosen} className={`w6pc-opt${st}`} disabled={lockedUi}
-                    onClick={() => setPick((p) => ({ ...p, [it.id]: j }))}>
-                    <span className="w6pc-l">{'ABC'[j]}</span><span>{o}</span>
-                  </button>
+                  <Slot key={p.id} value={val} options={p.opts} open={open === p.id} onOpen={() => !lockedUi && setOpen(open === p.id ? null : p.id)}
+                    onPick={(o) => { setPick((x) => ({ ...x, [p.id]: o })); setOpen(null); }} state={st as never} disabled={lockedUi} label={`Câu ${k + 1}, chỗ trống`} />
                 );
               })}
-            </div>
+            </p>
             {solved && <div className="w6pc-why"><b>{it.tool}</b> · {it.why}</div>}
             <div className="w6tw-nav w6pc-nav">
               <button className="w6tw-navb" disabled={k === 0} onClick={() => setK(k - 1)} aria-label="Câu trước">‹</button>
-              {k < SPEC_CHOICE.length - 1 && <button className="w6tw-navb next" onClick={() => setK(k + 1)}>Câu {k + 2} ›</button>}
+              {k < SPEC_FILL.length - 1 && <button className="w6tw-navb next" onClick={() => setK(k + 1)}>Câu {k + 2} ›</button>}
             </div>
           </div>
         </div>

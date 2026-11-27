@@ -205,3 +205,4 @@
 .phone .w6 .w6pc-card{grid-template-columns:1fr;padding:12px}
 .phone .w6 .w6pc-art{width:150px;height:120px;justify-self:center}
 .phone .w6 .w6pc-orig{flex-direction:column;gap:4px}
+.phone .w6 .w6pc-frame{font-size:var(--w6-s)}

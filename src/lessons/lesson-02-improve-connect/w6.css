@@ -1442,3 +1442,8 @@
 .w6 .w6pc-lens{animation:w6pcLens 3s ease-in-out infinite alternate}
 @keyframes w6pcLens{from{transform:translate(-80px,-10px)}to{transform:translate(0,0)}}
 @media (prefers-reduced-motion:reduce){.w6 .w6pc-art *{animation:none!important}.w6 .w6pc-card{animation:none}}
+.w6 .w6pc-frame{margin:0;font-size:var(--w6-t);font-weight:700;line-height:2;color:var(--ink)}
+.w6 .w6pc-frame .w6sl-btn{min-width:150px;font-size:var(--w6-s)}
+.w6 .w6pc-frame .w6sl-menu button{font-size:var(--w6-s)}
+.w6 .w6pc-card.menu{position:relative;z-index:6}
+.w6 .w6pc-card{overflow:visible}

@@ -134,12 +134,11 @@ test('3.2 find the linking words: 5 devices in the paragraph', () => {
   assert.deepEqual(LINK_SEGS.map((s) => s.link), [undefined, 0, 1, 2, 3, 4]);
 });
 
-test('2.3a Practice 2: every sentence has 3 versions and exactly one key', async () => {
-  const { SPEC_CHOICE } = await import('../src/lessons/lesson-02-improve-connect/logic');
-  assert.equal(SPEC_CHOICE.length, 4);
-  for (const it of SPEC_CHOICE) {
-    assert.equal(it.opts.length, 3, it.id);
-    assert.ok(it.ok >= 0 && it.ok < 3, it.id);
-    assert.equal(new Set(it.opts).size, 3, it.id);
+test('2.3a Practice 2: every blank has 3 chips and exactly one key', async () => {
+  const { SPEC_FILL, specBlanks } = await import('../src/lessons/lesson-02-improve-connect/logic');
+  assert.equal(SPEC_FILL.length, 4);
+  for (const it of SPEC_FILL) for (const b of specBlanks(it)) {
+    assert.equal(b.opts.length, 3, b.id);
+    assert.equal(b.opts.filter((o) => o === b.ok).length, 1, b.id);
   }
 });
