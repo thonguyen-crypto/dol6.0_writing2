@@ -32,10 +32,10 @@ const steps: StepMeta[] = [
       { title: 'Phần 1 · 4 tiêu chí', text: 'Nhắc lại buổi trước: Lexical Resources → dùng đúng patterns + collocations; Grammar → viết câu không lỗi. Hai tiêu chí ngôn ngữ đã có ✓.' },
       { title: 'Phần 2 · 4 bước', text: 'Ôn nhanh chiến lược 4 bước của DOL: Meaning → S – V → Word patterns + Collocations (Oxford, Longman) → Combine. Không giảng lại, chỉ gọi HS nhắc từng bước.' },
     ] },
-  { key: 'warmup', kind: 'theory', stage: 1, name: 'Đúng, nhưng chưa hay', short: 'Warm-up', builds: 4,
-    head: H('Revision', 'Đúng,', 'nhưng chưa hay', 'Viết một câu từ 3 từ khoá'),
+  { key: 'warmup', kind: 'theory', stage: 1, name: 'Revision: Build a sentence', short: 'Build a sentence', builds: 7,
+    head: H('Revision', 'Revision:', 'Build a sentence', 'Từ 3 từ khoá đến một câu, đi đủ 4 bước'),
     notes: [
-      { title: 'Cách triển khai', text: 'Build 1: hình + 3 từ khoá “Do internships – allow – soft skills”. Hỏi miệng: dùng 4 bước, nói thành câu (không gõ bài). Build 2: câu của “một học viên giấu tên”. Hỏi lớp: câu này đúng chưa? → Đúng. Build 3: “Đúng, nhưng chưa hay!” Build 4: quay lại 4 tiêu chí: câu như vậy mới đảm bảo LR và GRA; còn 2 cột TR và CC.' },
+      { title: 'Cách triển khai', text: 'Cùng kiểu demo với Lesson 1 (4.2): một chuỗi chuyển động trên một màn, thanh 4 bước ở trên chạy theo, bước xong thì biến mất. Gọi HS nói trước mỗi lần bấm (hỏi miệng, không gõ bài). Build 1: hình + 3 từ khoá “Do internships – allow – soft skills”. Build 2 Meaning: Đi thực tập giúp người ta phát triển kỹ năng mềm. Build 3 S – V: Đi thực tập → Doing internships (S), giúp → allows (V). Build 4: tra pattern của allow (Oxford): allow somebody to do something. Build 5 Combine: Doing internships allows people to develop soft skills. Build 6: hỏi lớp câu này đúng chưa? → Đúng. Dấu “Đúng, nhưng chưa hay!”. Build 7: quay lại 4 tiêu chí: câu như vậy mới đảm bảo LR và GRA; còn 2 cột TR và CC.' },
       { title: 'Đáp án cần chốt', text: 'Doing internships allows people to develop soft skills. (Do → Doing vì làm chủ ngữ: V-ing; allow sb to do sth.)' },
       { title: 'Chuyển tiếp', text: '“Giờ mình cùng nghiên cứu viết câu như thế nào để improve 2 cột điểm còn lại nhé.”' },
     ] },
@@ -210,7 +210,7 @@ const all: LessonMeta = {
     'Nối câu không cần linking words: This + verb pattern, cấu trúc which, thereby.',
   ],
   stages: [
-    { n: 1, name: 'Revision', short: 'Revision', sub: 'Câu đúng rồi, nhưng chưa hay.', topics: ['4 tiêu chí', '4 bước', 'Warm-up'] },
+    { n: 1, name: 'Revision', short: 'Revision', sub: 'Câu đúng rồi, nhưng chưa hay.', topics: ['4 tiêu chí', '4 bước', 'Build a sentence'] },
     { n: 2, name: 'Improve a sentence by meaning', short: 'Improve a sentence', sub: 'Make it more convincing · make it more specific.', topics: ['Convincing', 'Specific', 'Extra practice'] },
     { n: 3, name: 'Connect sentences with linking words', short: 'Linking words', sub: '3 chức năng: explanation · example · effect.', topics: ['Find the linkers', '3 functions', 'Small practice'] },
     { n: 4, name: 'Connect sentences without linking words', short: 'Without linking words', sub: 'This + verb pattern · structures.', topics: ['Mindset', 'This + V', 'Structures', 'Paragraph'] },

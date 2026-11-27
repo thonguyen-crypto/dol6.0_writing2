@@ -165,3 +165,22 @@
 .phone .w6 .w6s1-pat{font-size:var(--w6-t);padding:6px 16px}
 .phone .w6 .w6sb-down{display:none}
 .phone .w6 .w6s1{margin-top:12px}
+.phone .w6 .w6d-stage{height:auto;min-height:360px}
+.phone .w6 .w6d-sc{position:absolute}
+.phone .w6 .w6d-steps{flex-wrap:wrap}
+.phone .w6 .w6d-vi{font-size:var(--w6-t)}
+.phone .w6 .w6d-sv{flex-direction:column;align-items:center;gap:10px}
+.phone .w6 .w6d-cen,.phone .w6 .w6d-vbox{font-size:var(--w6-t)}
+.phone .w6 .w6d-look{flex-direction:column}
+.phone .w6 .w6d-fork{display:none}
+.phone .w6 .w6d-cards{gap:10px}
+.phone .w6 .w6d-pat{font-size:var(--w6-t)}
+.phone .w6 .w6d-chip,.phone .w6 .w6d-dot{font-size:var(--w6-t)}
+.phone .w6 .w6d-pict{width:150px;height:150px}
+.phone .w6 .w6d-mean{flex-direction:column;gap:10px}
+.phone .w6 .w6d-pair{flex-direction:column}
+.phone .w6 .w6d-big{font-size:var(--w6-t)}
+.phone .w6 .w6d-pict.big{width:280px;height:206px}
+.phone .w6 .w6d-pict.big.w6w-pict svg{width:260px}
+.phone .w6 .w6d-pict.sm.w6w-pict svg{width:150px}
+.phone .w6 .w6w-pair .w6w-stamp{right:-6px;top:-30px}

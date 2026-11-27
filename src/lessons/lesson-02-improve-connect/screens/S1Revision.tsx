@@ -1,4 +1,4 @@
-/* Stage 1 · Revision — 1.1 Revision (Parts: 4 criteria · DOL's 4 steps) · 1.2 Đúng, nhưng chưa hay */
+/* Stage 1 · Revision — 1.1 Revision (Parts: 4 criteria · DOL's 4 steps) · 1.2 Revision: build a sentence */
 import React from 'react';
 import type { SlideProps } from '../../../kit/slides';
 import { STEPS4, WARM_KEYS } from '../logic';
@@ -112,14 +112,32 @@ export const InternScene: React.FC<{ small?: boolean }> = ({ small }) => (
 );
 
 /* 1.2 — keywords → the student's sentence (right) → "Đúng, nhưng chưa hay!" → back to the 4 criteria (TR, CC left) */
+/* 1.2 Revision: build a sentence — the same moving sequence as Lesson 1 · 4.2 Demo, one screen, each finished step leaves.
+   1 picture + 3 keywords · 2 Meaning · 3 S – V · 4 pattern (allow sb to do sth) · 5 Combine · 6 "Đúng, nhưng chưa hay!"
+   7 back to the 4 criteria: LR, GRA ✓, TR and CC still "?" */
+const STEP_NAMES = ['Meaning', 'S – V', 'Pattern + Collocation', 'Combine'];
+const WARM_VI = ['Đi thực tập', 'giúp', 'người ta', 'phát triển', 'kỹ năng mềm.'];
 export const SWarmup: React.FC<SlideProps> = (props) => {
   const b = props.build;
+  const stepAt = Math.min(b, 5);
+  const sc = (i: number) => `w6d-sc${b === i ? ' on' : b > i ? ' gone' : ''}`;
+  const cols = [
+    { vi: 'Đi thực tập', role: 'S', cls: 'rS', en: <>Doing internships</> },
+    { vi: 'giúp', role: 'V', cls: 'rV', en: <>allows</> },
+    { vi: '(người ta) phát triển kỹ năng mềm', role: b >= 3 ? 'pattern' : '', cls: b >= 3 ? 'rP' : 'rx', en: b >= 3 ? <>somebody <i>to</i> do something</> : <>…</> },
+  ];
   return (
     <Frame props={props}>
-      <div className={`w6w${b >= 3 ? ' w6w-crit' : ''}`}>
-        <div className="w6w-l">
-          <div className={`w6w-pic${b >= 1 ? ' small' : ''}`}><InternScene /></div>
-          <div className={`w6w-keys${b >= 1 ? ' w6-gone' : ''}`}>
+      <ol className="w6d-steps">
+        {STEP_NAMES.map((n, i) => (
+          <li key={n} className={stepAt === i + 1 ? 'cur' : stepAt > i + 1 ? 'done' : ''}><span className="w6-n">{stepAt > i + 1 ? '✓' : i + 1}</span>{n}</li>
+        ))}
+      </ol>
+      <div className="w6d-stage">
+        {/* 0 · picture + keywords */}
+        <div className={sc(0)}>
+          <div className="w6d-pict big w6w-pict"><InternScene /></div>
+          <div className="w6w-keys">
             {WARM_KEYS.map((k, i) => (
               <React.Fragment key={k}>
                 {i > 0 && <span className="w6w-dash">–</span>}
@@ -127,16 +145,44 @@ export const SWarmup: React.FC<SlideProps> = (props) => {
               </React.Fragment>
             ))}
           </div>
-          {b >= 1 && (
-            <div className={`card w6w-sent enter${b === 1 || b === 2 ? ' w6-on' : ''}`}>
-              <span className="w6w-q">“</span>
-              <span><span className="w6w-k k1">Doing internships</span> <span className="w6w-k k2">allows</span> people to develop <span className="w6w-k k3">soft skills</span>.</span>
-              <span className="w6w-by">Một học viên giấu tên</span>
-              {b >= 2 && <span className="w6w-stamp" key="st">Đúng, nhưng chưa hay!</span>}
-            </div>
-          )}
         </div>
-        {b >= 3 && <div className="w6w-r enter"><CritTree done={['lr', 'gra']} cur={['tr', 'cc']} ask /></div>}
+        {/* 1 · meaning */}
+        <div className={sc(1)}>
+          <div className="w6d-mean">
+            <div className="w6d-pict sm w6w-pict"><InternScene small /></div>
+            <div className="w6d-vi">{WARM_VI.map((w, i) => <span key={w} style={{ animationDelay: `${0.25 + i * 0.22}s` }}>{w}</span>)}</div>
+          </div>
+        </div>
+        {/* 2–3 · S – V, then the pattern of allow */}
+        <div className={`w6d-sc${b === 2 || b === 3 ? ' on' : b > 3 ? ' gone' : ''}`}>
+          <div className="w6d-sv">
+            {cols.map((c, i) => (
+              <div key={i} className={`w6d-col ${c.cls}`} style={{ animationDelay: `${0.15 + i * 0.25}s` }}>
+                <span className="w6d-cvi">{c.vi}</span>
+                <span className="w6d-arr" style={{ animationDelay: `${0.45 + i * 0.25}s` }}>↓</span>
+                <span key={c.cls} className="w6d-cen" style={{ animationDelay: i === 2 && b >= 3 ? '.15s' : `${0.6 + i * 0.25}s` }}>{c.en}</span>
+                <span key={'r' + c.role} className="w6d-role" style={{ animationDelay: i === 2 && b >= 3 ? '.35s' : `${0.85 + i * 0.25}s`, visibility: c.role ? 'visible' : 'hidden' }}>{c.role || '·'}</span>
+                {i === 2 && b === 3 && <span className="w6d-src">Oxford · allow (v)</span>}
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* 4–5 · combine, then the verdict */}
+        <div className={`w6d-sc${b === 4 || b === 5 ? ' on' : b > 5 ? ' gone' : ''}`}>
+          <div className="w6d-two">
+            <div className="w6d-pair w6w-pair">
+              <div className="w6d-big s"><span className="w6d-role">S</span><span>Doing internships</span></div>
+              <div className="w6d-big v"><span className="w6d-role">V</span><span>allows people <i>to</i> develop soft skills</span></div>
+              <span className="w6d-ok">✓</span>
+              {b >= 5 && <span className="w6w-stamp" key="st">Đúng, nhưng chưa hay!</span>}
+            </div>
+            <div className="w6d-tag2"><b>Do → Doing</b>: V-ing làm chủ ngữ · <b>allow</b> somebody <b>to</b> do something</div>
+          </div>
+        </div>
+        {/* 6 · back to the 4 criteria */}
+        <div className={sc(6)}>
+          {b >= 6 && <CritTree done={['lr', 'gra']} cur={['tr', 'cc']} ask />}
+        </div>
       </div>
     </Frame>
   );
