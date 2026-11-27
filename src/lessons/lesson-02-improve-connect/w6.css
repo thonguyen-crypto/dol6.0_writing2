@@ -1043,3 +1043,8 @@
 /* the two sides end level: columns stretch to the taller one, the three cards share its height */
 .w6 .w6ef-cols{align-items:stretch}
 .w6 .w6ef-col .w6ef-g{flex:1;display:flex;flex-direction:column;justify-content:center}
+/* good effects = green, bad effects = red */
+.w6 .w6ef-col.s-pos{border-top-color:var(--ok)}
+.w6 .w6ef-col.s-pos .w6ef-sign{color:var(--ok)}
+.w6 .w6ef-g.s-pos{border-left-color:var(--ok)}
+.w6 .w6ef-g.s-pos .w6ef-gn{color:var(--okd)}
