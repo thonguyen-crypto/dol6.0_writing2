@@ -27,7 +27,7 @@ const Outline: React.FC<{ lit?: LinkFn | null; compact?: boolean }> = ({ lit, co
 );
 
 /* 3.1 part 2 — GV demo, no submission. Each build lights one outline item and writes its sentence into the
-   paragraph; the linking word that opens the sentence pops in with its function. Earlier links stay marked. */
+   paragraph; the linking word that opens the sentence pops in. Earlier links stay marked. */
 export const SFindLinks: React.FC<SlideProps> = (props) => {
   const b = props.build;
   let prev = '';
@@ -53,7 +53,7 @@ export const SFindLinks: React.FC<SlideProps> = (props) => {
               const link = sg.link !== undefined ? LINKS[sg.link] : null;
               return (
                 <span key={i} className={`w6fd-seg${i === b ? ' cur' : ''}`}>
-                  {link && <><span className="w6fd-lw">{link.text}</span><span className="w6fl-fn w6fd-fn">{FN_VI[link.fn]}</span>{' '}</>}
+                  {link && <><span className="w6fd-lw">{link.text}</span>{' '}</>}
                   {sg.text}{' '}
                 </span>
               );
