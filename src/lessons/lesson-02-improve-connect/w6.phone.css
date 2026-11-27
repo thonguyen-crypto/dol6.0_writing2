@@ -136,3 +136,8 @@
 .phone .w6 .w6tv-ghost{display:none}
 .phone .w6 .w6fd{grid-template-columns:1fr}
 .phone .w6 .w6fd-item:not(.head){padding-left:22px}
+.phone .w6 .w6tv-paper{padding:18px 16px 20px 46px;background-image:linear-gradient(90deg,transparent 34px,#f3c9cb 34px,#f3c9cb 36px,transparent 36px),repeating-linear-gradient(180deg,transparent 0,transparent 31px,#e7eaf3 31px,#e7eaf3 33px);background-position:0 0,0 14px}
+.phone .w6 .w6tv-hole{left:10px;width:12px;height:12px}
+.phone .w6 .w6tv-line{line-height:33px;min-height:33px}
+.phone .w6 .w6tv-er{white-space:normal}
+.phone .w6 .w6tv-line .w6ch-dot.sm{width:26px;height:26px;font-size:var(--w6-ui);margin-right:8px}

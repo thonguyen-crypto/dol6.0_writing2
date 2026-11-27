@@ -50,26 +50,97 @@ export const SMindset: React.FC<SlideProps> = (props) => {
   );
 };
 
-/* 4.2 — Build 1: sentence + "As a result," · Build 2: the linking word leaves, "This" + verb pattern takes its place · Build 3: the verb card flips; formula */
+/* 4.1 part 2 — a sheet of paper. Build 1: sentence A + "As a result, they …".
+   Build 2: an eraser rubs out the whole "As a result, …" line, then a pen writes "This can help them to …" in its place.
+   Build 3: the eraser rubs out only "can help them to", the pen writes "can provide them with more opportunities to"; formula. */
+const reduceMotion = () => typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+/** ms since this build started (ticks until `until`); jumps to the end when motion is reduced */
+function useClock(build: number, until = 7000): number {
+  const [t, setT] = useState(() => (reduceMotion() ? 1e9 : 0));
+  useEffect(() => {
+    if (reduceMotion()) { setT(1e9); return; }
+    setT(0);
+    const t0 = performance.now();
+    const id = window.setInterval(() => { const d = performance.now() - t0; setT(d); if (d > until) window.clearInterval(id); }, 40);
+    return () => window.clearInterval(id);
+  }, [build, until]);
+  return t;
+}
+const ERASE_MS = 1300;
+const CHAR_MS = 32;
+/** text being rubbed out: a paper-coloured cover follows the eraser left → right */
+const Erase: React.FC<{ text: string; t: number; cls?: string }> = ({ text, t, cls = '' }) => {
+  const p = Math.min(1, Math.max(0, t / ERASE_MS));
+  return (
+    <span className={`w6tv-er ${cls}`}>
+      {text}
+      <span className="w6tv-cover" style={{ width: `${p * 100}%` }} />
+      {p < 1 && (
+        <span className="w6tv-eraser" style={{ left: `${p * 100}%` }} aria-hidden="true">
+          <svg viewBox="0 0 60 40"><rect x="4" y="6" width="52" height="28" rx="6" fill="#f3c9cb" stroke="#3b3d54" strokeWidth="3" /><rect x="4" y="6" width="20" height="28" rx="6" fill="#d63a43" stroke="#3b3d54" strokeWidth="3" /></svg>
+          <i className="w6tv-crumb c0" /><i className="w6tv-crumb c1" /><i className="w6tv-crumb c2" />
+        </span>
+      )}
+    </span>
+  );
+};
+/** text being written: revealed character by character, the pen tip sits at the caret */
+const Write: React.FC<{ parts: { t: string; cls?: string }[]; t: number }> = ({ parts, t }) => {
+  let n = Math.max(0, Math.floor(t / CHAR_MS));
+  const total = parts.reduce((k, p) => k + p.t.length, 0);
+  const writing = n < total;
+  let penAt = -1;
+  let used = 0;
+  const out = parts.map((p, i) => {
+    const k = Math.min(p.t.length, n);
+    n -= k;
+    if (writing && penAt < 0 && (k < p.t.length || used + k === total)) penAt = i;
+    used += k;
+    return (
+      <span key={i} className={p.cls}>
+        <span className="w6tv-ink">{p.t.slice(0, k)}</span>
+        {penAt === i && (
+          <span className="w6tv-pen" aria-hidden="true">
+            <svg viewBox="0 0 40 60"><path d="M6 58 L2 44 L28 4 L38 10 L12 50 Z" fill="#3b3d54" /><path d="M28 4 L38 10 L34 16 L24 10 Z" fill="#d63a43" /><path d="M2 44 L12 50 L6 58 Z" fill="#f4f4f2" stroke="#3b3d54" strokeWidth="2" /></svg>
+          </span>
+        )}
+        <span className="w6tv-todo">{p.t.slice(k)}</span>
+      </span>
+    );
+  });
+  return <>{out}</>;
+};
 export const SThisVerb: React.FC<SlideProps> = (props) => {
   const b = props.build;
+  const t = useClock(b);
+  const W0 = ERASE_MS + 200;
+  const old = `${THIS_DEMO.lw} ${THIS_DEMO.lwRest}`;
+  const tail = ' find a well-paying job after graduation.';
+  const v1 = THIS_DEMO.v1.slice(0, THIS_DEMO.v1.length - tail.length);
+  const v2 = THIS_DEMO.v2.slice(0, THIS_DEMO.v2.length - tail.length);
+  const writtenThis = b >= 2 || t > W0 + 4 * CHAR_MS;
+  let lineB: React.ReactNode;
+  if (b === 0) lineB = <span className="w6tv-old"><b>{THIS_DEMO.lw}</b> {THIS_DEMO.lwRest}</span>;
+  else if (b === 1) lineB = t < ERASE_MS + 100 ? <Erase text={old} t={t} cls="w6tv-old" />
+    : <Write t={t - W0} parts={[{ t: 'This', cls: 'w6tv-this' }, { t: ` ${THIS_DEMO.v1}` }]} />;
+  else lineB = (
+    <>
+      <span className="w6tv-this">This</span>{' '}
+      {t < ERASE_MS + 100 ? <Erase text={v1} t={t} /> : <span className="w6tv-vp"><Write t={t - W0} parts={[{ t: v2 }]} /></span>}
+      {tail}
+    </>
+  );
   return (
     <Frame props={props}>
       <div className="w6tv">
-        <div className="card w6tv-a"><span className="w6ch-dot c-a sm">A</span>{THIS_DEMO.a}</div>
-        <div className="w6tv-b">
-          {b === 0 ? (
-            <><span className="w6tv-lw">{THIS_DEMO.lw}</span><span className="w6tv-rest">{THIS_DEMO.lwRest}</span></>
-          ) : (
-            <>
-              <span className="w6tv-lw out" aria-hidden="true">{THIS_DEMO.lw}</span>
-              <span className="w6tv-thisw"><span className="w6tv-ghost" aria-hidden="true" /><span className="w6tv-this">This</span><span className="w6tv-eq">= ý câu A</span></span>
-              <span key={b >= 2 ? 'v2' : 'v1'} className={`w6tv-rest v${b >= 2 ? ' flip' : ''}`}>{b >= 2 ? THIS_DEMO.v2 : THIS_DEMO.v1}</span>
-            </>
-          )}
+        <div className="w6tv-paper">
+          <i className="w6tv-hole h0" /><i className="w6tv-hole h1" /><i className="w6tv-hole h2" />
+          {b >= 1 && writtenThis && <span className="w6tv-eqtag">This = ý câu A</span>}
+          <p className={`w6tv-line a${b >= 1 && writtenThis ? ' lit' : ''}`}><span className="w6ch-dot c-a sm">A</span><span className="w6tv-atext">{THIS_DEMO.a}</span></p>
+          <p className="w6tv-line">{lineB}</p>
         </div>
         {b >= 2 && (
-          <div className="w6tv-formula enter">
+          <div className="w6tv-formula w6tv-late">
             <span className="w6tv-f this">this</span><span className="w6tv-plus">+</span><span className="w6tv-f vp">verb pattern</span><span className="w6tv-plus">→</span><span className="w6tv-f eff">Effects</span>
           </div>
         )}
