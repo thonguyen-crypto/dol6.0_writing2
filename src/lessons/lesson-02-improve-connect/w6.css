@@ -1040,3 +1040,6 @@
 .w6 .w6ef-col.w6-hide{animation:none}
 @keyframes w6efIn{from{opacity:0;transform:translateY(-34px) scaleY(.6)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.w6 .w6nf-fork path{animation:none;stroke-dashoffset:0}}
+/* the two sides end level: columns stretch to the taller one, the three cards share its height */
+.w6 .w6ef-cols{align-items:stretch}
+.w6 .w6ef-col .w6ef-g{flex:1;display:flex;flex-direction:column;justify-content:center}

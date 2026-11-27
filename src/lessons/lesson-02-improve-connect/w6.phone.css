@@ -150,3 +150,4 @@
 .phone .w6 .w6nf:not(.big) .w6nf-verbs,.phone .w6 .w6nf:not(.big) .w6nf-objs{flex-wrap:wrap;justify-content:center}
 .phone .w6 .w6nf.big{transform:none}
 .phone .w6 .w6nf.big .w6nf-verbs span{white-space:nowrap}
+.phone .w6 .w6ef-col .w6ef-g{flex:none}
