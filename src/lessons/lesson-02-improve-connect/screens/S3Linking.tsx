@@ -93,9 +93,10 @@ const FlowMap: React.FC<{ b: number }> = ({ b }) => {
       {on && <span className="w6fm-spark" />}
     </div>
   );
-  const arrows = (parts: string[], effect: boolean) => parts.map((t, i) => (
+  /** the ⇒ inside a block becomes these words in build 3 (as in the finished paragraph of 3.2) */
+  const arrows = (parts: string[], effect: boolean, words: string[]) => parts.map((t, i) => (
     <React.Fragment key={i}>
-      {i > 0 && (effect ? <span className="w6fm-arr on">{['As a result', 'and thus', 'Therefore'][Math.min(i - 1, 2)]}</span> : <i className="w6ol-arr"> ⇒ </i>)}
+      {i > 0 && (effect ? <span className="w6fm-arr on">{words[i - 1]}</span> : <i className="w6ol-arr"> ⇒ </i>)}
       {t}
     </React.Fragment>
   ));
@@ -103,9 +104,9 @@ const FlowMap: React.FC<{ b: number }> = ({ b }) => {
     <div className="w6fm">
       <div className="card w6fm-node"><b>Idea</b><span>{OUTLINE.idea}</span></div>
       {joint(b >= 0, b === 0, 'This is because')}
-      <div className={`card w6fm-node${b === 2 ? ' fx' : ''}`}><b>Expand</b><span>{arrows(OUTLINE.expand, b >= 2)}</span></div>
+      <div className={`card w6fm-node${b === 2 ? ' fx' : ''}`}><b>Expand</b><span>{arrows(OUTLINE.expand, b >= 2, ['As a result', 'and thus'])}</span></div>
       {joint(b >= 1, b === 1, 'For example,')}
-      <div className={`card w6fm-node${b === 2 ? ' fx' : ''}`}><b>Example</b><span>{arrows(OUTLINE.example, b >= 2)}</span></div>
+      <div className={`card w6fm-node${b === 2 ? ' fx' : ''}`}><b>Example</b><span>{arrows(OUTLINE.example, b >= 2, ['Therefore'])}</span></div>
     </div>
   );
 };
