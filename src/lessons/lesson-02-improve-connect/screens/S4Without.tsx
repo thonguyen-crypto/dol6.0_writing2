@@ -424,14 +424,12 @@ export const SStructs: React.FC<SlideProps> = (props) => {
   else {
     const k = Math.min(b - 5, STRUCTS.length - 1);
     const x = STRUCTS[k];
-    const inGroup = STRUCTS.filter((y) => y.group === x.group);
     body = (
       <>
         <StructBridge small />
         <div className={`w6s1 g-${x.group}`}>
           <div className="w6s1-top">
-            <span className="w6s1-grp" key={x.group}>Nhóm {x.group === 'which' ? 'which' : 'thus'}</span>
-            <span className="w6s1-dots">{inGroup.map((y) => <i key={y.id} className={y.id === x.id ? 'on' : STRUCTS.indexOf(y) < k ? 'past' : ''} />)}</span>
+            <span className="w6s1-dots">{STRUCTS.map((y, i) => <i key={y.id} className={i === k ? 'on' : i < k ? 'past' : ''} />)}</span>
           </div>
           <div className="w6s1-pat" key={'p' + x.id}>{x.pat}</div>
           <p className="card w6s1-sent">
