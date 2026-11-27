@@ -5,7 +5,7 @@ import React from 'react';
 import type { SlideProps } from '../../../kit/slides';
 import { useActivity, useDraft } from '../../../kit/activities/useActivity';
 import {
-  HEDGE, HEDGE_TOOLS, SHOWOFF, PARA, PARA_TOPIC, SPEC_BASE, SPECIFIC, frameAnswer, frameCheck, hedgeOk, paraModel, paraSentence, paraSlots, slotOk, slotText, type ParaSlot,
+  HEDGE, HEDGE_TOOLS, SHOWOFF, SPEC_CHOICE, PARA, PARA_TOPIC, SPEC_BASE, SPECIFIC, frameAnswer, frameCheck, hedgeOk, paraModel, paraSentence, paraSlots, slotOk, slotText, type ParaSlot,
 } from '../logic';
 import { HEDGE_VIZ } from './Viz';
 import { Frame, GradedList, Parts, Segs, Slot, SubmitBar, rv, useAiSet, useBurst, useOpenSlot, type Part } from '../runtime';
@@ -367,35 +367,97 @@ export const SSpecificDemo: React.FC<SlideProps> = (props) => {
   );
 };
 
-/* ---- 2.3a Practice 2: make it more specific (4 frames, graded together) --------------------- */
+/* ---- 2.3a Practice 2: make it more specific — one sentence at a time, pick 1 of 3 (auto-graded) ---- */
+const SpecArt: React.FC<{ k: number }> = ({ k }) => (
+  <svg className={`w6pc-art f${k}`} viewBox="0 0 200 160" aria-hidden="true">
+    {k === 0 && (<g>
+      <rect x="20" y="96" width="120" height="34" rx="10" fill="#fdf1f1" stroke="#3b3d54" strokeWidth="3" /><rect x="14" y="84" width="20" height="46" rx="8" fill="#fff" stroke="#3b3d54" strokeWidth="3" />
+      <circle cx="78" cy="72" r="13" fill="#fff" stroke="#3b3d54" strokeWidth="3" /><path d="M66 92c6-8 18-8 24 0v4H66z" fill="#3b3d54" />
+      <g className="w6pc-zz"><text x="104" y="54">z</text><text x="116" y="40">z</text></g>
+      <g className="w6pc-heart"><path d="M160 66c-14-10-22-18-22-28a11 11 0 0 1 22-4 11 11 0 0 1 22 4c0 10-8 18-22 28z" fill="#d63a43" /></g>
+      <path className="w6pc-pulse" d="M140 110h14l6-14 8 26 6-12h18" stroke="#d63a43" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+    </g>)}
+    {k === 1 && (<g>
+      <path d="M100 30 L170 56 L100 82 L30 56 Z" fill="#3b3d54" /><path d="M58 68v24c0 10 84 10 84 0V68l-42 16z" fill="#3b3d54" />
+      <path className="w6pc-tassel" d="M170 56v30" stroke="#d63a43" strokeWidth="4" strokeLinecap="round" />
+      {[0, 1, 2].map((i) => <rect key={i} className={`w6pc-book b${i}`} x={52 + i * 34} y="118" width="28" height="30" rx="3" fill={i === 1 ? '#d63a43' : '#fff'} stroke="#3b3d54" strokeWidth="2.5" />)}
+    </g>)}
+    {k === 2 && (<g>
+      {[[20, 60, 30], [56, 36, 40], [102, 50, 30], [138, 24, 42]].map(([x, y, w], i) => <rect key={i} x={x} y={y} width={w} height={140 - y} rx="3" fill="#fff" stroke="#3b3d54" strokeWidth="2.5" />)}
+      {[0, 1, 2, 3, 4, 5].map((i) => <rect key={i} className="w6pc-win" style={{ animationDelay: `${i * 0.3}s` }} x={64 + (i % 2) * 14} y={48 + Math.floor(i / 2) * 22} width="8" height="10" fill="#f3c9cb" />)}
+      <g className="w6pc-brief"><rect x="150" y="112" width="34" height="24" rx="4" fill="#d63a43" /><path d="M160 112v-6h14v6" stroke="#3b3d54" strokeWidth="3" fill="none" /></g>
+    </g>)}
+    {k === 3 && (<g>
+      <rect x="30" y="34" width="110" height="74" rx="8" fill="#3b3d54" /><rect x="38" y="42" width="94" height="58" rx="3" fill="#fdf1f1" /><rect x="20" y="108" width="130" height="10" rx="5" fill="#3b3d54" />
+      {[0, 1, 2].map((i) => <rect key={i} x="48" y={52 + i * 14} width={60 - i * 12} height="6" rx="3" fill="#c9c8d2" />)}
+      <g className="w6pc-lens"><circle cx="150" cy="70" r="20" fill="rgba(214,58,67,.08)" stroke="#d63a43" strokeWidth="4" /><path d="M164 84l16 16" stroke="#d63a43" strokeWidth="6" strokeLinecap="round" /></g>
+    </g>)}
+  </svg>
+);
 export const SSpecific: React.FC<SlideProps> = (props) => {
   const key = props.step.key;
   const [fx, burst] = useBurst();
-  const [v, setV] = useDraft<Record<string, string>>(`${key}:v`, {});
-  const items = SPECIFIC.map((it, k) => ({ id: it.id, label: `Câu ${k + 1}`, prompt: it.orig, context: it.context, answer: frameAnswer(it, v), models: it.models, check: frameCheck(it, v) }));
-  const s = useAiSet(props, items, burst);
-  const lockedUi = s.act.locked || s.act.paused;
-  const w = (t: string) => `calc(${Math.max(6, t.length) * 0.6}em + 20px)`;
+  const act = useActivity(key, 'all');
+  const [pick, setPick] = useDraft<Record<string, number>>(`${key}:pick`, {});
+  const [k, setK] = React.useState(0);
+  const last = new Map((act.latest?.lines || []).map((l) => [l.id, l]));
+  const showKey = props.revealed || act.locked;
+  const lockedUi = act.locked || act.paused;
+  const done = SPEC_CHOICE.filter((it) => pick[it.id] !== undefined).length;
+  const submit = async () => {
+    const lines = SPEC_CHOICE.map((it, i) => ({ id: it.id, label: `Câu ${i + 1}`, value: pick[it.id] !== undefined ? it.opts[pick[it.id]] : '—', correct: pick[it.id] === it.ok }));
+    const right = lines.filter((l) => l.correct).length;
+    const a = await act.submit({
+      answer: Object.fromEntries(SPEC_CHOICE.map((it) => [it.id, pick[it.id] ?? null])), lines,
+      isCorrect: right === SPEC_CHOICE.length, score: right, maxScore: SPEC_CHOICE.length, scoreDisplay: `${right}/${SPEC_CHOICE.length} đúng`,
+      models: SPEC_CHOICE.map((it, i) => ({ id: it.id, label: `Câu ${i + 1}`, value: it.opts[it.ok], correct: true })),
+    });
+    if (a?.isCorrect) burst();
+  };
+  const bar = <SubmitBar act={act} ready={done === SPEC_CHOICE.length} hint={`Chọn đủ ${SPEC_CHOICE.length} câu (${done}/${SPEC_CHOICE.length})`} label={act.latest ? 'Nộp lại' : 'Nộp bài'} onSubmit={submit} />;
+  const it = SPEC_CHOICE[k];
+  const r = last.get(it.id);
+  const sent = (act.latest?.answer as Record<string, number | null> | undefined)?.[it.id];
+  const solved = showKey || !!r?.correct;
   return (
-    <Frame props={props} bar={s.bar} fx={fx}>
-      {s.graded ? (
-        <GradedList s={s} rows={SPECIFIC.map((it, k) => ({ id: it.id, n: k + 1, answer: items[k].answer, tool: it.tool, models: it.models }))} />
-      ) : (
-        <div className="w6fr">
-          {SPECIFIC.map((it, k) => (
-            <div key={it.id} className={`card w6fr-card enter d${k + 1}`}>
-              <div className="w6fr-h"><span className="w6-n">{k + 1}</span><span className="w6fr-orig">{it.orig}</span></div>
-              <div className="w6fr-frame">
-                {it.frame.map((p, i) => (typeof p === 'string'
-                  ? <React.Fragment key={i}>{p}</React.Fragment>
-                  : <input key={i} className="w6fr-in" value={v[it.id + p.b] || ''} placeholder={p.ph} disabled={lockedUi} style={{ width: w(v[it.id + p.b] || p.ph) }}
-                      onChange={(e) => setV((x) => ({ ...x, [it.id + p.b]: e.target.value }))} aria-label={`Câu ${k + 1}, chỗ trống ${p.b === 'a' ? 1 : 2}`} />))}
-              </div>
-              {s.showModels && <><span className="w6fr-tool">{it.tool}</span><div className="w6-model">✓ Câu mẫu: {it.models[0]}</div></>}
-            </div>
-          ))}
+    <Frame props={props} bar={bar} fx={fx}>
+      <div className="w6pc">
+        <div className="w6tw-steps" role="tablist">
+          {SPEC_CHOICE.map((x, i) => {
+            const rr = last.get(x.id);
+            const st = rr ? (rr.correct ? ' ok' : ' bad') : pick[x.id] !== undefined ? ' done' : '';
+            return (
+              <button key={x.id} role="tab" aria-selected={i === k} className={`w6tw-step${i === k ? ' on' : ''}${st}`} onClick={() => setK(i)}>
+                <span>{rr ? (rr.correct ? '✓' : '!') : i + 1}</span>Câu {i + 1}
+              </button>
+            );
+          })}
         </div>
-      )}
+        <div className="card w6pc-card" key={it.id}>
+          <SpecArt k={k} />
+          <div className="w6pc-main">
+            <div className="w6pc-orig"><b>Câu gốc</b>{it.orig}</div>
+            <div className="w6pc-q">Câu nào cụ thể hơn và đúng?</div>
+            <div className="w6pc-opts" role="radiogroup">
+              {it.opts.map((o, j) => {
+                const chosen = pick[it.id] === j;
+                const st = solved ? (j === it.ok ? ' ok' : ' dim') : r && !r.correct && sent === j && chosen ? ' bad' : chosen ? ' on' : '';
+                return (
+                  <button key={j} role="radio" aria-checked={chosen} className={`w6pc-opt${st}`} disabled={lockedUi}
+                    onClick={() => setPick((p) => ({ ...p, [it.id]: j }))}>
+                    <span className="w6pc-l">{'ABC'[j]}</span><span>{o}</span>
+                  </button>
+                );
+              })}
+            </div>
+            {solved && <div className="w6pc-why"><b>{it.tool}</b> · {it.why}</div>}
+            <div className="w6tw-nav w6pc-nav">
+              <button className="w6tw-navb" disabled={k === 0} onClick={() => setK(k - 1)} aria-label="Câu trước">‹</button>
+              {k < SPEC_CHOICE.length - 1 && <button className="w6tw-navb next" onClick={() => setK(k + 1)}>Câu {k + 2} ›</button>}
+            </div>
+          </div>
+        </div>
+      </div>
     </Frame>
   );
 };

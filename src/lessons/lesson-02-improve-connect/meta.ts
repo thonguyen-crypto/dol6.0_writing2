@@ -6,7 +6,6 @@ import type { LessonMeta, SlideHead, StepMeta } from '../../kit/types';
 
 /** AI rubric per AI-graded step (server: ./rubrics.ts). */
 export const RUBRIC_OF: Record<string, string> = {
-  specific: 'improve-specific',
   thiswrite: 'this-verb',
   structwrite: 'structures',
   para1: 'paragraph',
@@ -72,11 +71,12 @@ const steps: StepMeta[] = [
       { title: 'Đáp án cần chốt', text: 'Processed fast food can easily cause health problems in children who eat it every day. / Processed fast food can easily cause health problems, such as obesity and diabetes, in children. Câu ví dụ do DOL soạn thêm, bản gốc chỉ có câu internships.' },
     ] },
   { key: 'specific', kind: 'activity', sub: true, stage: 2, name: 'Practice 2: make it more specific', short: 'Practice 2',
-    head: H('Improve a sentence', 'Practice 2:', 'make it more specific', 'Điền vào khung để câu cụ thể hơn'),
-    tracking: { parts: [{ id: 'all', label: '4 câu' }], grading: 'ai', passScore: 4, maxAttempts: 2 },
+    head: H('Improve a sentence', 'Practice 2:', 'make it more specific', 'Mỗi câu chọn 1 trong 3 phiên bản'),
+    tracking: { parts: [{ id: 'all', label: '4 câu' }], grading: 'auto', maxAttempts: 2 },
     notes: [
-      { title: 'Cách triển khai', text: '4 câu trên một màn, nộp một lần (AI chấm cả 4). Mỗi câu dùng 1 kỹ thuật; tên kỹ thuật hiện sau khi chấm để HS tự nhận ra. Gọi vài HS đọc câu của mình trước khi Mở đáp án.' },
-      { title: 'Đáp án cần chốt', text: '(1) people, particularly children, … such as obesity and cardiovascular disease → add examples. (2) students … knowledge and skills → use specific nouns. (3) people who do not have a college degree → add relative clauses (vừa cụ thể vừa đa dạng ngữ pháp). (4) valuable information easily → add adj (for noun), add adv (for verb).' },
+      { title: 'Cách triển khai', text: 'Mỗi lần một câu (chuyển Câu 1 · 2 · 3 · 4 ở trên). Mỗi câu có 3 phiên bản, chỉ 1 phiên bản vừa cụ thể hơn vừa đúng. Chọn đủ 4 câu rồi nộp một lần, chấm tự động theo đáp án. Sau khi chấm, mỗi câu hiện tên kỹ thuật và lý do. Gọi HS giải thích vì sao 2 phiên bản kia sai.' },
+      { title: 'Đáp án cần chốt', text: '(1) A: people, particularly children, … such as obesity and heart disease → add examples. (2) C: students … knowledge and skills → use specific nouns. (3) B: people who do not have a college degree → add relative clauses. (4) A: valuable information easily → add adj (for noun), add adv (for verb).' },
+      { title: 'Lưu ý', text: 'Các phiên bản sai do DOL soạn để HS nhận ra lỗi hay gặp: vẫn dùng từ chung chung (everyone, stuff, many things), which cho người, mệnh đề quan hệ không thêm ý, nhầm easy / easily.' },
     ] },
   { key: 'paraimprove', kind: 'activity', stage: 2, name: 'Extra practice: improve a paragraph', short: 'Extra practice', builds: 6,
     head: H('Improve a sentence', 'Extra practice:', 'improve a paragraph', 'Sửa từng câu [1]–[5], rồi xem cả đoạn'),

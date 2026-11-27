@@ -74,6 +74,31 @@ export const SPECIFIC: FrameItem[] = [
     context: 'Technique: ADD AN ADJECTIVE before the noun "information" (valuable, reliable, up-to-date…) and AN ADVERB for the verb "find" at the end (easily, quickly…). Blank 1 must be an adjective, blank 2 an adverb.' },
 ];
 
+/** 2.3a: one sentence at a time, 3 improved versions, exactly one is right (auto-graded) */
+export interface SpecChoice { id: string; orig: string; tool: string; opts: string[]; ok: number; why: string }
+export const SPEC_CHOICE: SpecChoice[] = [
+  { id: 'p1', orig: 'Lack of physical activity makes people struggle with health problems.', tool: 'add examples', ok: 0,
+    opts: ['Lack of physical activity makes people, particularly children, struggle with health problems, such as obesity and heart disease.',
+      'Lack of physical activity makes people, particularly everyone, struggle with many health problems.',
+      'Lack of physical activity makes people struggle with health problems, such as many things.'],
+    why: 'Ví dụ phải cụ thể: children, obesity and heart disease; everyone / many things vẫn chung chung.' },
+  { id: 'p2', orig: 'Entering university allows people to learn more useful things.', tool: 'use specific nouns', ok: 2,
+    opts: ['Entering university allows individuals to learn more useful stuff.',
+      'Entering university allows people to learn more useful things and so on.',
+      'Entering university allows students to learn more useful knowledge and skills.'],
+    why: 'students, knowledge and skills là danh từ cụ thể; individuals / stuff / and so on vẫn mơ hồ.' },
+  { id: 'p3', orig: 'It is hard for people to find jobs in cities.', tool: 'add relative clauses', ok: 1,
+    opts: ['It is hard for people which do not have a degree to find jobs in cities.',
+      'It is hard for people who do not have a college degree to find jobs in cities.',
+      'It is hard for people, who live in cities, to find jobs in cities.'],
+    why: 'Mệnh đề quan hệ cho người dùng who và phải nói rõ là người nào; “who live in cities” không thêm ý.' },
+  { id: 'p4', orig: 'The Internet allows students to find information.', tool: 'add adj (for noun) · add adv (for verb)', ok: 0,
+    opts: ['The Internet allows students to find valuable information easily.',
+      'The Internet allows students to find information valuable easy.',
+      'The Internet allows students to easy find valuable information.'],
+    why: 'Tính từ đứng trước danh từ (valuable information), trạng từ bổ nghĩa cho động từ (easily, không phải easy).' },
+];
+
 /* ---- 2.4 Extra practice: improve a paragraph (auto-graded, one slot = one choice) -----------
    A sentence is a list of plain text and slots; a slot shows `orig` (the student's text) until a chip is chosen. */
 export interface ParaSlot { id: string; orig: string; opts: string[]; ok: string; tool: string }

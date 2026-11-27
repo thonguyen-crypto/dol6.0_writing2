@@ -9,7 +9,7 @@ const run = (existing: any, incoming: any, paused = false): any => applyAttempt(
 
 test('rejects steps without tracking and unknown parts', () => {
   assert.equal(run(null, { stepKey: 'convincing', partId: 'all', attempt: attempt() }).status, 400);
-  assert.equal(run(null, { stepKey: 'specific', partId: 'Z', attempt: attempt() }).status, 400);
+  assert.equal(run(null, { stepKey: 'thiswrite', partId: 'Z', attempt: attempt() }).status, 400);
 });
 
 test('paused class: 423 and nothing saved', () => {
@@ -29,11 +29,11 @@ test('appends attempts, locks after the last one or when correct', () => {
 });
 
 test('AI steps: the pass rule comes from the lesson, not the browser', () => {
-  const low = run(null, { stepKey: 'specific', partId: 'all', attempt: attempt({ isCorrect: true, ai: { score: 3, maxScore: 5, ideas: 'x' } }) }).submission;
+  const low = run(null, { stepKey: 'thiswrite', partId: 'all', attempt: attempt({ isCorrect: true, ai: { score: 3, maxScore: 5, ideas: 'x' } }) }).submission;
   assert.equal(low.attempts[0].isCorrect, false);
-  const high = run(null, { stepKey: 'specific', partId: 'all', attempt: attempt({ isCorrect: false, ai: { score: 4, maxScore: 5, ideas: 'x' } }) }).submission;
+  const high = run(null, { stepKey: 'thiswrite', partId: 'all', attempt: attempt({ isCorrect: false, ai: { score: 4, maxScore: 5, ideas: 'x' } }) }).submission;
   assert.equal(high.attempts[0].isCorrect, true);
-  const fallback = run(null, { stepKey: 'specific', partId: 'all', attempt: attempt({ isCorrect: false, score: null, ai: { score: 0, maxScore: 5, ideas: '', fallback: true } }) }).submission;
+  const fallback = run(null, { stepKey: 'thiswrite', partId: 'all', attempt: attempt({ isCorrect: false, score: null, ai: { score: 0, maxScore: 5, ideas: '', fallback: true } }) }).submission;
   assert.equal(fallback.attempts[0].ai.fallback, true);
   assert.equal(fallback.locked, false);
 });

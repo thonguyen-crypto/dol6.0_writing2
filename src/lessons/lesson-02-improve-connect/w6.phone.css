@@ -202,3 +202,6 @@
 .phone .w6 .w6sm{grid-template-columns:1fr;gap:14px}
 .phone .w6 .w6sm-sent.w6paper{font-size:var(--w6-s)}
 .phone .w6 .w6sm .w6sp-art{height:110px}
+.phone .w6 .w6pc-card{grid-template-columns:1fr;padding:12px}
+.phone .w6 .w6pc-art{width:150px;height:120px;justify-self:center}
+.phone .w6 .w6pc-orig{flex-direction:column;gap:4px}

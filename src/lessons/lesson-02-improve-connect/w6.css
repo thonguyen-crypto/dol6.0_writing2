@@ -1399,3 +1399,46 @@
 .w6 .w6sm-row.cur{border-color:var(--red);background:#fdf6f6}
 .w6 .w6sm-row.cur .w6sm-f b,.w6 .w6sm-f b.on{color:var(--red)}
 .w6 .w6sm .w6sp-art{width:100%;max-width:420px;height:170px}
+
+/* ---- 2.3a Practice 2: one sentence at a time, pick 1 of 3 ----------------------------------- */
+.w6 .w6pc{display:flex;flex-direction:column;gap:12px;width:100%}
+.w6 .w6pc-card{display:grid;grid-template-columns:190px 1fr;gap:22px;padding:16px 22px;align-items:center;animation:w6twIn .35s both}
+.w6 .w6pc-art{width:190px;height:152px}
+.w6 .w6pc-main{display:flex;flex-direction:column;gap:10px;min-width:0}
+.w6 .w6pc-orig{display:flex;align-items:baseline;gap:10px;font-size:var(--w6-s);color:var(--sub);font-weight:600}
+.w6 .w6pc-orig b{flex:none;font-size:var(--w6-ui);font-weight:800;color:#fff;background:#a5a6b5;border-radius:8px;padding:2px 10px}
+.w6 .w6pc-q{font-size:var(--w6-ui);font-weight:800;color:var(--redd)}
+.w6 .w6pc-opts{display:flex;flex-direction:column;gap:8px}
+.w6 .w6pc-opt{display:flex;align-items:flex-start;gap:12px;text-align:left;font:inherit;font-size:var(--w6-s);font-weight:600;line-height:1.45;color:var(--ink);background:#fff;border:2px solid #e6e5e1;border-radius:14px;padding:10px 14px;cursor:pointer;transition:all .18s}
+.w6 .w6pc-opt:hover:not(:disabled){border-color:var(--ink)}
+.w6 .w6pc-l{flex:none;display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:#f4f4f2;color:var(--sub);font-size:var(--w6-ui);font-weight:800}
+.w6 .w6pc-opt.on{border-color:var(--red);background:#fdf6f6}
+.w6 .w6pc-opt.on .w6pc-l{background:var(--red);color:#fff}
+.w6 .w6pc-opt.ok{border-color:var(--ok);background:var(--okl)}
+.w6 .w6pc-opt.ok .w6pc-l{background:var(--ok);color:#fff}
+.w6 .w6pc-opt.bad{border-color:var(--red);background:var(--redl);animation:shake .45s both}
+.w6 .w6pc-opt.bad .w6pc-l{background:var(--red);color:#fff}
+.w6 .w6pc-opt.dim{opacity:.5}
+.w6 .w6pc-opt:disabled{cursor:default}
+.w6 .w6pc-why{font-size:var(--w6-ui);font-weight:700;color:var(--ink);background:#f4f4f2;border-radius:12px;padding:8px 12px;animation:rise .35s both}
+.w6 .w6pc-why b{color:var(--okd)}
+.w6 .w6pc-nav{align-self:flex-end}
+.w6 .w6tw-step.ok span{background:var(--ok);color:#fff}
+.w6 .w6tw-step.bad span{background:var(--red);color:#fff}
+.w6 .w6pc-zz text{font-size:18px;font-weight:800;fill:#a5a6b5;animation:w6pcZ 2.4s ease-in-out infinite}
+@keyframes w6pcZ{0%,100%{opacity:.2;transform:translateY(4px)}50%{opacity:1;transform:none}}
+.w6 .w6pc-heart{transform-box:fill-box;transform-origin:center;animation:w6pcBeat 1.2s ease-in-out infinite}
+@keyframes w6pcBeat{0%,100%{transform:scale(1)}20%{transform:scale(1.15)}40%{transform:scale(.95)}}
+.w6 .w6pc-pulse{stroke-dasharray:90;stroke-dashoffset:90;animation:w6pcLine 2.4s linear infinite}
+@keyframes w6pcLine{to{stroke-dashoffset:-90}}
+.w6 .w6pc-tassel{transform-box:fill-box;transform-origin:50% 0;animation:w6pcSwing 2s ease-in-out infinite alternate}
+@keyframes w6pcSwing{from{transform:rotate(-14deg)}to{transform:rotate(14deg)}}
+.w6 .w6pc-book{animation:w6pcBook 2.4s ease-in-out infinite}.w6 .w6pc-book.b1{animation-delay:.3s}.w6 .w6pc-book.b2{animation-delay:.6s}
+@keyframes w6pcBook{0%,100%{transform:none}30%{transform:translateY(-8px)}}
+.w6 .w6pc-win{animation:w6pcWin 1.8s ease-in-out infinite alternate}
+@keyframes w6pcWin{from{fill:#f3c9cb}to{fill:#f5b83d}}
+.w6 .w6pc-brief{animation:w6pcBrief 2.4s ease-in-out infinite}
+@keyframes w6pcBrief{0%,100%{transform:translateX(0)}50%{transform:translateX(-12px)}}
+.w6 .w6pc-lens{animation:w6pcLens 3s ease-in-out infinite alternate}
+@keyframes w6pcLens{from{transform:translate(-80px,-10px)}to{transform:translate(0,0)}}
+@media (prefers-reduced-motion:reduce){.w6 .w6pc-art *{animation:none!important}.w6 .w6pc-card{animation:none}}
