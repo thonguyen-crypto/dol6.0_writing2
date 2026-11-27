@@ -71,7 +71,7 @@ const steps: StepMeta[] = [
       { title: 'Đáp án cần chốt', text: 'Processed fast food can easily cause health problems in children who eat it every day. / Processed fast food can easily cause health problems, such as obesity and diabetes, in children. Câu ví dụ do DOL soạn thêm, bản gốc chỉ có câu internships.' },
     ] },
   { key: 'specific', kind: 'activity', sub: true, stage: 2, name: 'Practice 2: make it more specific', short: 'Practice 2',
-    head: H('Improve a sentence', 'Practice 2:', 'make it more specific', 'Chạm chỗ trống, chọn từ làm câu cụ thể hơn'),
+    head: H('Improve a sentence', 'Practice 2:', 'make it more specific', ''),
     tracking: { parts: [{ id: 'all', label: '4 câu' }], grading: 'auto', maxAttempts: 2 },
     notes: [
       { title: 'Cách triển khai', text: 'Mỗi lần một câu (chuyển Câu 1 · 2 · 3 · 4 ở trên). Câu có khung sẵn với chỗ trống; chạm chỗ trống ra 3 lựa chọn, chỉ 1 lựa chọn làm câu cụ thể hơn và đúng. Điền đủ 7 chỗ trống rồi nộp một lần, chấm tự động theo đáp án. Sau khi đúng, mỗi câu hiện tên kỹ thuật và lý do. Gọi HS giải thích vì sao 2 lựa chọn kia sai.' },

@@ -1447,3 +1447,7 @@
 .w6 .w6pc-frame .w6sl-menu button{font-size:var(--w6-s)}
 .w6 .w6pc-card.menu{position:relative;z-index:6}
 .w6 .w6pc-card{overflow:visible}
+.w6 .w6pc-frame{font-size:calc(var(--w6-t) * 1.25);line-height:2.1}
+.w6 .w6pc-frame .w6sl-btn{min-width:170px;font-size:var(--w6-t)}
+.w6 .w6pc-card{grid-template-columns:220px 1fr;padding:26px 30px}
+.w6 .w6pc-art{width:220px;height:176px}

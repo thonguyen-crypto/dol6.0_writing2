@@ -437,8 +437,6 @@ export const SSpecific: React.FC<SlideProps> = (props) => {
         <div className={`card w6pc-card${open ? ' menu' : ''}`} key={it.id}>
           <SpecArt k={k} />
           <div className="w6pc-main">
-            <div className="w6pc-orig"><b>Câu gốc</b>{it.orig}</div>
-            <div className="w6pc-q">Chạm vào chỗ trống, chọn cách làm câu cụ thể hơn</div>
             <p className="w6pc-frame">
               {it.parts.map((p, i) => {
                 if (typeof p === 'string') return <React.Fragment key={i}>{p}</React.Fragment>;
