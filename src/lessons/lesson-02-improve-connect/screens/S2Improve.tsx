@@ -288,49 +288,79 @@ const ArtSpecific: React.FC<{ b: number }> = ({ b }) => (
     </g>
   </svg>
 );
-/* 2.3 — the model is the focus: a tree that grows one click at a time; the fast-food sentence underneath is the example.
-   1 root · 2 Verb → + adverb (easily) · 3 Noun → before N / the noun itself / after N
-   4 before N: + adjective (Processed) · 5 the noun itself: specific noun (people → children)
-   6 after N: relative clause (who eat it every day) · 7 … or examples (such as obesity and diabetes), pick one */
-const TX = { v: 14, n: 62, a: 14, pre: 38, self: 62, post: 86 }; // node centres, % of the width
+/* 2.4 — the techniques on a new sentence (fast food), one per build; the sentence grows, the drawing changes. */
+const ArtFood: React.FC<{ b: number }> = ({ b }) => (
+  <svg viewBox="0 0 300 150" className="w6sp-svg" aria-hidden="true">
+    {/* 0: grown-ups → children */}
+    <g className={`w6sp-l ${b === 0 ? 'on' : ''}`}>
+      {[0, 1, 2, 3].map((i) => (
+        <g key={i} transform={`translate(${62 + i * 58} ${i % 2 ? 84 : 70})`}>
+          <circle cx="0" cy="0" r={i % 2 ? 10 : 12} fill="#fff" stroke="#3b3d54" strokeWidth="2.5" />
+          <path d={i % 2 ? 'M-12 40c0-14 5-22 12-22s12 8 12 22' : 'M-16 54c0-18 7-30 16-30s16 12 16 30'} fill={i % 2 ? '#fdf1f1' : '#fff'} stroke={i % 2 ? '#d63a43' : '#3b3d54'} strokeWidth="2.5" className={i % 2 ? 'w6sp-kid' : 'w6sp-adult'} />
+        </g>
+      ))}
+    </g>
+    {/* 1: a processed burger in a box; fast, easy motion lines */}
+    <g className={`w6sp-l ${b === 1 ? 'on' : ''}`}>
+      <g className="w6sp-ic i1">
+        <path d="M100 66a50 30 0 0 1 100 0z" fill="#f5b83d" stroke="#3b3d54" strokeWidth="3" />
+        <rect x="96" y="70" width="108" height="12" rx="6" fill="#2e9e46" />
+        <rect x="98" y="84" width="104" height="16" rx="6" fill="#b0262e" />
+        <path d="M100 104h100a6 6 0 0 1-6 12H106a6 6 0 0 1-6-12z" fill="#f5b83d" stroke="#3b3d54" strokeWidth="3" />
+        <circle cx="130" cy="52" r="2.5" fill="#fff" /><circle cx="152" cy="46" r="2.5" fill="#fff" /><circle cx="172" cy="54" r="2.5" fill="#fff" />
+      </g>
+      <g className="w6sp-ic i2"><path d="M218 70h40M226 86h40M218 102h40" stroke="#d63a43" strokeWidth="4" strokeLinecap="round" /></g>
+    </g>
+    {/* 2: every day = a calendar ticked day after day */}
+    <g className={`w6sp-l ${b === 2 ? 'on' : ''}`}>
+      <rect x="86" y="30" width="128" height="104" rx="12" fill="#fff" stroke="#3b3d54" strokeWidth="3" />
+      <rect x="86" y="30" width="128" height="24" rx="12" fill="#d63a43" />
+      {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+        <path key={i} className="w6sp-tick" style={{ animationDelay: `${0.2 + i * 0.12}s` }} d={`M${100 + (i % 4) * 28} ${76 + Math.floor(i / 4) * 30}l5 5 9-10`} stroke="#d63a43" strokeWidth="3.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      ))}
+    </g>
+    {/* 3: examples = a scale (obesity) and a drop (diabetes) */}
+    <g className={`w6sp-l ${b === 3 ? 'on' : ''}`}>
+      <g className="w6sp-ic i1"><rect x="70" y="54" width="76" height="70" rx="14" fill="#fff" stroke="#3b3d54" strokeWidth="3" /><path d="M86 80a22 22 0 0 1 44 0" fill="none" stroke="#3b3d54" strokeWidth="3" /><path d="M108 80l10-12" stroke="#d63a43" strokeWidth="4" strokeLinecap="round" /></g>
+      <g className="w6sp-ic i2"><path d="M200 46c18 26 28 42 28 56a28 28 0 0 1-56 0c0-14 10-30 28-56z" fill="#fdf1f1" stroke="#d63a43" strokeWidth="3" strokeLinejoin="round" /><path d="M188 104a12 12 0 0 0 12 12" stroke="#d63a43" strokeWidth="3" fill="none" strokeLinecap="round" /></g>
+    </g>
+  </svg>
+);
+
+/* 2.3 — two columns, one click = one row of the model + the same change in the example.
+   Left: the fast-food drawing + the sentence on paper. Right: the model, formulas only, no connector lines.
+   1 base sentence · 2 V + adverb · 3 adj + N · 4 specific N · 5 N + relative clause · 6 … or N + examples (pick one) */
+const SPEC_ART = [0, 1, 1, 0, 2, 3];
 export const SSpecificDemo: React.FC<SlideProps> = (props) => {
   const b = props.build;
-  const node = (show: boolean, cls: string, x: number, y: number, body: React.ReactNode, cur = false) => show && (
-    <div className={`w6tree-n ${cls}${cur ? ' cur' : ''}`} style={{ left: `${x}%`, top: y }}>{body}</div>
-  );
-  const line = (show: boolean, x1: number, y1: number, x2: number, y2: number, k: string) => show && (
-    <path key={k} d={`M${x1 * 10} ${y1} C ${x1 * 10} ${(y1 + y2) / 2}, ${x2 * 10} ${(y1 + y2) / 2}, ${x2 * 10} ${y2}`} />
+  const row = (at: number, label: string, f: React.ReactNode, cur = b === at) => b >= at && (
+    <div className={`w6sm-row${cur ? ' cur' : ''}`}><small>{label}</small><span className="w6sm-f">{f}</span></div>
   );
   return (
     <Frame props={props}>
-      <div className="w6sd">
-        <div className="w6tree">
-          <svg className="w6tree-lines" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true">
-            {line(b >= 1, 50, 44, TX.v, 92, 'rv')}
-            {line(b >= 1, TX.v, 136, TX.a, 186, 'va')}
-            {line(b >= 2, 50, 44, TX.n, 92, 'rn')}
-            {line(b >= 2, TX.n, 136, TX.pre, 186, 'n1')}
-            {line(b >= 2, TX.n, 136, TX.self, 186, 'n2')}
-            {line(b >= 2, TX.n, 136, TX.post, 186, 'n3')}
-          </svg>
-          {node(true, 'root', 50, 0, <>make it more <b>specific</b></>)}
-          {node(b >= 1, 'pos v', TX.v, 92, 'Verb')}
-          {node(b >= 1, 'leaf', TX.a, 186, <><span className="w6tree-how">+ adverb</span>{b >= 1 && <span className="w6tree-eg">easily</span>}</>, b === 1)}
-          {node(b >= 2, 'pos n', TX.n, 92, 'Noun')}
-          {node(b >= 2, 'leaf', TX.pre, 186, <><small>trước N</small><span className="w6tree-how">+ adjective</span>{b >= 3 && <span className="w6tree-eg">Processed</span>}</>, b === 3)}
-          {node(b >= 2, 'leaf', TX.self, 186, <><small>chính N</small><span className="w6tree-how">specific noun</span>{b >= 4 && <span className="w6tree-eg">people → children</span>}</>, b === 4)}
-          {node(b >= 2, 'leaf', TX.post, 186, <><small>sau N · chọn 1</small>
-            <span className="w6tree-how"><span className={b === 5 ? 'pick' : ''}>relative clause</span> / <span className={b === 6 ? 'pick' : ''}>examples</span></span>
-            {b >= 5 && <span className="w6tree-eg" key={b === 6 ? 'ex' : 'rc'}>{b === 6 ? 'such as obesity…' : 'who eat it every day'}</span>}</>, b === 5 || b === 6)}
+      <div className="w6sm">
+        <div className="w6sm-ex">
+          <div className="w6sp-art"><ArtFood b={SPEC_ART[b] ?? 3} /></div>
+          <div className="w6paper w6sm-sent">
+            {b >= 2 && <><span className="w6sp-add" key="adj">Processed</span>{' '}</>}
+            {b >= 2 ? 'fast' : 'Fast'} food can{' '}
+            {b >= 1 && <><span className="w6sp-add" key="adv">easily</span>{' '}</>}
+            cause health problems{b === 5 && <span className="w6sp-add" key="ex">, such as obesity and diabetes,</span>}
+            {' '}in {b >= 3 ? <>{b === 3 && <span className="w6sp-old">people</span>}<span className="w6sp-add" key="n">children</span></> : 'people'}
+            {b === 4 && <>{' '}<span className="w6sp-add" key="rc">who eat it every day</span></>}.
+          </div>
         </div>
-        <div className="w6paper w6sd-ex">
-          <span className="w6sd-lab">Ví dụ</span>
-          {b >= 3 && <><span className="w6sp-add" key="adj">Processed</span>{' '}</>}
-          {b >= 3 ? 'fast' : 'Fast'} food can{' '}
-          {b >= 1 && <><span className="w6sp-add" key="adv">easily</span>{' '}</>}
-          cause health problems{b === 6 && <span className="w6sp-add" key="ex">, such as obesity and diabetes,</span>}
-          {' '}in {b >= 4 ? <>{b === 4 && <span className="w6sp-old">people</span>}<span className="w6sp-add" key="n">children</span></> : 'people'}
-          {b === 5 && <>{' '}<span className="w6sp-add" key="rc">who eat it every day</span></>}.
+        <div className="w6sm-model">
+          <div className="w6sm-root">make it more <b>specific</b></div>
+          {b >= 1 && <div className="w6sm-grp"><span className="w6sm-k">Verb</span>{row(1, '', <>V + <b>adverb</b></>)}</div>}
+          {b >= 2 && (
+            <div className="w6sm-grp">
+              <span className="w6sm-k">Noun</span>
+              {row(2, 'trước N', <><b>adj</b> + N</>)}
+              {row(3, 'chính N', <><b>specific</b> N</>)}
+              {row(4, 'sau N', <>N + <b className={b === 4 ? 'on' : ''}>relative clause</b>{b >= 5 && <> / <b className="on">examples</b></>}</>, b === 4 || b === 5)}
+            </div>
+          )}
         </div>
       </div>
     </Frame>

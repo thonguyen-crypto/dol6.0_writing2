@@ -1381,3 +1381,21 @@
 .w6 .w6tree-n{width:max-content}
 .phone .w6 .w6tree-n{width:auto}
 .w6 .w6tree-n.root{flex-direction:row;gap:.3em}
+
+/* ---- 2.3 v3: example left (drawing + sentence on paper), compact formula model right ---------- */
+.w6 .w6sm{display:grid;grid-template-columns:1.25fr 1fr;gap:30px;align-items:center;width:100%;flex:1}
+.w6 .w6sm-ex{display:flex;flex-direction:column;align-items:center;gap:16px;min-width:0}
+.w6 .w6sm-sent.w6paper{font-size:var(--w6-t);font-weight:700;color:var(--ink);text-align:left;width:100%;--lh:1.7em}
+.w6 .w6sm-model{display:flex;flex-direction:column;gap:12px;padding:18px 20px;border-radius:20px;background:#fff;border:1.5px solid #ebeae6;box-shadow:0 3px 0 #efeeea}
+.w6 .w6sm-root{align-self:flex-start;font-size:var(--w6-s);font-weight:700;color:#fff;background:var(--red);border-radius:12px;padding:4px 16px}
+.w6 .w6sm-root b{font-weight:800}
+.w6 .w6sm-grp{display:flex;flex-direction:column;gap:6px;padding-left:14px;border-left:3px solid #ebeae6;animation:rise .4s both}
+.w6 .w6sm-k{font-size:var(--w6-ui);font-weight:800;color:var(--sub);text-transform:uppercase;letter-spacing:.06em}
+.w6 .w6sm-row{display:grid;grid-template-columns:84px 1fr;align-items:baseline;gap:10px;padding:6px 12px;border-radius:12px;border:1.5px solid transparent;transition:all .35s;animation:w6smIn .45s cubic-bezier(.3,1.3,.5,1) both}
+@keyframes w6smIn{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+.w6 .w6sm-row small{font-size:var(--w6-ui);font-weight:700;color:#a5a6b5}
+.w6 .w6sm-f{font-size:var(--w6-t);font-weight:700;color:var(--ink)}
+.w6 .w6sm-f b{font-weight:800;color:var(--ink)}
+.w6 .w6sm-row.cur{border-color:var(--red);background:#fdf6f6}
+.w6 .w6sm-row.cur .w6sm-f b,.w6 .w6sm-f b.on{color:var(--red)}
+.w6 .w6sm .w6sp-art{width:100%;max-width:420px;height:170px}

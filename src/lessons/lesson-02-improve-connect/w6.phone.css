@@ -199,3 +199,6 @@
 .phone .w6 .w6tree-n{position:static;transform:none;white-space:normal;animation:none}
 .phone .w6 .w6tree-n.pos{align-self:flex-start}
 .phone .w6 .w6sd-lab{left:44px}
+.phone .w6 .w6sm{grid-template-columns:1fr;gap:14px}
+.phone .w6 .w6sm-sent.w6paper{font-size:var(--w6-s)}
+.phone .w6 .w6sm .w6sp-art{height:110px}
