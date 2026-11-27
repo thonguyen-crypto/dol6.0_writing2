@@ -40,7 +40,7 @@ export const SMindset: React.FC<SlideProps> = (props) => {
               <Dot n="B" cls="again" delay={0.6} />
               <span className="w6ch-this">this</span>
             </span>
-            <Arr delay={0.9} /><Dot n="C" delay={1} />
+            <Arr delay={0.9} /><Dot n="C" delay={1} /><Arr delay={1.1} /><Dot n="D" delay={1.2} />
             <svg className="w6ch-link" viewBox="0 0 200 40" preserveAspectRatio="none" aria-hidden="true"><path d="M10 4 C 60 40, 140 40, 190 4" /></svg>
             <span className="w6ch-note ok">connected</span>
           </div>
