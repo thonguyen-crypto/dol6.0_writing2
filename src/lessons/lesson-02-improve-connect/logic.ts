@@ -341,12 +341,13 @@ export const HEDGE_TOOLS: HedgeTool[] = [
 /** 2.1 part 1: the warm-up sentence "improved" the wrong way — look-alike hard words used wrongly + hard structures bolted on.
  *  k: 'w' = a hard word used wrongly, 's' = a hard structure that adds length but no meaning */
 export const SHOWOFF: { t: string; k?: 'w' | 's'; note?: string }[] = [
-  { t: 'It is an undeniable fact that', k: 's', note: 'ráp vào, không thêm ý' },
-  { t: ' ' }, { t: 'the undertaking of internships', k: 's', note: 'danh từ hoá cho dài' },
+  { t: 'Notwithstanding the fact that it is universally acknowledged,', k: 's', note: 'mệnh đề nhượng bộ, chẳng nhượng bộ gì' },
+  { t: ' ' }, { t: 'it is the undertaking of internships that', k: 's', note: 'câu chẻ + danh từ hoá cho dài' },
+  { t: ' ' }, { t: 'indubitably', k: 'w', note: 'indubitably: quá lố, không cần' },
   { t: ' ' }, { t: 'facilitates individuals to cultivate', k: 'w', note: 'facilitate không đi với sb to V' },
   { t: ' their ' }, { t: 'soft proficiencies', k: 'w', note: 'collocation đúng: soft skills' },
-  { t: ', ' }, { t: 'which plays a paramount role', k: 's', note: 'thêm mệnh đề, ý mơ hồ' },
-  { t: ' in the ' }, { t: 'contemporary epoch', k: 'w', note: 'epoch: sai sắc thái' }, { t: '.' },
+  { t: ', ' }, { t: 'which, by virtue of being quintessential,', k: 's', note: 'mệnh đề chèn giữa mệnh đề, khó đọc' },
+  { t: ' plays a paramount role in the ' }, { t: 'contemporary epoch', k: 'w', note: 'epoch: sai sắc thái' }, { t: '.' },
 ];
 export const SPEC_BASE = 'Fast food can cause health problems in people.';
 export const SPEC_TOOLS = ['use specific nouns', 'add adj (for noun) + adv (for verb)', 'add relative clauses', 'add examples'];

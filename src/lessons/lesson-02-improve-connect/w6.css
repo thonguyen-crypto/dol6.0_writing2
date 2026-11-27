@@ -1333,3 +1333,7 @@
 .w6 .w6so-col span{display:flex;align-items:center;gap:8px;animation:rise .35s both}
 .w6 .w6so-col .w6so-n{vertical-align:baseline;margin:0}
 @media (prefers-reduced-motion:reduce){.w6 .w6i.focus,.w6 .w6so-sent{animation:none}}
+.w6 .w6so-down{font-size:var(--w6-t);font-weight:800;color:var(--red);line-height:1;margin:-6px 0;animation:w6dDrop .4s both}
+.w6 .w6so{gap:10px}
+.w6 .w6so-sent{line-height:1.45;padding:16px 26px}
+.w6 .w6so-col{gap:3px;padding:8px 14px}

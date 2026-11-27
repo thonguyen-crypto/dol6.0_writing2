@@ -84,7 +84,7 @@ export const SMeaning: React.FC<SlideProps> = (props) => {
         <div className="w6i-stage">
           {showoff && (
             <div className="w6so" key="so">
-              <div className="w6so-tools"><span className="w6so-tool w">từ vựng khó</span><span className="w6i-plus">+</span><span className="w6so-tool s">cấu trúc khó</span></div>
+              <span className="w6so-down" aria-hidden="true">↓</span>
               <p className={`card w6so-sent${b >= 2 ? ' marked' : ''}`}>
                 {SHOWOFF.map((x, i) => (x.k
                   ? <span key={i} className={`w6so-seg ${x.k}`}>{x.t}{b >= 2 && <sup className="w6so-n">{flagNo[i]}</sup>}</span>
