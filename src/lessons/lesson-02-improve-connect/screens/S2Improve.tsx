@@ -71,7 +71,7 @@ const ArtLens = () => (
 /* 2.1 — Build 1: the sentence and its 2 problems · Build 2: hard words ≠ good sentence → improve meaning · Build 3: TR → 2 ways */
 /* 2.1 part 1 — 1 the sentence has 2 problems · 2 the usual fix: hard words + hard structures → a longer, failed version
    3 what went wrong: the hard words are used wrongly (red), the structures add length but no meaning (amber)
-   4 everything blurs: "Không phải cách đúng" · 5 hard words + structures ✗ → improve meaning · 6 the two branches of TR */
+   4 everything blurs: "Không phải cách đúng", then the right way pops under it: improve meaning · 5 the two branches of TR */
 export const SMeaning: React.FC<SlideProps> = (props) => {
   const b = props.build;
   const showoff = b === 1 || b === 2 || b === 3;
@@ -109,16 +109,6 @@ export const SMeaning: React.FC<SlideProps> = (props) => {
             </div>
           )}
           {b === 4 && (
-            <div className="w6i-myth" key="m">
-              <div className="w6i-old">
-                <span className="w6i-chip">từ vựng khó</span><span className="w6i-plus">+</span><span className="w6i-chip">cấu trúc khó</span>
-                <svg className="w6i-strike" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true"><path d="M2 14 L98 6" /></svg>
-              </div>
-              <span className="w6i-arrow">→</span>
-              <div className="w6i-new"><span className="w6i-okc">✓</span>improve <b>meaning</b></div>
-            </div>
-          )}
-          {b === 5 && (
             <div className="w6i-tree2" key="t">
               <div className="w6i-tr">Task Response</div>
               <svg className="w6i-br2" viewBox="0 0 600 60" preserveAspectRatio="none" aria-hidden="true"><path d="M300 0 V24 H150 V60" /><path d="M300 0 V24 H450 V60" /></svg>
@@ -135,7 +125,7 @@ export const SMeaning: React.FC<SlideProps> = (props) => {
             </div>
           )}
         </div>
-        {b === 3 && <div className="w6lim-slam" role="note"><span className="w6lim-tag">✗ Không phải cách đúng</span></div>}
+        {b === 3 && <div className="w6lim-slam w6i-verdict" role="note"><span className="w6lim-tag">✗ Không phải cách đúng</span><span className="w6i-right"><span className="w6i-okc">✓</span>improve <b>meaning</b></span></div>}
       </div>
     </Frame>
   );
@@ -489,7 +479,7 @@ export const SParaImprove: React.FC<SlideProps> = (props) => {
 
 /* 2.1 Demo — one page, two parts: improve by meaning · one sentence, 2 ways to improve */
 const DEMO_PARTS: Part[] = [
-  { C: SMeaning, n: 6, kind: 'theory', pre: 'Improve a sentence by', key: 'meaning', vi: 'Câu hay không phải vì từ khó, cấu trúc khó' },
+  { C: SMeaning, n: 5, kind: 'theory', pre: 'Improve a sentence by', key: 'meaning', vi: 'Câu hay không phải vì từ khó, cấu trúc khó' },
   { C: SOverview, n: 5, kind: 'theory', pre: 'One sentence,', key: '2 ways to improve', vi: 'Thuyết phục hơn, rồi cụ thể hơn' },
 ];
 export const SDemo: React.FC<SlideProps> = (props) => <Parts props={props} parts={DEMO_PARTS} />;
