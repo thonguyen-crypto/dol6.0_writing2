@@ -179,7 +179,7 @@ export function useAiSet(props: SlideProps, items: AiItem[], burst: () => void) 
     });
     if (a && pass) burst();
   };
-  const bar = <SubmitBar act={act} ready={firstBad < 0} hint={firstBad >= 0 ? `Câu ${firstBad + 1}: ${items[firstBad].check}` : ''} label={latest ? 'Nộp lại' : 'Nộp bài'} onSubmit={send} />;
+  const bar = <SubmitBar act={act} ready={firstBad < 0} hint={firstBad >= 0 ? `${items[firstBad].label.split(' · ')[0]}: ${items[firstBad].check}` : ''} label={latest ? 'Nộp lại' : 'Nộp bài'} onSubmit={send} />;
   return { act, graded, crit, byLine, showModels, bar };
 }
 

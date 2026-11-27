@@ -7,7 +7,7 @@ import type { SlideProps } from '../../../kit/slides';
 import { useActivity, useDraft } from '../../../kit/activities/useActivity';
 import { precheck } from '../checks';
 import {
-  EFFECT_TOP, PARA_WRITE, STRUCTS, STRUCT_A, STRUCT_WRITE, THEREBY, THIS_DEMO, THIS_WRITE, TYPE_NEG, TYPE_POS, VGROUPS,
+  EFFECT_TOP, THIS_AIDS, joinThis, type Chip, PARA_WRITE, STRUCTS, STRUCT_A, STRUCT_WRITE, THEREBY, THIS_DEMO, THIS_WRITE, TYPE_NEG, TYPE_POS, VGROUPS,
   gapOk, type TypeSet, type VGroup,
 } from '../logic';
 import { EFFECT_ICON } from './Viz';
@@ -252,29 +252,111 @@ const Flow: React.FC<{ text: string }> = ({ text }) => (
   <>{text.split(/(⇒|⫽)/).map((t, i) => (t === '⇒' ? <i key={i} className="w6ol-arr"> ⇒ </i> : t === '⫽' ? <b key={i} className="w6fw-cut" title="tách câu">⫽</b> : <React.Fragment key={i}>{t}</React.Fragment>))}</>
 );
 
-/* ---- 4.3c write This + verb pattern (AI, 3 flows) ------------------------------------------------ */
+/* ---- 4.1c write This + verb pattern (AI, 3 flows) ------------------------------------------------
+   One flow at a time. Sentence 1 and sentence 2 have their own box; box 2 already starts with "This".
+   Tap a chip to drop that phrase in at the cursor (red chips = verb patterns). A drawing acts out each flow. */
+const ThisArt: React.FC<{ k: number }> = ({ k }) => (
+  <svg className={`w6tw-art f${k}`} viewBox="0 0 200 180" aria-hidden="true">
+    {k === 0 && (<g>
+      <rect x="80" y="70" width="40" height="70" rx="8" fill="#3b3d54" /><rect x="85" y="78" width="30" height="50" rx="3" fill="#fdf1f1" />
+      <path className="w6tw-sw" d="M93 103h14m-4-5 5 5-5 5" stroke="#d63a43" strokeWidth="3" fill="none" strokeLinecap="round" />
+      <g className="w6tw-bub l"><rect x="10" y="22" width="56" height="38" rx="12" fill="#fff" stroke="#3b3d54" strokeWidth="3" /><text x="38" y="48" textAnchor="middle" className="w6tw-t">Hi</text></g>
+      <g className="w6tw-bub r"><rect x="134" y="22" width="56" height="38" rx="12" fill="#d63a43" /><text x="162" y="49" textAnchor="middle" className="w6tw-t w">你好</text></g>
+      <circle cx="30" cy="150" r="12" fill="#3b3d54" /><circle cx="170" cy="150" r="12" fill="#d63a43" />
+    </g>)}
+    {k === 1 && (<g>
+      <rect x="22" y="96" width="92" height="58" rx="6" fill="#3b3d54" /><rect x="28" y="102" width="80" height="44" rx="3" fill="#fdf1f1" /><rect x="12" y="154" width="112" height="8" rx="4" fill="#3b3d54" />
+      {[0, 1, 2].map((i) => <rect key={i} className={`w6tw-doc d${i}`} x="56" y="112" width="20" height="24" rx="3" fill="#fff" stroke="#d63a43" strokeWidth="2.5" />)}
+      <circle cx="160" cy="62" r="30" fill="#fff" stroke="#3b3d54" strokeWidth="3" /><path className="w6tw-glow" d="M146 64c4-12 24-12 28 0" stroke="#d63a43" strokeWidth="3" fill="none" strokeLinecap="round" />
+      <circle className="w6tw-bulb" cx="160" cy="62" r="40" fill="none" stroke="#f3c9cb" strokeWidth="3" />
+    </g>)}
+    {k === 2 && (<g>
+      <path d="M100 150 L30 134 V60 L100 76 Z" fill="#fff" stroke="#3b3d54" strokeWidth="3" /><path d="M100 150 L170 134 V60 L100 76 Z" fill="#fdf1f1" stroke="#3b3d54" strokeWidth="3" />
+      {['a', 'b', 'c'].map((c, i) => <text key={c} className={`w6tw-ab l${i}`} x={60 + i * 34} y="70" textAnchor="middle">{['A', 'b', 'C'][i]}</text>)}
+      <g className="w6tw-pencil"><path d="M150 20 l20 12 -40 66 -18 6 -2 -18 z" fill="#3b3d54" /><path d="M150 20 l20 12 -6 10 -20 -12 z" fill="#d63a43" /></g>
+      <path className="w6tw-line" d="M40 98 L92 110" stroke="#d63a43" strokeWidth="3" strokeLinecap="round" />
+    </g>)}
+  </svg>
+);
+const ChipRow: React.FC<{ chips: Chip[]; onPick: (t: string) => void; disabled?: boolean }> = ({ chips, onPick, disabled }) => (
+  <div className="w6tw-chips">{chips.map((c) => (
+    <button key={c.t} className={`w6tw-chip${c.p ? ' p' : ''}`} disabled={disabled} onMouseDown={(e) => e.preventDefault()} onClick={() => onPick(c.t)}>+ {c.t}</button>
+  ))}</div>
+);
 export const SThisWrite: React.FC<SlideProps> = (props) => {
   const key = props.step.key;
   const [fx, burst] = useBurst();
   const [txt, setTxt] = useDraft<Record<string, string>>(`${key}:txt`, {});
-  const items = THIS_WRITE.map((w, k) => ({ id: w.id, label: `Flow ${k + 1}`, prompt: w.flow!, context: w.context, answer: (txt[w.id] || '').trim(), models: w.models, check: precheck(txt[w.id] || '', w.flow!, w.rule) }));
+  const [k, setK] = useState(0);
+  const refs = React.useRef<Record<string, HTMLTextAreaElement | null>>({});
+  const get = (id: string, n: 1 | 2) => txt[`${id}:${n}`] || '';
+  const answerOf = (id: string) => joinThis(get(id, 1), get(id, 2));
+  const items = THIS_WRITE.map((w, i) => ({ id: w.id, label: `Flow ${i + 1}`, prompt: w.flow!, context: w.context, answer: answerOf(w.id), models: w.models,
+    check: precheck(answerOf(w.id), w.flow!, w.rule) }));
   const s = useAiSet(props, items, burst);
   const lockedUi = s.act.locked || s.act.paused;
+  const w = THIS_WRITE[k];
+  const aids = THIS_AIDS[w.id];
+  const [f1, f2] = w.flow!.split('⫽');
+  /** drop a phrase in at the caret of box n (adds the spaces it needs) */
+  const insert = (n: 1 | 2, piece: string) => {
+    const field = `${w.id}:${n}`;
+    const el = refs.current[field];
+    const cur = txt[field] || '';
+    const at = el && document.activeElement === el ? el.selectionStart ?? cur.length : cur.length;
+    const before = cur.slice(0, at); const after = cur.slice(at);
+    const add = `${before && !/\s$/.test(before) ? ' ' : ''}${piece}${after && !/^\s/.test(after) ? ' ' : ''}`;
+    const next = before + add + after;
+    setTxt((t) => ({ ...t, [field]: next }));
+    requestAnimationFrame(() => { if (el) { el.focus(); const pos = (before + add).length; el.setSelectionRange(pos, pos); } });
+  };
+  const verbRule = w.rule?.need?.[1];
+  const checks = [
+    { ok: get(w.id, 1).trim().split(/\s+/).filter(Boolean).length >= 5, t: 'Câu 1 đủ ý' },
+    { ok: !!verbRule && new RegExp(verbRule[0], 'i').test(get(w.id, 2)), t: `Câu 2: This + ${w.need}` },
+    { ok: !items[k].check, t: 'Sẵn sàng nộp' },
+  ];
   return (
     <Frame props={props} bar={s.bar} fx={fx}>
       {s.graded ? (
-        <GradedList s={s} rows={THIS_WRITE.map((w, k) => ({ id: w.id, n: k + 1, answer: items[k].answer, models: w.models }))} modelLabel="Đáp án tham khảo" />
+        <GradedList s={s} rows={THIS_WRITE.map((x, i) => ({ id: x.id, n: i + 1, answer: items[i].answer, models: x.models }))} modelLabel="Đáp án tham khảo" />
       ) : (
-        <div className="w6fw three">
-          {THIS_WRITE.map((w, k) => (
-            <div key={w.id} className={`card w6fw-card enter d${k + 1}`}>
-              <div className="w6fw-h"><span className="w6-n">{k + 1}</span><span className="w6fw-need">{w.need}</span></div>
-              <div className="w6fw-flow"><Flow text={w.flow!} /></div>
-              <textarea className="ta w6fw-in" rows={w.rows || 3} value={txt[w.id] || ''} placeholder={w.placeholder} disabled={lockedUi}
-                onChange={(e) => setTxt((t) => ({ ...t, [w.id]: e.target.value }))} aria-label={`Flow ${k + 1}`} />
+        <div className="w6tw">
+          <div className="w6tw-steps" role="tablist">
+            {THIS_WRITE.map((x, i) => (
+              <button key={x.id} role="tab" aria-selected={i === k} className={`w6tw-step${i === k ? ' on' : ''}${!items[i].check ? ' done' : ''}`} onClick={() => setK(i)}>
+                <span>{!items[i].check ? '✓' : i + 1}</span>Flow {i + 1}
+              </button>
+            ))}
+          </div>
+          <div className="card w6tw-card" key={w.id}>
+            <ThisArt k={k} />
+            <div className="w6tw-main">
+              <div className="w6tw-sent">
+                <div className="w6tw-lab"><b>Câu 1</b><span className="w6tw-flow"><Flow text={f1.trim()} /></span></div>
+                <textarea ref={(el) => { refs.current[`${w.id}:1`] = el; }} className="ta w6tw-in" rows={2} value={get(w.id, 1)} disabled={lockedUi}
+                  placeholder={`${aids.s1[0].t} …`} aria-label={`Flow ${k + 1}, câu 1`} onChange={(e) => setTxt((t) => ({ ...t, [`${w.id}:1`]: e.target.value }))} />
+                <ChipRow chips={aids.s1} onPick={(t) => insert(1, t)} disabled={lockedUi} />
+              </div>
+              <div className="w6tw-sent">
+                <div className="w6tw-lab"><b>Câu 2</b><span className="w6tw-flow"><Flow text={(f2 || '').trim()} /></span></div>
+                <div className="w6tw-two">
+                  <span className="w6tw-this">This</span>
+                  <textarea ref={(el) => { refs.current[`${w.id}:2`] = el; }} className="ta w6tw-in" rows={2} value={get(w.id, 2)} disabled={lockedUi}
+                    placeholder={`${aids.s2[0].t} …`} aria-label={`Flow ${k + 1}, câu 2 sau This`} onChange={(e) => setTxt((t) => ({ ...t, [`${w.id}:2`]: e.target.value }))} />
+                </div>
+                <ChipRow chips={aids.s2} onPick={(t) => insert(2, t)} disabled={lockedUi} />
+              </div>
+              <div className="w6tw-foot">
+                <ul className="w6tw-checks">{checks.map((c) => <li key={c.t} className={c.ok ? 'ok' : ''}><i>{c.ok ? '✓' : ''}</i>{c.t}</li>)}</ul>
+                <div className="w6tw-nav">
+                  <button className="w6tw-navb" disabled={k === 0} onClick={() => setK(k - 1)} aria-label="Flow trước">‹</button>
+                  {k < THIS_WRITE.length - 1 && <button className="w6tw-navb next" onClick={() => setK(k + 1)}>Flow {k + 2} ›</button>}
+                </div>
+              </div>
               {s.showModels && <div className="w6-model">✓ {w.models[0]}</div>}
             </div>
-          ))}
+          </div>
         </div>
       )}
     </Frame>

@@ -151,3 +151,7 @@
 .phone .w6 .w6nf.big{transform:none}
 .phone .w6 .w6nf.big .w6nf-verbs span{white-space:nowrap}
 .phone .w6 .w6ef-col .w6ef-g{flex:none}
+.phone .w6 .w6tw-card{grid-template-columns:1fr;padding:12px}
+.phone .w6 .w6tw-art{width:150px;height:135px;justify-self:center}
+.phone .w6 .w6tw-lab{flex-direction:column;gap:4px}
+.phone .w6 .w6tw-steps{flex-wrap:wrap}

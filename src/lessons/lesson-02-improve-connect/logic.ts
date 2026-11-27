@@ -209,6 +209,23 @@ export const gapOk = (g: TypeGap, v: string) => g.ok.test(normGap(v));
 
 /* ---- AI writing items (4.3c, 4.4b, 4.5, 4.6) -------------------------------------------- */
 export interface WriteItem { id: string; prompt: string; flow?: string; need?: string; placeholder?: string; models: string[]; context: string; rule?: CheckRule; rows?: number }
+/** 4.1c writing aids: tap-to-insert pieces for sentence 1 and sentence 2 (p = a verb pattern, shown in red) */
+export interface Chip { t: string; p?: boolean }
+export const THIS_AIDS: Record<string, { s1: Chip[]; s2: Chip[] }> = {
+  w1: { s1: [{ t: 'Advanced technologies' }, { t: 'such as computers and mobile phones' }, { t: 'can translate language automatically' }],
+        s2: [{ t: 'enables people to', p: true }, { t: 'helps people', p: true }, { t: 'communicate despite the language barrier' }] },
+  w2: { s1: [{ t: 'Modern technologies' }, { t: 'allow people to', p: true }, { t: 'have access to valuable sources of information' }],
+        s2: [{ t: 'provides them with the opportunity to', p: true }, { t: 'allows them to', p: true }, { t: 'freely broaden their knowledge' }] },
+  w3: { s1: [{ t: 'Reading books' }, { t: 'helps children', p: true }, { t: 'broaden their vocabulary' }, { t: 'and learn different writing styles' }],
+        s2: [{ t: 'enables them to', p: true }, { t: 'helps them', p: true }, { t: 'sharpen their writing skills' }, { t: 'and achieve better academic results' }] },
+};
+/** "s1. This s2" from the two boxes of 4.1c */
+export const joinThis = (a: string, b: string): string => {
+  const one = a.trim().replace(/\s+/g, ' ');
+  const two = b.trim().replace(/\s+/g, ' ').replace(/^this\b\s*/i, '');
+  if (!one && !two) return '';
+  return `${one}${one && !/[.!?]$/.test(one) ? '.' : ''} This ${two}${two && !/[.!?]$/.test(two) ? '.' : ''}`.trim();
+};
 const verbRe = (vs: string) => `\\b(${vs})`;
 export const THIS_WRITE: WriteItem[] = [
   { id: 'w1', prompt: 'Flow 1', flow: 'Advanced technologies ⇒ (computers and mobile phones) translate language automatically ⫽ ⇒ (people) communicate despite the language barrier', need: 'enable · help',

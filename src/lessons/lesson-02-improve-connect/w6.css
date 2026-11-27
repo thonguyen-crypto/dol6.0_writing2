@@ -1048,3 +1048,59 @@
 .w6 .w6ef-col.s-pos .w6ef-sign{color:var(--ok)}
 .w6 .w6ef-g.s-pos{border-left-color:var(--ok)}
 .w6 .w6ef-g.s-pos .w6ef-gn{color:var(--okd)}
+
+/* ---- 4.1c This + verb writing: one flow at a time, two boxes, tap-to-insert chips, a drawing per flow ---- */
+.w6 .w6tw{display:flex;flex-direction:column;gap:12px;width:100%}
+.w6 .w6tw-steps{display:flex;gap:10px;justify-content:center}
+.w6 .w6tw-step{display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:var(--w6-ui);font-weight:800;color:var(--sub);background:#fff;border:1.5px solid #e6e5e1;border-radius:999px;padding:5px 16px 5px 6px;cursor:pointer}
+.w6 .w6tw-step span{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#f4f4f2;color:var(--sub)}
+.w6 .w6tw-step.on{color:var(--redd);border-color:var(--red);box-shadow:0 0 0 3px var(--redl)}
+.w6 .w6tw-step.on span{background:var(--red);color:#fff}
+.w6 .w6tw-step.done span{background:var(--ok);color:#fff}
+.w6 .w6tw-card{display:grid;grid-template-columns:200px 1fr;gap:22px;padding:16px 22px;align-items:start;animation:w6twIn .35s both}
+@keyframes w6twIn{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+.w6 .w6tw-art{width:200px;height:180px;align-self:center}
+.w6 .w6tw-main{display:flex;flex-direction:column;gap:12px;min-width:0}
+.w6 .w6tw-sent{display:flex;flex-direction:column;gap:6px}
+.w6 .w6tw-lab{display:flex;align-items:baseline;gap:10px;font-size:var(--w6-s);color:var(--ink)}
+.w6 .w6tw-lab b{flex:none;font-size:var(--w6-ui);font-weight:800;color:#fff;background:var(--ink);border-radius:8px;padding:2px 10px}
+.w6 .w6tw-flow{line-height:1.45}
+.w6 .w6tw-in{font-size:var(--w6-s);padding:10px 14px;border-radius:14px}
+.w6 .w6tw-two{display:flex;align-items:stretch;gap:0}
+.w6 .w6tw-this{display:inline-flex;align-items:center;font-size:var(--w6-s);font-weight:800;color:#fff;background:var(--red);border-radius:14px 0 0 14px;padding:0 16px}
+.w6 .w6tw-two .w6tw-in{border-radius:0 14px 14px 0;border-left:0}
+.w6 .w6tw-chips{display:flex;flex-wrap:wrap;gap:6px}
+.w6 .w6tw-chip{font:inherit;font-size:var(--w6-ui);font-weight:700;color:var(--ink);background:#f4f4f2;border:1.5px solid transparent;border-radius:999px;padding:4px 12px;cursor:pointer;transition:all .15s}
+.w6 .w6tw-chip:hover:not(:disabled){border-color:var(--ink);transform:translateY(-1px)}
+.w6 .w6tw-chip.p{color:var(--redd);background:var(--redl)}
+.w6 .w6tw-chip.p:hover:not(:disabled){border-color:var(--red)}
+.w6 .w6tw-chip:disabled{opacity:.5;cursor:default}
+.w6 .w6tw-foot{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.w6 .w6tw-checks{list-style:none;margin:0;padding:0;display:flex;gap:16px;flex-wrap:wrap;font-size:var(--w6-ui);font-weight:700;color:var(--sub)}
+.w6 .w6tw-checks li{display:flex;align-items:center;gap:6px}
+.w6 .w6tw-checks i{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;border:2px solid #cfcdd6;font-style:normal;font-size:12px;color:#fff}
+.w6 .w6tw-checks li.ok{color:var(--okd)}
+.w6 .w6tw-checks li.ok i{background:var(--ok);border-color:var(--ok);animation:pop .35s both}
+.w6 .w6tw-nav{display:flex;gap:8px}
+.w6 .w6tw-navb{font:inherit;font-size:var(--w6-ui);font-weight:800;color:var(--ink);background:#fff;border:1.5px solid #e6e5e1;border-radius:12px;padding:6px 14px;cursor:pointer}
+.w6 .w6tw-navb.next{color:#fff;background:var(--ink);border-color:var(--ink)}
+.w6 .w6tw-navb:disabled{opacity:.35;cursor:default}
+/* drawings */
+.w6 .w6tw-t{font-size:16px;font-weight:800;fill:#3b3d54}.w6 .w6tw-t.w{fill:#fff}
+.w6 .w6tw-bub{transform-box:fill-box;transform-origin:50% 100%;animation:w6twBub 3s ease-in-out infinite}
+.w6 .w6tw-bub.r{animation-delay:1.5s}
+@keyframes w6twBub{0%,100%{transform:scale(.85);opacity:.5}20%,50%{transform:none;opacity:1}}
+.w6 .w6tw-sw{animation:w6twSw 1.5s ease-in-out infinite alternate}
+@keyframes w6twSw{from{transform:translateX(-3px)}to{transform:translateX(3px)}}
+.w6 .w6tw-doc{animation:w6twDoc 3s ease-in infinite}.w6 .w6tw-doc.d1{animation-delay:1s}.w6 .w6tw-doc.d2{animation-delay:2s}
+@keyframes w6twDoc{0%{transform:none;opacity:0}15%{opacity:1}80%{transform:translate(92px,-58px) scale(.5);opacity:1}100%{transform:translate(98px,-62px) scale(.3);opacity:0}}
+.w6 .w6tw-bulb{transform-box:fill-box;transform-origin:center;animation:w6twBulb 3s ease-out infinite}
+@keyframes w6twBulb{0%,70%{transform:scale(.7);opacity:0}80%{opacity:1}100%{transform:scale(1.15);opacity:0}}
+.w6 .w6tw-ab{font-size:22px;font-weight:800;fill:#d63a43;animation:w6twAb 3.2s ease-in-out infinite}
+.w6 .w6tw-ab.l1{animation-delay:.4s}.w6 .w6tw-ab.l2{animation-delay:.8s}
+@keyframes w6twAb{0%{transform:translateY(30px);opacity:0}25%{opacity:1}70%{transform:translateY(-24px);opacity:1}100%{transform:translateY(-40px);opacity:0}}
+.w6 .w6tw-pencil{animation:w6twPen 1.6s ease-in-out infinite alternate}
+@keyframes w6twPen{from{transform:translate(-30px,6px)}to{transform:translate(0,0)}}
+.w6 .w6tw-line{stroke-dasharray:60;stroke-dashoffset:60;animation:w6twLine 3.2s ease-in-out infinite}
+@keyframes w6twLine{0%,20%{stroke-dashoffset:60}70%,100%{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){.w6 .w6tw-art *{animation:none!important;opacity:1}.w6 .w6tw-card{animation:none}}

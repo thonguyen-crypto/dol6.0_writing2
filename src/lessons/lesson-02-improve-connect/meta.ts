@@ -141,7 +141,7 @@ const steps: StepMeta[] = [
     head: H('Without linking words', 'Practice:', 'This + verb pattern', 'Viết 2 câu cho mỗi flow, câu 2 bắt đầu bằng This'),
     tracking: { parts: [{ id: 'all', label: '3 flow' }], grading: 'ai', passScore: 4, maxAttempts: 2 },
     notes: [
-      { title: 'Cách triển khai', text: '3 flow, mỗi flow viết 2 câu (⫽ là chỗ tách câu), dùng động từ gợi ý. Nộp một lần, AI chấm cả 3.' },
+      { title: 'Cách triển khai', text: 'Mỗi lần một flow (chuyển Flow 1 · 2 · 3 ở trên). Mỗi flow 2 ô: câu 1, và câu 2 đã có sẵn This. Chạm chip để chèn cụm từ vào chỗ con trỏ; chip đỏ là verb pattern. Dưới ô có 3 dấu kiểm. Viết xong cả 3 flow thì nộp một lần, AI chấm cả 3.' },
       { title: 'Đáp án tham khảo', text: '(1) Advanced technologies, such as computers and mobile phones, can translate language automatically. This enables people to communicate despite the language barrier. (2) Modern technologies allow people to have access to valuable sources of information. This provides them with the opportunity to freely broaden their knowledge. (3) Reading books helps children broaden their vocabulary and learn different writing styles. This enables them to sharpen their writing skills and achieve better academic results.' },
       { title: 'Kết', text: 'Làm xong, sửa xong: “giờ các bạn thấy trình độ Writing tự nhiên cao hơn rồi đó, tự nhiên hơn và cảm giác nắm trong tay mọi thứ hơn.”' },
     ] },
