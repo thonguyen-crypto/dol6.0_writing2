@@ -364,25 +364,6 @@ export const SThisWrite: React.FC<SlideProps> = (props) => {
 };
 
 /* ---- 4.4 structures ------------------------------------------------------------------------- */
-/** the running example with a "joint" that keeps switching through the connectors of the group being taught */
-const LiveStruct: React.FC<{ grp: 'which' | 'thus' }> = ({ grp }) => {
-  const items = STRUCTS.filter((x) => x.group === grp);
-  const [k, setK] = useState(0);
-  useEffect(() => {
-    setK(0);
-    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
-    const t = setInterval(() => setK((x) => (x + 1) % items.length), 2600);
-    return () => clearInterval(t);
-  }, [grp, items.length]);
-  const x = items[k];
-  return (
-    <div className="card w6st-live">
-      <span className="w6st-livepat" key={'p' + x.id}>{x.pat}</span>
-      <span className="w6st-livesent">{STRUCT_A}<span className="w6st-joint" key={x.id}><Segs segs={x.end} /></span></span>
-      <span className="w6st-dots">{items.map((it, i) => <i key={it.id} className={i === k ? 'on' : ''} />)}</span>
-    </div>
-  );
-};
 /** B → C joined by a structure: the plank between B and C keeps swapping through the connectors */
 const StructBridge: React.FC<{ small?: boolean }> = ({ small }) => {
   const joints = STRUCTS.map((x) => x.end[0][0].trim());
@@ -407,7 +388,8 @@ const StructBridge: React.FC<{ small?: boolean }> = ({ small }) => {
 /* 4.2 — every step on a click. 1 a paragraph linked only with This + V · 2 the This sentences light up, S V · This + V ×3
    3 everything blurs, "Cấu trúc bị giới hạn" slams into the centre · 4 the two ways so far: LW (A → B. LW C → D), A → B. B → C
    5 the new way: A → B → C in ONE sentence, a structure is the bridge from B to C (it keeps swapping)
-   6 the which group · 7 the thus group; the running example changes its ending */
+   6–10 one structure per click (which, which means that · and thus S V, thereby V-ing, and thus V): the ending of the
+   same example flips to the next structure */
 export const SStructs: React.FC<SlideProps> = (props) => {
   const b = props.build;
   let body: React.ReactNode;
@@ -439,25 +421,28 @@ export const SStructs: React.FC<SlideProps> = (props) => {
       {b === 4 && <><div className="w6way-new">Cách mới</div><StructBridge /></>}
     </div>
   );
-  else body = (
-    <>
-      <StructBridge small />
-      <LiveStruct grp={b >= 6 ? 'thus' : 'which'} />
-      <div className="w6st-groups">
-        {(['which', 'thus'] as const).map((grp, gi) => (
-          <div key={grp} className={`card w6st-g ${b < 5 + gi ? 'w6-hide' : b === 5 + gi ? 'cur' : 'w6-past'}`}>
-            {STRUCTS.filter((x) => x.group === grp).map((x, i) => (
-              <div key={x.id} className="w6st-row" style={{ animationDelay: `${0.15 + i * 0.2}s` }}>
-                <span className="w6st-pat">{x.pat}</span>
-                <span className="w6st-ex">{STRUCT_A}<Segs segs={x.end} /></span>
-              </div>
-            ))}
+  else {
+    const k = Math.min(b - 5, STRUCTS.length - 1);
+    const x = STRUCTS[k];
+    const inGroup = STRUCTS.filter((y) => y.group === x.group);
+    body = (
+      <>
+        <StructBridge small />
+        <div className={`w6s1 g-${x.group}`}>
+          <div className="w6s1-top">
+            <span className="w6s1-grp" key={x.group}>Nhóm {x.group === 'which' ? 'which' : 'thus'}</span>
+            <span className="w6s1-dots">{inGroup.map((y) => <i key={y.id} className={y.id === x.id ? 'on' : STRUCTS.indexOf(y) < k ? 'past' : ''} />)}</span>
           </div>
-        ))}
-        {b >= 6 && <div className="w6st-eff enter">→ Effects</div>}
-      </div>
-    </>
-  );
+          <div className="w6s1-pat" key={'p' + x.id}>{x.pat}</div>
+          <p className="card w6s1-sent">
+            {STRUCT_A}<span className="w6s1-joint" key={x.id}><Segs segs={x.end} /></span>
+          </p>
+          <div className="w6s1-hint" key={'h' + x.id}>{x.hint}</div>
+          {k === STRUCTS.length - 1 && <div className="w6st-eff enter">Cả 5 cấu trúc → Effects</div>}
+        </div>
+      </>
+    );
+  }
   return (
     <Frame props={props}>
       <div className="w6st">{body}</div>

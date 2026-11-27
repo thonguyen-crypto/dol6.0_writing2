@@ -1143,3 +1143,22 @@
 .w6 .w6sb.small .w6sb-bridge{min-width:150px;height:50px}
 .w6 .w6sb.small .w6sb-plank{font-size:var(--w6-ui);padding:4px 12px;box-shadow:none;animation:none}
 @media (prefers-reduced-motion:reduce){.w6 .w6lim-blk.tv,.w6 .w6lim.focus,.w6 .w6lim-tag,.w6 .w6lim-slam::before{animation:none}.w6 .w6sb-plank{animation:none}}
+
+/* ---- 4.2 one structure at a time: the ending of the example flips to the next structure ------- */
+.w6 .w6s1{display:flex;flex-direction:column;align-items:center;gap:16px;width:100%;max-width:1150px}
+.w6 .w6s1-top{display:flex;align-items:center;gap:14px}
+.w6 .w6s1-grp{font-size:var(--w6-s);font-weight:800;color:#fff;background:var(--ink);border-radius:999px;padding:4px 18px;animation:w6s1Grp .5s both}
+.w6 .w6s1.g-thus .w6s1-grp{background:var(--redd)}
+@keyframes w6s1Grp{from{opacity:0;transform:translateY(-12px) scale(.8)}to{opacity:1;transform:none}}
+.w6 .w6s1-dots{display:flex;gap:6px}
+.w6 .w6s1-dots i{width:10px;height:10px;border-radius:50%;background:#e1e0dc;transition:all .3s}
+.w6 .w6s1-dots i.past{background:var(--redb)}
+.w6 .w6s1-dots i.on{width:28px;border-radius:5px;background:var(--red)}
+.w6 .w6s1-pat{font-size:calc(var(--w6-t) * 1.25);font-weight:800;color:var(--redd);background:var(--redl);border:2px solid var(--redb);border-radius:16px;padding:8px 28px;transform-origin:50% 0;animation:w6s1Flip .55s cubic-bezier(.3,1.3,.5,1) both}
+@keyframes w6s1Flip{0%{opacity:0;transform:perspective(700px) rotateX(-90deg)}100%{opacity:1;transform:none}}
+.w6 .w6s1-sent{margin:0;padding:22px 30px;font-size:var(--w6-t);font-weight:700;line-height:1.55;color:var(--ink);text-align:center}
+.w6 .w6s1-joint{display:inline;animation:w6s1In .6s .2s both}
+@keyframes w6s1In{0%{opacity:0;filter:blur(6px)}100%{opacity:1;filter:none}}
+.w6 .w6s1-joint .w6-m-key{display:inline-block;color:#fff;background:var(--red);border-radius:10px;padding:0 10px;margin:0 2px;transform-origin:50% 0;animation:w6s1Flip .55s .15s cubic-bezier(.3,1.3,.5,1) both}
+.w6 .w6s1-hint{font-size:var(--w6-s);font-weight:700;color:var(--sub);animation:rise .4s .6s both}
+@media (prefers-reduced-motion:reduce){.w6 .w6s1 *{animation:none!important}}

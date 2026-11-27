@@ -289,12 +289,12 @@ export const LIMITED_PARA = {
     { v: 'also enables', rest: ' them to support their families financially.' },
   ],
 };
-export const STRUCTS: { id: string; pat: string; group: 'which' | 'thus'; end: Seg[] }[] = [
-  { id: 'which', pat: ', which + VP', group: 'which', end: [[', which', 'key'], [' can help them find a well-paying job.']] },
-  { id: 'means', pat: ', which means that S V', group: 'which', end: [[', which means that', 'key'], [' they can find a well-paying job.']] },
-  { id: 'thusSV', pat: ', and thus S V', group: 'thus', end: [[', and thus', 'key'], [' they can find a well-paying job.']] },
-  { id: 'thereby', pat: ', thereby V-ing', group: 'thus', end: [[', thereby', 'key'], [' increasing their chances of finding a well-paying job.']] },
-  { id: 'thusV', pat: 'and thus V', group: 'thus', end: [[' and thus', 'key'], [' find well-paying jobs more easily.']] },
+export const STRUCTS: { id: string; pat: string; group: 'which' | 'thus'; hint: string; end: Seg[] }[] = [
+  { id: 'which', pat: ', which + VP', group: 'which', hint: 'which = cả ý câu trước', end: [[', which', 'key'], [' can help them find a well-paying job.']] },
+  { id: 'means', pat: ', which means that S V', group: 'which', hint: 'sau that là một mệnh đề S V', end: [[', which means that', 'key'], [' they can find a well-paying job.']] },
+  { id: 'thusSV', pat: ', and thus S V', group: 'thus', hint: 'and thus + mệnh đề S V', end: [[', and thus', 'key'], [' they can find a well-paying job.']] },
+  { id: 'thereby', pat: ', thereby V-ing', group: 'thus', hint: 'V-ing do chủ ngữ câu trước gây ra', end: [[', thereby', 'key'], [' increasing their chances of finding a well-paying job.']] },
+  { id: 'thusV', pat: 'and thus V', group: 'thus', hint: 'dùng chung chủ ngữ, không dấu phẩy', end: [[' and thus', 'key'], [' find well-paying jobs more easily.']] },
 ];
 
 /* ---- 4.4a common mistake: thereby V-ing ------------------------------------------------- */
