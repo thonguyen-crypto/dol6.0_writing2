@@ -191,3 +191,5 @@
 .phone .w6 .w6d-sv .w6d-cen{white-space:normal;text-align:center}
 .phone .w6 .w6d-col{gap:4px}
 .phone .w6 .w6sx-g{flex-wrap:wrap}
+.phone .w6 .w6so-sent{font-size:var(--w6-s);padding:14px}
+.phone .w6 .w6so-legend{grid-template-columns:1fr}

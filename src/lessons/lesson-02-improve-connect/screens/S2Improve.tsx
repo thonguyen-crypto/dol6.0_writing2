@@ -5,7 +5,7 @@ import React from 'react';
 import type { SlideProps } from '../../../kit/slides';
 import { useActivity, useDraft } from '../../../kit/activities/useActivity';
 import {
-  HEDGE, HEDGE_TOOLS, PARA, PARA_TOPIC, SPEC_BASE, SPECIFIC, frameAnswer, frameCheck, hedgeOk, paraModel, paraSentence, paraSlots, slotOk, slotText, type ParaSlot,
+  HEDGE, HEDGE_TOOLS, SHOWOFF, PARA, PARA_TOPIC, SPEC_BASE, SPECIFIC, frameAnswer, frameCheck, hedgeOk, paraModel, paraSentence, paraSlots, slotOk, slotText, type ParaSlot,
 } from '../logic';
 import { HEDGE_VIZ } from './Viz';
 import { Frame, GradedList, Parts, Segs, Slot, SubmitBar, rv, useAiSet, useBurst, useOpenSlot, type Part } from '../runtime';
@@ -69,20 +69,46 @@ const ArtLens = () => (
 );
 
 /* 2.1 — Build 1: the sentence and its 2 problems · Build 2: hard words ≠ good sentence → improve meaning · Build 3: TR → 2 ways */
+/* 2.1 part 1 — 1 the sentence has 2 problems · 2 the usual fix: hard words + hard structures → a longer, failed version
+   3 what went wrong: the hard words are used wrongly (red), the structures add length but no meaning (amber)
+   4 everything blurs: "Không phải cách đúng" · 5 hard words + structures ✗ → improve meaning · 6 the two branches of TR */
 export const SMeaning: React.FC<SlideProps> = (props) => {
   const b = props.build;
+  const showoff = b === 1 || b === 2 || b === 3;
+  const flagNo: Record<number, number> = {};
+  SHOWOFF.forEach((x, i) => { if (x.k) flagNo[i] = Object.keys(flagNo).length + 1; });
   return (
     <Frame props={props}>
-      <div className="w6i">
+      <div className={`w6i${b === 3 ? ' focus' : ''}`}>
         <div className={`card w6i-sent ${b === 0 ? 'w6-on' : 'w6-past'}`}>“Doing internships allows people to develop soft skills.”</div>
         <div className="w6i-stage">
+          {showoff && (
+            <div className="w6so" key="so">
+              <div className="w6so-tools"><span className="w6so-tool w">từ vựng khó</span><span className="w6i-plus">+</span><span className="w6so-tool s">cấu trúc khó</span></div>
+              <p className={`card w6so-sent${b >= 2 ? ' marked' : ''}`}>
+                {SHOWOFF.map((x, i) => (x.k
+                  ? <span key={i} className={`w6so-seg ${x.k}`}>{x.t}{b >= 2 && <sup className="w6so-n">{flagNo[i]}</sup>}</span>
+                  : <React.Fragment key={i}>{x.t}</React.Fragment>))}
+              </p>
+              {b >= 2 && (
+                <div className="w6so-legend">
+                  {(['w', 's'] as const).map((k) => (
+                    <div key={k} className={`w6so-col ${k}`}>
+                      <b>{k === 'w' ? '✗ Từ khó, dùng sai' : '+ Cấu trúc ráp vào, không thêm ý'}</b>
+                      {SHOWOFF.map((x, i) => (x.k === k ? <span key={i} style={{ animationDelay: `${0.1 + flagNo[i] * 0.12}s` }}><sup className="w6so-n">{flagNo[i]}</sup>{x.note}</span> : null))}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
           {b === 0 && (
             <div className="w6i-probs" key="p">
               <div className="card w6i-prob enter d1"><ArtSweep /><div className="w6i-pt"><span className="w6i-sos">!</span>Câu hơi “quơ đũa cả nắm”</div></div>
               <div className="card w6i-prob enter d2"><ArtBlur /><div className="w6i-pt"><span className="w6i-sos">!</span>Câu chưa chi tiết</div></div>
             </div>
           )}
-          {b === 1 && (
+          {b === 4 && (
             <div className="w6i-myth" key="m">
               <div className="w6i-old">
                 <span className="w6i-chip">từ vựng khó</span><span className="w6i-plus">+</span><span className="w6i-chip">cấu trúc khó</span>
@@ -92,7 +118,7 @@ export const SMeaning: React.FC<SlideProps> = (props) => {
               <div className="w6i-new"><span className="w6i-okc">✓</span>improve <b>meaning</b></div>
             </div>
           )}
-          {b === 2 && (
+          {b === 5 && (
             <div className="w6i-tree2" key="t">
               <div className="w6i-tr">Task Response</div>
               <svg className="w6i-br2" viewBox="0 0 600 60" preserveAspectRatio="none" aria-hidden="true"><path d="M300 0 V24 H150 V60" /><path d="M300 0 V24 H450 V60" /></svg>
@@ -109,6 +135,7 @@ export const SMeaning: React.FC<SlideProps> = (props) => {
             </div>
           )}
         </div>
+        {b === 3 && <div className="w6lim-slam" role="note"><span className="w6lim-tag">✗ Không phải cách đúng</span></div>}
       </div>
     </Frame>
   );
@@ -462,7 +489,7 @@ export const SParaImprove: React.FC<SlideProps> = (props) => {
 
 /* 2.1 Demo — one page, two parts: improve by meaning · one sentence, 2 ways to improve */
 const DEMO_PARTS: Part[] = [
-  { C: SMeaning, n: 3, kind: 'theory', pre: 'Improve a sentence by', key: 'meaning', vi: 'Câu hay không phải vì từ khó, cấu trúc khó' },
+  { C: SMeaning, n: 6, kind: 'theory', pre: 'Improve a sentence by', key: 'meaning', vi: 'Câu hay không phải vì từ khó, cấu trúc khó' },
   { C: SOverview, n: 5, kind: 'theory', pre: 'One sentence,', key: '2 ways to improve', vi: 'Thuyết phục hơn, rồi cụ thể hơn' },
 ];
 export const SDemo: React.FC<SlideProps> = (props) => <Parts props={props} parts={DEMO_PARTS} />;
