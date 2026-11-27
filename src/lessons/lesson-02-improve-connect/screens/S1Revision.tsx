@@ -113,18 +113,20 @@ export const InternScene: React.FC<{ small?: boolean }> = ({ small }) => (
 
 /* 1.2 — keywords → the student's sentence (right) → "Đúng, nhưng chưa hay!" → back to the 4 criteria (TR, CC left) */
 /* 1.2 Revision: build a sentence — the same moving sequence as Lesson 1 · 4.2 Demo, one screen, each finished step leaves.
-   1 picture + 3 keywords · 2 Meaning · 3 S – V · 4 pattern (allow sb to do sth) · 5 Combine · 6 "Đúng, nhưng chưa hay!"
-   7 back to the 4 criteria: LR, GRA ✓, TR and CC still "?" */
+   1 picture + 3 keywords · 2 Meaning · 3 S – V · 4 pattern (allow sb to do sth) · 5 collocation: ___ soft skills → develop
+   6 Combine · 7 "Đúng, nhưng chưa hay!" · 8 back to the 4 criteria: LR, GRA ✓, TR and CC still "?" */
 const STEP_NAMES = ['Meaning', 'S – V', 'Pattern + Collocation', 'Combine'];
 const WARM_VI = ['Đi thực tập', 'giúp', 'người ta', 'phát triển', 'kỹ năng mềm.'];
 export const SWarmup: React.FC<SlideProps> = (props) => {
   const b = props.build;
-  const stepAt = Math.min(b, 5);
+  const stepAt = b <= 3 ? b : b === 4 ? 3 : Math.min(b - 1, 5);
   const sc = (i: number) => `w6d-sc${b === i ? ' on' : b > i ? ' gone' : ''}`;
   const cols = [
     { vi: 'Đi thực tập', role: 'S', cls: 'rS', en: <>Doing internships</> },
     { vi: 'giúp', role: 'V', cls: 'rV', en: <>allows</> },
-    { vi: '(người ta) phát triển kỹ năng mềm', role: b >= 3 ? 'pattern' : '', cls: b >= 3 ? 'rP' : 'rx', en: b >= 3 ? <>somebody <i>to</i> do something</> : <>…</> },
+    { vi: '(người ta) phát triển kỹ năng mềm', role: b >= 4 ? 'collocation' : b >= 3 ? 'pattern' : '', cls: b >= 3 ? 'rP' : 'rx',
+      en: b >= 4 ? <>people <i>to</i> <span className="w6wc-slot"><span className="q">?</span><span className="w">develop</span></span> soft skills</>
+        : b >= 3 ? <>somebody <i>to</i> do something</> : <>…</> },
   ];
   return (
     <Frame props={props}>
@@ -154,34 +156,35 @@ export const SWarmup: React.FC<SlideProps> = (props) => {
           </div>
         </div>
         {/* 2–3 · S – V, then the pattern of allow */}
-        <div className={`w6d-sc${b === 2 || b === 3 ? ' on' : b > 3 ? ' gone' : ''}`}>
+        <div className={`w6d-sc${b >= 2 && b <= 4 ? ' on' : b > 4 ? ' gone' : ''}`}>
           <div className="w6d-sv">
             {cols.map((c, i) => (
               <div key={i} className={`w6d-col ${c.cls}`} style={{ animationDelay: `${0.15 + i * 0.25}s` }}>
                 <span className="w6d-cvi">{c.vi}</span>
                 <span className="w6d-arr" style={{ animationDelay: `${0.45 + i * 0.25}s` }}>↓</span>
-                <span key={c.cls} className="w6d-cen" style={{ animationDelay: i === 2 && b >= 3 ? '.15s' : `${0.6 + i * 0.25}s` }}>{c.en}</span>
+                <span key={c.cls + (i === 2 && b >= 4 ? 'c' : '')} className="w6d-cen" style={{ animationDelay: i === 2 && b >= 3 ? '.15s' : `${0.6 + i * 0.25}s` }}>{c.en}</span>
                 <span key={'r' + c.role} className="w6d-role" style={{ animationDelay: i === 2 && b >= 3 ? '.35s' : `${0.85 + i * 0.25}s`, visibility: c.role ? 'visible' : 'hidden' }}>{c.role || '·'}</span>
                 {i === 2 && b === 3 && <span className="w6d-src">Oxford · allow (v)</span>}
+                {i === 2 && b === 4 && <span className="w6d-src" key="oz">Ozdic · skill (n): <b>develop</b> / acquire ~ skills</span>}
               </div>
             ))}
           </div>
         </div>
         {/* 4–5 · combine, then the verdict */}
-        <div className={`w6d-sc${b === 4 || b === 5 ? ' on' : b > 5 ? ' gone' : ''}`}>
+        <div className={`w6d-sc${b === 5 || b === 6 ? ' on' : b > 6 ? ' gone' : ''}`}>
           <div className="w6d-two">
             <div className="w6d-pair w6w-pair">
               <div className="w6d-big s"><span className="w6d-role">S</span><span>Doing internships</span></div>
-              <div className="w6d-big v"><span className="w6d-role">V</span><span>allows people <i>to</i> develop soft skills</span></div>
+              <div className="w6d-big v"><span className="w6d-role">V</span><span>allows people <i>to</i> <i>develop</i> soft skills</span></div>
               <span className="w6d-ok">✓</span>
-              {b >= 5 && <span className="w6w-stamp" key="st">Đúng, nhưng chưa hay!</span>}
+              {b >= 6 && <span className="w6w-stamp" key="st">Đúng, nhưng chưa hay!</span>}
             </div>
-            <div className="w6d-tag2"><b>Do → Doing</b>: V-ing làm chủ ngữ · <b>allow</b> somebody <b>to</b> do something</div>
+            <div className="w6d-tag2"><b>Do → Doing</b>: V-ing làm chủ ngữ · <b>allow</b> somebody <b>to</b> do something · <b>develop</b> skills</div>
           </div>
         </div>
         {/* 6 · back to the 4 criteria */}
-        <div className={sc(6)}>
-          {b >= 6 && <CritTree done={['lr', 'gra']} cur={['tr', 'cc']} ask />}
+        <div className={sc(7)}>
+          {b >= 7 && <CritTree done={['lr', 'gra']} cur={['tr', 'cc']} ask />}
         </div>
       </div>
     </Frame>

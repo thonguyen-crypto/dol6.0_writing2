@@ -184,3 +184,9 @@
 .phone .w6 .w6d-pict.big.w6w-pict svg{width:260px}
 .phone .w6 .w6d-pict.sm.w6w-pict svg{width:150px}
 .phone .w6 .w6w-pair .w6w-stamp{right:-6px;top:-30px}
+.phone .w6 .w6d-stage{min-height:560px}
+.phone .w6 .w6d-sc{justify-content:flex-start;padding-top:8px}
+.phone .w6 .w6d-sv{gap:6px}
+.phone .w6 .w6d-sv .w6d-arr{display:none}
+.phone .w6 .w6d-sv .w6d-cen{white-space:normal;text-align:center}
+.phone .w6 .w6d-col{gap:4px}

@@ -1272,3 +1272,12 @@
 .w6 .w6d-pict.w6w-pict{width:auto;height:auto;animation:none}
 .w6 .w6d-pict.big.w6w-pict svg{width:400px;height:auto}
 .w6 .w6d-pict.sm.w6w-pict svg{width:200px;height:auto}
+/* 1.2 collocation: the "?" in front of soft skills gives way to develop */
+.w6 .w6wc-slot{display:inline-grid;vertical-align:baseline;min-width:3.6em;text-align:center;border-bottom:3px dashed var(--red);margin:0 2px}
+.w6 .w6wc-slot>span{grid-area:1/1}
+.w6 .w6wc-slot .q{color:#a5a6b5;animation:w6wcOut .3s 1.1s both}
+.w6 .w6wc-slot .w{color:#fff;background:var(--red);border-radius:10px;padding:0 10px;animation:w6wcIn .55s 1.3s cubic-bezier(.3,1.5,.5,1) both}
+@keyframes w6wcOut{to{opacity:0;transform:scale(.6)}}
+@keyframes w6wcIn{from{opacity:0;transform:translateY(-40px) scale(.7)}to{opacity:1;transform:none}}
+.w6 .w6d-src b{color:var(--redd)}
+@media (prefers-reduced-motion:reduce){.w6 .w6wc-slot .q{opacity:0}.w6 .w6wc-slot .w{animation:none}}
