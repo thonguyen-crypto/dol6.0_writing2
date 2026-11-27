@@ -70,11 +70,11 @@ const steps: StepMeta[] = [
       { title: 'Cách triển khai', text: 'Hai cột: trái là ví dụ (hình fast food + câu trên trang giấy), phải là mô hình chỉ gồm công thức. Mỗi lần bấm, mô hình thêm 1 dòng và câu ví dụ thêm đúng phần đó. Câu gốc: Fast food can cause health problems in people. Build 1: câu gốc + “make it more specific”. Build 2 Verb: V + adverb → can easily cause. Build 3 Noun, trước N: adj + N → Processed fast food. Build 4 chính N: specific N → people → children. Build 5 sau N: N + relative clause → children who eat it every day. Build 6: hoặc N + examples → health problems, such as obesity and diabetes; sau N chỉ chọn 1 cho câu khỏi quá dài.' },
       { title: 'Đáp án cần chốt', text: 'Processed fast food can easily cause health problems in children who eat it every day. / Processed fast food can easily cause health problems, such as obesity and diabetes, in children. Câu ví dụ do DOL soạn thêm, bản gốc chỉ có câu internships.' },
     ] },
-  { key: 'specific', kind: 'activity', sub: true, stage: 2, name: 'Practice 2: make it more specific', short: 'Practice 2',
+  { key: 'specific', kind: 'activity', sub: true, stage: 2, name: 'Practice 2: make it more specific', short: 'Practice 2', builds: 4,
     head: H('Improve a sentence', 'Practice 2:', 'make it more specific', ''),
     tracking: { parts: [{ id: 'all', label: '4 câu' }], grading: 'auto', maxAttempts: 2 },
     notes: [
-      { title: 'Cách triển khai', text: 'Mỗi lần một câu (chuyển Câu 1 · 2 · 3 · 4 ở trên). Câu có khung sẵn với chỗ trống; chạm chỗ trống ra 3 lựa chọn, chỉ 1 lựa chọn làm câu cụ thể hơn và đúng. Điền đủ 7 chỗ trống rồi nộp một lần, chấm tự động theo đáp án. Sau khi đúng, mỗi câu hiện tên kỹ thuật và lý do. Gọi HS giải thích vì sao 2 lựa chọn kia sai.' },
+      { title: 'Cách triển khai', text: 'Mỗi lần một câu: bấm Xem tiếp / phím → để sang câu 2, 3, 4 rồi mới sang trang sau (hoặc chạm số 1 · 2 · 3 · 4 ở trên). Câu có khung sẵn với chỗ trống; chạm chỗ trống ra 3 lựa chọn, chỉ 1 lựa chọn làm câu cụ thể hơn và đúng. Điền đủ 7 chỗ trống rồi nộp một lần, chấm tự động theo đáp án. Sau khi đúng, mỗi câu hiện tên kỹ thuật và lý do. Gọi HS giải thích vì sao 2 lựa chọn kia sai.' },
       { title: 'Đáp án cần chốt', text: '(1) particularly children · obesity and heart disease → add examples. (2) students · knowledge and skills → use specific nouns. (3) who do not have a college degree → add relative clauses. (4) valuable · easily → add adj (for noun), add adv (for verb).' },
       { title: 'Lưu ý', text: 'Các lựa chọn sai do DOL soạn để HS nhận ra lỗi hay gặp: vẫn dùng từ chung chung (everyone, stuff, many things), which cho người, mệnh đề quan hệ không thêm ý, nhầm easy / easily.' },
     ] },

@@ -400,7 +400,8 @@ export const SSpecific: React.FC<SlideProps> = (props) => {
   const act = useActivity(key, 'all');
   const [pick, setPick] = useDraft<Record<string, string>>(`${key}:fill`, {});
   const [open, setOpen] = useOpenSlot();
-  const [k, setK] = React.useState(0);
+  const k = Math.min(props.build, SPEC_FILL.length - 1);
+  const setK = (i: number) => props.setBuild?.(i);
   const last = new Map((act.latest?.lines || []).map((l) => [l.id, l]));
   const showKey = props.revealed || act.locked;
   const lockedUi = act.locked || act.paused;
@@ -421,16 +422,19 @@ export const SSpecific: React.FC<SlideProps> = (props) => {
   return (
     <Frame props={props} bar={bar} fx={fx}>
       <div className="w6pc">
-        <div className="w6tw-steps" role="tablist">
+        <div className="w6pc-steps" role="tablist">
           {SPEC_FILL.map((x, i) => {
             const bl = specBlanks(x);
             const graded = bl.some((y) => last.get(y.id));
             const ok = graded && bl.every((y) => last.get(y.id)?.correct);
             const st = graded ? (ok ? ' ok' : ' bad') : bl.every((y) => pick[y.id]) ? ' done' : '';
             return (
-              <button key={x.id} role="tab" aria-selected={i === k} className={`w6tw-step${i === k ? ' on' : ''}${st}`} onClick={() => setK(i)}>
-                <span>{graded ? (ok ? '✓' : '!') : i + 1}</span>Câu {i + 1}
-              </button>
+              <React.Fragment key={x.id}>
+                {i > 0 && <i className={`w6pc-dash${i <= k ? ' on' : ''}`} aria-hidden="true" />}
+                <button role="tab" aria-selected={i === k} aria-label={`Câu ${i + 1}`} className={`w6pc-dot${i === k ? ' on' : ''}${st}`} onClick={() => setK(i)}>
+                  {graded ? (ok ? '✓' : '!') : i + 1}
+                </button>
+              </React.Fragment>
             );
           })}
         </div>
@@ -450,10 +454,6 @@ export const SSpecific: React.FC<SlideProps> = (props) => {
               })}
             </p>
             {solved && <div className="w6pc-why"><b>{it.tool}</b> · {it.why}</div>}
-            <div className="w6tw-nav w6pc-nav">
-              <button className="w6tw-navb" disabled={k === 0} onClick={() => setK(k - 1)} aria-label="Câu trước">‹</button>
-              {k < SPEC_FILL.length - 1 && <button className="w6tw-navb next" onClick={() => setK(k + 1)}>Câu {k + 2} ›</button>}
-            </div>
           </div>
         </div>
       </div>

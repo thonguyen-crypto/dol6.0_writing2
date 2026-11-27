@@ -1451,3 +1451,13 @@
 .w6 .w6pc-frame .w6sl-btn{min-width:170px;font-size:var(--w6-t)}
 .w6 .w6pc-card{grid-template-columns:220px 1fr;padding:26px 30px}
 .w6 .w6pc-art{width:220px;height:176px}
+/* 2.3a stepper: numbers only, joined by dashed lines; one sentence per build */
+.w6 .w6pc-steps{display:flex;align-items:center;justify-content:center;gap:0}
+.w6 .w6pc-dot{width:40px;height:40px;border-radius:50%;font:inherit;font-size:var(--w6-s);font-weight:800;color:var(--sub);background:#fff;border:2px solid #e1e0dc;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:all .25s}
+.w6 .w6pc-dot.done{border-color:var(--ink);color:var(--ink)}
+.w6 .w6pc-dot.on{color:#fff;background:var(--red);border-color:var(--red);box-shadow:0 0 0 4px var(--redl)}
+.w6 .w6pc-dot.ok{color:#fff;background:var(--ok);border-color:var(--ok)}
+.w6 .w6pc-dot.bad{color:#fff;background:var(--redd);border-color:var(--redd)}
+.w6 .w6pc-dot.on.ok,.w6 .w6pc-dot.on.bad{box-shadow:0 0 0 4px var(--redl)}
+.w6 .w6pc-dash{width:64px;height:0;border-top:3px dashed #d9d8d3;transition:border-color .3s}
+.w6 .w6pc-dash.on{border-top-color:var(--red)}
