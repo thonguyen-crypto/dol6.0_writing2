@@ -1295,3 +1295,10 @@
 .w6 .w6sx-i.cur small{color:var(--red)}
 .w6 .w6sx-i.done{color:var(--okd)}
 .w6 .w6sx-i .pick{color:#fff;background:var(--red);border-radius:8px;padding:0 8px;animation:pop .4s both}
+/* 1.2 build 8: the whole slide blurs, "Đúng, nhưng chưa hay!" slams into the centre */
+.w6 .w6wu{position:relative}
+.w6 .w6wu>.w6d-steps,.w6 .w6wu>.w6d-stage{transition:filter .6s,opacity .6s}
+.w6 .w6wu.focus>.w6d-steps,.w6 .w6wu.focus>.w6d-stage{filter:blur(5px);opacity:.3}
+.w6 .w6wu.focus{animation:w6tvShake .35s .85s both}
+.w6 .w6wu .w6lim-slam{inset:0}
+@media (prefers-reduced-motion:reduce){.w6 .w6wu.focus{animation:none}}

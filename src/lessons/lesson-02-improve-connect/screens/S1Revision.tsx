@@ -130,6 +130,7 @@ export const SWarmup: React.FC<SlideProps> = (props) => {
   ];
   return (
     <Frame props={props}>
+      <div className={`w6wu${b === 7 ? ' focus' : ''}`}>
       <ol className="w6d-steps">
         {STEP_NAMES.map((n, i) => (
           <li key={n} className={stepAt === i + 1 ? 'cur' : stepAt > i + 1 ? 'done' : ''}><span className="w6-n">{stepAt > i + 1 ? '✓' : i + 1}</span>{n}</li>
@@ -177,7 +178,6 @@ export const SWarmup: React.FC<SlideProps> = (props) => {
               <div className="w6d-big s"><span className="w6d-role">S</span><span>Doing internships</span></div>
               <div className="w6d-big v"><span className="w6d-role">V</span><span>allows people <i>to</i> <i>develop</i> soft skills</span></div>
               <span className="w6d-ok">✓</span>
-              {b >= 7 && <span className="w6w-stamp" key="st">Đúng, nhưng chưa hay!</span>}
             </div>
             <div className="w6d-tag2"><b>Do → Doing</b>: V-ing làm chủ ngữ · <b>allow</b> somebody <b>to</b> do something · <b>develop</b> skills</div>
           </div>
@@ -186,6 +186,8 @@ export const SWarmup: React.FC<SlideProps> = (props) => {
         <div className={sc(8)}>
           {b >= 8 && <CritTree done={['lr', 'gra']} cur={['tr', 'cc']} ask />}
         </div>
+      </div>
+      {b === 7 && <div className="w6lim-slam" role="note"><span className="w6lim-tag">Đúng, nhưng chưa hay!</span></div>}
       </div>
     </Frame>
   );
