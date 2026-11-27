@@ -280,6 +280,15 @@ export const PARA_WRITE: (WriteItem & { outline: { idea: string; expand: string;
 
 /* ---- 4.4 structures: one running example, the connector changes ------------------------- */
 export const STRUCT_A = 'Many students gain specialized knowledge at university';
+/** 4.2 build 1: a paragraph that links every sentence with This + V → the same shape again and again */
+export const LIMITED_PARA = {
+  first: 'Many students enter higher education to gain more specialized knowledge.',
+  next: [
+    { v: 'can help', rest: ' them find a well-paying job after graduation.' },
+    { v: 'allows', rest: ' them to enjoy a more stable life.' },
+    { v: 'also enables', rest: ' them to support their families financially.' },
+  ],
+};
 export const STRUCTS: { id: string; pat: string; group: 'which' | 'thus'; end: Seg[] }[] = [
   { id: 'which', pat: ', which + VP', group: 'which', end: [[', which', 'key'], [' can help them find a well-paying job.']] },
   { id: 'means', pat: ', which means that S V', group: 'which', end: [[', which means that', 'key'], [' they can find a well-paying job.']] },

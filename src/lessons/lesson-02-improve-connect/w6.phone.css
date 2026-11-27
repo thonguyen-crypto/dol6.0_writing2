@@ -155,3 +155,7 @@
 .phone .w6 .w6tw-art{width:150px;height:135px;justify-self:center}
 .phone .w6 .w6tw-lab{flex-direction:column;gap:4px}
 .phone .w6 .w6tw-steps{flex-wrap:wrap}
+.phone .w6 .w6lim-para{font-size:var(--w6-s);padding:14px}
+.phone .w6 .w6lim-strip{flex-wrap:wrap;justify-content:center}
+.phone .w6 .w6way .w6ch-dot{width:40px;height:40px}
+.phone .w6 .w6sb-bridge{min-width:170px;height:60px}

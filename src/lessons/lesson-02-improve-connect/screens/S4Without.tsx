@@ -7,7 +7,7 @@ import type { SlideProps } from '../../../kit/slides';
 import { useActivity, useDraft } from '../../../kit/activities/useActivity';
 import { precheck } from '../checks';
 import {
-  EFFECT_TOP, THIS_AIDS, joinThis, type Chip, PARA_WRITE, STRUCTS, STRUCT_A, STRUCT_WRITE, THEREBY, THIS_DEMO, THIS_WRITE, TYPE_NEG, TYPE_POS, VGROUPS,
+  EFFECT_TOP, LIMITED_PARA, THIS_AIDS, joinThis, type Chip, PARA_WRITE, STRUCTS, STRUCT_A, STRUCT_WRITE, THEREBY, THIS_DEMO, THIS_WRITE, TYPE_NEG, TYPE_POS, VGROUPS,
   gapOk, type TypeSet, type VGroup,
 } from '../logic';
 import { EFFECT_ICON } from './Viz';
@@ -364,8 +364,6 @@ export const SThisWrite: React.FC<SlideProps> = (props) => {
 };
 
 /* ---- 4.4 structures ------------------------------------------------------------------------- */
-/* Build 1: LW / this between two sentences → "limited range of structures" · Build 2: A → B → C in one sentence
-   Build 3: the which group · Build 4: the thus group; the running example changes its ending */
 /** the running example with a "joint" that keeps switching through the connectors of the group being taught */
 const LiveStruct: React.FC<{ grp: 'which' | 'thus' }> = ({ grp }) => {
   const items = STRUCTS.filter((x) => x.group === grp);
@@ -385,42 +383,80 @@ const LiveStruct: React.FC<{ grp: 'which' | 'thus' }> = ({ grp }) => {
     </div>
   );
 };
+/** B → C joined by a structure: the plank between B and C keeps swapping through the connectors */
+const StructBridge: React.FC<{ small?: boolean }> = ({ small }) => {
+  const joints = STRUCTS.map((x) => x.end[0][0].trim());
+  const [k, setK] = useState(0);
+  useEffect(() => {
+    if (small || reduceMotion()) return;
+    const t = setInterval(() => setK((x) => (x + 1) % joints.length), 1800);
+    return () => clearInterval(t);
+  }, [small, joints.length]);
+  return (
+    <div className={`w6ch-row one w6sb${small ? ' small' : ' cur'}`}>
+      <Dot n="A" /><Arr delay={0.1} /><Dot n="B" delay={0.2} />
+      <span className="w6sb-bridge">
+        <i className="w6sb-rail" aria-hidden="true" />
+        <span className="w6sb-plank" key={k}>{small ? 'structure' : joints[k]}</span>
+      </span>
+      <Dot n="C" delay={0.4} /><Stop />
+      <span className="w6ch-note ok">1 câu</span>
+    </div>
+  );
+};
+/* 4.2 — 1 a paragraph linked only with This + V: the This sentences light up one by one, then "limited structures"
+   2 the two ways so far: linking word (A → B. LW C → D) and This (A → B. B → C)
+   3 the new way: A → B → C in ONE sentence, a structure is the bridge from B to C (it keeps swapping)
+   4 the which group · 5 the thus group; the running example changes its ending */
 export const SStructs: React.FC<SlideProps> = (props) => {
   const b = props.build;
+  let body: React.ReactNode;
+  if (b === 0) body = (
+    <div className="w6lim" key="lim">
+      <p className="card w6lim-para">
+        <span className="w6lim-s">{LIMITED_PARA.first}</span>{' '}
+        {LIMITED_PARA.next.map((x, i) => (
+          <React.Fragment key={i}>
+            <span className={`w6lim-s t d${i}`}><b className="w6lim-this">This</b> <b className="w6lim-v">{x.v}</b>{x.rest}</span>{' '}
+          </React.Fragment>
+        ))}
+      </p>
+      <div className="w6lim-strip" aria-hidden="true">
+        <span className="w6lim-blk sv">S V.</span>
+        {LIMITED_PARA.next.map((_, i) => <span key={i} className={`w6lim-blk tv d${i}`}>This + V.</span>)}
+      </div>
+      <div className="w6st-limited w6lim-stamp">Cấu trúc bị giới hạn</div>
+    </div>
+  );
+  else if (b <= 2) body = (
+    <div className="w6ch w6ways" key="ways">
+      <div className={`w6ch-row w6way${b === 2 ? ' w6-past' : ''}`}><span className="w6way-n">1</span><Dot n="A" /><Arr /><Dot n="B" /><Stop /><span className="w6ch-tool lw">Linking word,</span><Dot n="C" /><Arr /><Dot n="D" /></div>
+      <div className={`w6ch-row w6way${b === 2 ? ' w6-past' : ''}`} style={{ animationDelay: '.25s' }}><span className="w6way-n">2</span><Dot n="A" /><Arr /><Dot n="B" /><Stop /><span className="w6ch-tool this">This</span><Dot n="B" cls="again" /><Arr /><Dot n="C" /></div>
+      {b === 2 && <><div className="w6way-new">Cách mới</div><StructBridge /></>}
+    </div>
+  );
+  else body = (
+    <>
+      <StructBridge small />
+      <LiveStruct grp={b >= 4 ? 'thus' : 'which'} />
+      <div className="w6st-groups">
+        {(['which', 'thus'] as const).map((grp, gi) => (
+          <div key={grp} className={`card w6st-g ${b < 3 + gi ? 'w6-hide' : b === 3 + gi ? 'cur' : 'w6-past'}`}>
+            {STRUCTS.filter((x) => x.group === grp).map((x, i) => (
+              <div key={x.id} className="w6st-row" style={{ animationDelay: `${0.15 + i * 0.2}s` }}>
+                <span className="w6st-pat">{x.pat}</span>
+                <span className="w6st-ex">{STRUCT_A}<Segs segs={x.end} /></span>
+              </div>
+            ))}
+          </div>
+        ))}
+        {b >= 4 && <div className="w6st-eff enter">→ Effects</div>}
+      </div>
+    </>
+  );
   return (
     <Frame props={props}>
-      <div className="w6st">
-        {b === 0 ? (
-          <div className="w6ch" key="two">
-            <div className="w6ch-row"><Dot n="A" /><Arr /><Dot n="B" /><Stop /><span className="w6ch-tool lw">LW</span><Arr /><Dot n="D" /></div>
-            <div className="w6ch-row"><Dot n="A" /><Arr /><Dot n="B" /><Stop /><span className="w6ch-tool this">this</span><Arr /><Dot n="C" /></div>
-            <div className="w6st-limited">Limited range of structures</div>
-          </div>
-        ) : (
-          <>
-            <div className={`w6ch-row one ${b === 1 ? 'cur' : 'small'}`} key="one">
-              <Dot n="A" /><Arr delay={0.1} /><Dot n="B" delay={0.2} /><Arr delay={0.3} /><Dot n="C" delay={0.4} /><Stop />
-              <span className="w6ch-note ok">1 câu</span>
-            </div>
-            {b >= 2 && <LiveStruct grp={b >= 3 ? 'thus' : 'which'} />}
-            {b >= 2 && (
-              <div className="w6st-groups">
-                {(['which', 'thus'] as const).map((grp, gi) => (
-                  <div key={grp} className={`card w6st-g ${b < 2 + gi ? 'w6-hide' : b === 2 + gi ? 'cur' : 'w6-past'}`}>
-                    {STRUCTS.filter((x) => x.group === grp).map((x, i) => (
-                      <div key={x.id} className="w6st-row" style={{ animationDelay: `${0.15 + i * 0.2}s` }}>
-                        <span className="w6st-pat">{x.pat}</span>
-                        <span className="w6st-ex">{STRUCT_A}<Segs segs={x.end} /></span>
-                      </div>
-                    ))}
-                  </div>
-                ))}
-                {b >= 3 && <div className="w6st-eff enter">→ Effects</div>}
-              </div>
-            )}
-          </>
-        )}
-      </div>
+      <div className="w6st">{body}</div>
     </Frame>
   );
 };
