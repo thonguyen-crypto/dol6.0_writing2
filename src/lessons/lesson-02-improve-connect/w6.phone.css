@@ -210,3 +210,8 @@
 .phone .w6 .w6pc-frame .w6sl-btn{font-size:var(--w6-s)}
 .phone .w6 .w6pc-card{grid-template-columns:1fr;padding:12px}
 .phone .w6 .w6pc-art{width:150px;height:120px}
+.phone .w6 .w6hg2{grid-template-columns:1fr}
+.phone .w6 .w6hg2-art{width:100%}
+.phone .w6 .w6hg2-art svg{max-height:120px}
+.phone .w6 .w6hg2-line{font-size:var(--w6-s)}
+.phone .w6 .w6hg2-line{font-size:var(--w6-s)}

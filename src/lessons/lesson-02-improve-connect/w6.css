@@ -1465,3 +1465,22 @@
 .w6 .w6d-cen .w6tv-eraser{width:52px;height:36px;margin:-22px 0 0 -14px}
 .w6 .w6d-cen .w6tv-pen svg{width:28px;height:44px}
 .w6 .w6wc-fill{display:inline}
+
+/* ---- 2.2a Practice 1 (hedging): one sentence per build, like Practice 2 --------------------- */
+.w6 .w6hg2{grid-template-columns:240px 1fr}
+.w6 .w6hg2-art{width:240px;display:flex;justify-content:center}
+.w6 .w6hg2-art svg{width:100%;height:auto;max-height:200px}
+.w6 .w6hg2-orig{font-size:var(--w6-s);font-weight:600;color:var(--sub)}
+.w6 .w6hg2-orig s{color:var(--redd);text-decoration-color:var(--red);text-decoration-thickness:2px}
+.w6 .w6hg2-line{margin:0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;font-size:var(--w6-t);font-weight:700;line-height:2;color:var(--ink)}
+.w6 .w6hg2-arr{color:var(--red);font-weight:800}
+.w6 .w6hg2-line .w6sl-btn{min-width:130px;font-size:var(--w6-s)}
+.w6 .w6hg2-line .w6sl-menu button{font-size:var(--w6-s)}
+.w6 .w6hg2-line .w6hg-type{align-self:center;animation:pop .35s both}
+.w6 .w6hg2-line{display:block;font-size:calc(var(--w6-s) * 1.2);line-height:1.75;padding-left:30px;text-indent:-30px}
+.w6 .w6hg2-arr{display:inline-block;width:30px;text-indent:0}
+.w6 .w6hg2-line .w6hg-type{display:inline-block;margin-left:8px;vertical-align:middle;text-indent:0;line-height:1.5}
+.w6 .w6hg2 .w6pc-main{gap:12px}
+.w6 .w6hg2-line .w6sl-btn{text-indent:0}
+.w6 .w6hg2-line:last-child .w6sl-menu{top:auto;bottom:calc(100% + 8px)}
+.w6 .w6hg2-line .w6sl-menu{display:grid;grid-template-columns:1fr 1fr;min-width:320px;left:0;transform:none}

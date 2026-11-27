@@ -227,34 +227,51 @@ export const SHedge: React.FC<SlideProps> = (props) => {
     if (a?.isCorrect) burst();
   };
   const bar = <SubmitBar act={act} ready={done === blanks.length} hint={`Chọn đủ ${blanks.length} chỗ trống (${done}/${blanks.length})`} label={act.latest ? 'Nộp lại' : 'Nộp bài'} onSubmit={submit} />;
+  const k = Math.min(props.build, HEDGE.length - 1);
+  const c = HEDGE[k];
+  const Viz = HEDGE_VIZ[['q', 'm', 'p'][k]];
+  const cardOk = (x: typeof HEDGE[number]) => x.blanks.every((y) => last.get(y.id)?.correct);
   return (
     <Frame props={props} bar={bar} fx={fx}>
-      <div className="w6hg">
-        {HEDGE.map((c, k) => (
-          <div key={c.id} className={`card w6hg-card enter d${k + 1}`}>
-            <div className="w6hg-orig">
-              <span className="w6-n">{k + 1}</span>
-              <span className="w6hg-ot">{c.orig.map(([t, m], i) => (m ? <span key={i} className="w6hg-abs">{t}</span> : <React.Fragment key={i}>{t}</React.Fragment>))}</span>
-              {(act.latest || showKey) && <span className="w6hg-types">{[...new Set(c.blanks.map((x) => x.type))].map((t) => <span key={t} className="w6hg-type">{t}</span>)}</span>}
-            </div>
+      <div className="w6pc">
+        <div className="w6pc-steps" role="tablist">
+          {HEDGE.map((x, i) => {
+            const graded = x.blanks.some((y) => last.get(y.id));
+            const ok = graded && cardOk(x);
+            const st = graded ? (ok ? ' ok' : ' bad') : x.blanks.every((y) => pick[y.id]) ? ' done' : '';
+            return (
+              <React.Fragment key={x.id}>
+                {i > 0 && <i className={`w6pc-dash${i <= k ? ' on' : ''}`} aria-hidden="true" />}
+                <button role="tab" aria-selected={i === k} aria-label={`Câu ${i + 1}`} className={`w6pc-dot${i === k ? ' on' : ''}${st}`} onClick={() => props.setBuild?.(i)}>
+                  {graded ? (ok ? '✓' : '!') : i + 1}
+                </button>
+              </React.Fragment>
+            );
+          })}
+        </div>
+        <div className={`card w6pc-card w6hg2${open ? ' menu' : ''}`} key={c.id}>
+          <div className="w6hg2-art"><Viz /></div>
+          <div className="w6pc-main">
+            <div className="w6hg2-orig">{c.orig.map(([t, m], i) => (m ? <s key={i}>{t}</s> : <React.Fragment key={i}>{t}</React.Fragment>))}</div>
             {c.blanks.map((x) => {
               const r = last.get(x.id);
               const st = r ? (r.correct ? 'ok' : 'try') : showKey ? 'key' : '';
               const val = showKey && !r?.correct ? (pick[x.id] && hedgeOk(x, pick[x.id]) ? pick[x.id] : x.ok[0]) : pick[x.id];
               return (
-                <div key={x.id} className="w6hg-line">
-                  <span className="w6hg-arr">→</span>
-                  <span className="w6hg-s">
+                <p key={x.id} className="w6hg2-line">
+                  <span className="w6hg2-arr">→</span>
+                  <span>
                     {x.before && <>{x.before} </>}
                     <Slot value={val} options={c.bank} open={open === x.id} onOpen={() => !lockedUi && setOpen(open === x.id ? null : x.id)}
                       onPick={(o) => { setPick((p) => ({ ...p, [x.id]: o })); setOpen(null); }} state={st as never} disabled={lockedUi} label={`Chỗ trống: ${x.before} … ${x.after}`} />
                     {' '}{x.after}
                   </span>
-                </div>
+                  {(showKey || r?.correct) && <span className="w6hg-type">{x.type}</span>}
+                </p>
               );
             })}
           </div>
-        ))}
+        </div>
       </div>
     </Frame>
   );
